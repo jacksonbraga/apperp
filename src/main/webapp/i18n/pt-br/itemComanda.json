@@ -2,7 +2,7 @@
   "appErpApp": {
     "itemComanda": {
       "home": {
-        "title": "Itens da Comanda",
+        "title": "Itens da ",
         "refreshListLabel": "Pesquisar",
         "createLabel": "Criar novo Item da comanda",
         "createOrEditLabel": "Criar ou editar Item da comanda",

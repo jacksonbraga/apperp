@@ -2,24 +2,24 @@
   "appErpApp": {
     "tipoDespesa": {
       "home": {
-        "title": "Tipo Despesas",
+        "title": "Tipo de despesas",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Tipo Despesa",
-        "createOrEditLabel": "Criar ou editar Tipo Despesa",
-        "notFound": "Nenhum Tipo Despesa encontrado"
+        "createLabel": "Criar novo Tipo de despesa",
+        "createOrEditLabel": "Criar ou editar Tipo de despesa",
+        "notFound": "Nenhum Tipo de despesa encontrado"
       },
-      "created": "Um novo Tipo Despesa foi criado com o identificador {{ param }}",
-      "updated": "Um Tipo Despesa foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Tipo Despesa foi excluído com o identificador {{ param }}",
+      "created": "Um novo Tipo de despesa foi criado",
+      "updated": "Um Tipo de despesa foi atualizado",
+      "deleted": "Um Tipo de despesa foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Tipo Despesa {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Tipo de despesa ?"
       },
       "detail": {
-        "title": "Tipo Despesa"
+        "title": "Tipo de despesa"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "grupoDespesa": "Grupo Despesa"
+      "descricao": "Descrição",
+      "grupoDespesa": "Grupo de despesa"
     }
   }
 }

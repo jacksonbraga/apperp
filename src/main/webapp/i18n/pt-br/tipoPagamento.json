@@ -2,25 +2,25 @@
   "appErpApp": {
     "tipoPagamento": {
       "home": {
-        "title": "Tipo Pagamentos",
+        "title": "Tipo de pagamentos",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Tipo Pagamento",
-        "createOrEditLabel": "Criar ou editar Tipo Pagamento",
-        "notFound": "Nenhum Tipo Pagamento encontrado"
+        "createLabel": "Criar novo Tipo de pagamento",
+        "createOrEditLabel": "Criar ou editar Tipo de pagamento",
+        "notFound": "Nenhum Tipo de pagamento encontrado"
       },
-      "created": "Um novo Tipo Pagamento foi criado com o identificador {{ param }}",
-      "updated": "Um Tipo Pagamento foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Tipo Pagamento foi excluído com o identificador {{ param }}",
+      "created": "Um novo Tipo de pagamento foi criado",
+      "updated": "Um Tipo de pagamento foi atualizado",
+      "deleted": "Um Tipo de pagamento foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Tipo Pagamento {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Tipo de pagamento ?"
       },
       "detail": {
-        "title": "Tipo Pagamento"
+        "title": "Tipo de pagamento"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "grupoPagamento": "Grupo Pagamento",
-      "tipoPagamento": "Tipo Pagamento"
+      "descricao": "Descrição",
+      "grupoPagamento": "Grupo de pagamento",
+      "tipoPagamento": "Tipo de pagamento"
     }
   }
 }

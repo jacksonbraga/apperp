@@ -2,23 +2,23 @@
   "appErpApp": {
     "grupoDespesa": {
       "home": {
-        "title": "Grupo Despesas",
+        "title": "Grupos de despesas",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Grupo Despesa",
-        "createOrEditLabel": "Criar ou editar Grupo Despesa",
-        "notFound": "Nenhum Grupo Despesa encontrado"
+        "createLabel": "Criar novo Grupo de despesa",
+        "createOrEditLabel": "Criar ou editar Grupo de despesa",
+        "notFound": "Nenhum Grupo de despesa encontrado"
       },
-      "created": "Um novo Grupo Despesa foi criado com o identificador {{ param }}",
-      "updated": "Um Grupo Despesa foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Grupo Despesa foi excluído com o identificador {{ param }}",
+      "created": "Um novo Grupo de despesa foi criado",
+      "updated": "Um Grupo de despesa foi atualizado",
+      "deleted": "Um Grupo de despesa foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Grupo Despesa {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Grupo de despesa ?"
       },
       "detail": {
-        "title": "Grupo Despesa"
+        "title": "Grupo de despesa"
       },
       "id": "ID",
-      "descricao": "Descricao"
+      "descricao": "Descrição"
     }
   }
 }

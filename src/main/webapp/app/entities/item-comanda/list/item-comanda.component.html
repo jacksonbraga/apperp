@@ -1,11 +1,14 @@
 <div>
   <h2 id="page-heading" data-cy="ItemComandaHeading">
-    <span><span jhiTranslate="appErpApp.itemComanda.home.title">Item Comandas</span> {{ descricao }}</span>
+    <span style="font-weight: bold"
+      ><span style="font-weight: bold" jhiTranslate="appErpApp.itemComanda.home.title">Item Comandas</span> {{ descricao }}</span
+    >
     <div class="d-flex justify-content-end">
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
       </button>
       <button
+        style="margin-left: 5px"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-item-comanda"

@@ -2,23 +2,23 @@
   "appErpApp": {
     "grupoServico": {
       "home": {
-        "title": "Grupo Servicos",
+        "title": "Grupo de Serviços",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Grupo Servico",
-        "createOrEditLabel": "Criar ou editar Grupo Servico",
-        "notFound": "Nenhum Grupo Servico encontrado"
+        "createLabel": "Criar novo Grupo de Serviço",
+        "createOrEditLabel": "Criar ou editar Grupo de Serviço",
+        "notFound": "Nenhum Grupo de Serviço encontrado"
       },
-      "created": "Um novo Grupo Servico foi criado com o identificador {{ param }}",
-      "updated": "Um Grupo Servico foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Grupo Servico foi excluído com o identificador {{ param }}",
+      "created": "Um novo Grupo de Serviço foi criado",
+      "updated": "Um Grupo de Serviço foi atualizado",
+      "deleted": "Um Grupo de Serviço foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Grupo Servico {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Grupo de Serviço ?"
       },
       "detail": {
-        "title": "Grupo Servico"
+        "title": "Grupo de Serviço"
       },
       "id": "ID",
-      "descricao": "Descricao"
+      "descricao": "Descrição"
     }
   }
 }

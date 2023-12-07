@@ -1,9 +1,15 @@
 <div>
   <h2 id="page-heading" data-cy="ComandaHeading">
-    <span jhiTranslate="appErpApp.comanda.home.title">Comandas</span>
+    <span class="p-2" style="font-weight: bold" jhiTranslate="appErpApp.comanda.home.title">Comandas</span>
     <div class="d-flex justify-content-start">
       <div class="col-3 p-2">
-        <label class="form-label" jhiTranslate="appErpApp.comanda.controleComanda" for="controle_data">Controle de comandas</label>
+        <label
+          class="form-label"
+          style="font-size: medium; font-weight: bold"
+          jhiTranslate="appErpApp.comanda.controleComanda"
+          for="controle_data"
+          >Controle de comandas</label
+        >
         <ng-multiselect-dropdown
           [placeholder]="'Selecione...'"
           class="form-control"
@@ -19,7 +25,9 @@
       </div>
 
       <div class="col-2 p-2">
-        <label class="form-label" jhiTranslate="appErpApp.comanda.comanda" for="comanda_data">Comanda</label>
+        <label class="form-label" style="font-size: medium; font-weight: bold" jhiTranslate="appErpApp.comanda.comanda" for="comanda_data"
+          >Comanda</label
+        >
         <ng-multiselect-dropdown
           [placeholder]="'Selecione...'"
           class="form-control"
@@ -71,7 +79,7 @@
 
   <jhi-alert></jhi-alert>
 
-  <jhi-filter [filters]="filters"></jhi-filter>
+  <!-- <jhi-filter [filters]="filters"></jhi-filter> -->
 
   <div class="alert alert-warning" id="no-result" *ngIf="comandas?.length === 0">
     <span jhiTranslate="appErpApp.comanda.home.notFound">Nenhum Comanda encontrado</span>

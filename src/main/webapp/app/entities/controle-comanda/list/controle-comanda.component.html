@@ -1,10 +1,16 @@
 <div>
   <h2 id="page-heading" data-cy="ControleComandaHeading">
-    <span jhiTranslate="appErpApp.controleComanda.home.title">Controle Comandas</span>
+    <span style="font-weight: bold" jhiTranslate="appErpApp.controleComanda.home.title">Controle Comandas</span>
     <form [formGroup]="formGroup">
       <div class="d-flex justify-content-start">
         <div class="col-2">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.data" for="field_data">Data</label>
+          <label
+            class="form-label"
+            style="font-size: medium; font-weight: bold"
+            jhiTranslate="appErpApp.controleComanda.data"
+            for="field_data"
+            >Data</label
+          >
           <div class="input-group">
             <input type="date" class="form-control" value="{{ dt | date: 'yyyy-MM-dd' }}" formControlName="dataFiltro" />
             <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->

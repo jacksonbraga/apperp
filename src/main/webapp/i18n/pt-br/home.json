@@ -1,19 +1,19 @@
 {
   "home": {
-    "title": "Bem vindoxxxxxxxxxxxxxxxx, Java Hipster!",
-    "subtitle": "Esta é a página principal",
+    "title": "Sistema de Controle de Comandas",
+    "subtitle": "",
     "logged": {
       "message": "Você está logado como \"{{username}}\"."
     },
-    "question": "Em caso de dúvida sobre o JHipster:",
+    "question": "",
     "link": {
-      "homepage": "Página principal JHipster",
-      "stackoverflow": "JHipster no Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "Sala de bate-papo pública JHipster",
-      "follow": "siga @jhipster no Twitter"
+      "homepage": "Página principal",
+      "stackoverflow": "",
+      "bugtracker": "",
+      "chat": "",
+      "follow": ""
     },
-    "like": "Se você gosta do JHipster, não se esqueça de avaliar no",
-    "github": "GitHub"
+    "like": "",
+    "github": ""
   }
 }

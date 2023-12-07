@@ -2,23 +2,23 @@
   "appErpApp": {
     "grupoPagamento": {
       "home": {
-        "title": "Grupo Pagamentos",
+        "title": "Grupo de pagamentos",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Grupo Pagamento",
-        "createOrEditLabel": "Criar ou editar Grupo Pagamento",
-        "notFound": "Nenhum Grupo Pagamento encontrado"
+        "createLabel": "Criar novo Grupo de pagamento",
+        "createOrEditLabel": "Criar ou editar Grupo de pagamento",
+        "notFound": "Nenhum Grupo de pagamento encontrado"
       },
-      "created": "Um novo Grupo Pagamento foi criado com o identificador {{ param }}",
-      "updated": "Um Grupo Pagamento foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Grupo Pagamento foi excluído com o identificador {{ param }}",
+      "created": "Um novo Grupo de pagamento foi criado",
+      "updated": "Um Grupo de pagamento foi atualizado",
+      "deleted": "Um Grupo de pagamento foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Grupo Pagamento {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Grupo de pagamento ?"
       },
       "detail": {
-        "title": "Grupo Pagamento"
+        "title": "Grupo de pagamento"
       },
       "id": "ID",
-      "descricao": "Descricao"
+      "descricao": "Descrição"
     }
   }
 }

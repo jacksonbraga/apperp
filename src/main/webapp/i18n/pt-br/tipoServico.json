@@ -2,25 +2,25 @@
   "appErpApp": {
     "tipoServico": {
       "home": {
-        "title": "Tipo Servicos",
+        "title": "Tipo de serviços",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Tipo Servico",
-        "createOrEditLabel": "Criar ou editar Tipo Servico",
-        "notFound": "Nenhum Tipo Servico encontrado"
+        "createLabel": "Criar novo Tipo de serviço",
+        "createOrEditLabel": "Criar ou editar Tipo de serviço",
+        "notFound": "Nenhum Tipo de serviço encontrado"
       },
-      "created": "Um novo Tipo Servico foi criado com o identificador {{ param }}",
-      "updated": "Um Tipo Servico foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Tipo Servico foi excluído com o identificador {{ param }}",
+      "created": "Um novo Tipo de serviço foi criado",
+      "updated": "Um Tipo de serviço foi atualizado",
+      "deleted": "Um Tipo de serviço foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Tipo Servico {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Tipo de serviço ?"
       },
       "detail": {
-        "title": "Tipo Servico"
+        "title": "Tipo de serviço"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "grupoServico": "Grupo Servico",
-      "tipoServico": "Tipo Servico"
+      "descricao": "Descrição",
+      "grupoServico": "Grupo de serviço",
+      "tipoServico": "Tipo de serviço"
     }
   }
 }
