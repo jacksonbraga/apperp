@@ -1,0 +1,151 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-item-comanda-heading"
+        data-cy="ItemComandaCreateUpdateHeading"
+        jhiTranslate="appErpApp.itemComanda.home.createOrEditLabel"
+      >
+        Criar ou editar Item Comanda
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.descricao" for="field_descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.observacao" for="field_observacao">Observacao</label>
+          <input
+            type="text"
+            class="form-control"
+            name="observacao"
+            id="field_observacao"
+            data-cy="observacao"
+            formControlName="observacao"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.data" for="field_data">Data</label>
+          <div class="input-group">
+            <input
+              id="field_data"
+              data-cy="data"
+              type="text"
+              class="form-control"
+              name="data"
+              ngbDatepicker
+              #dataDp="ngbDatepicker"
+              formControlName="data"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.numero" for="field_numero">Numero</label>
+          <input type="number" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.qtde" for="field_qtde">Qtde</label>
+          <input type="number" class="form-control" name="qtde" id="field_qtde" data-cy="qtde" formControlName="qtde" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.valor" for="field_valor">Valor</label>
+          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.tipoPagamento" for="field_tipoPagamento">Tipo Pagamento</label>
+          <select
+            class="form-control"
+            id="field_tipoPagamento"
+            data-cy="tipoPagamento"
+            name="tipoPagamento"
+            formControlName="tipoPagamento"
+            [compareWith]="compareTipoPagamento"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoPagamentoOption" *ngFor="let tipoPagamentoOption of tipoPagamentosSharedCollection">
+              {{ tipoPagamentoOption.descricao }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.tipoServico" for="field_tipoServico">Tipo Servico</label>
+          <select
+            class="form-control"
+            id="field_tipoServico"
+            data-cy="tipoServico"
+            name="tipoServico"
+            formControlName="tipoServico"
+            [compareWith]="compareTipoServico"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoServicoOption" *ngFor="let tipoServicoOption of tipoServicosSharedCollection">
+              {{ tipoServicoOption.descricao }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.comandaPai" for="field_comandaPai">Comanda Pai</label>
+          <select
+            class="form-control"
+            id="field_comandaPai"
+            data-cy="comandaPai"
+            name="comandaPai"
+            formControlName="comandaPai"
+            [compareWith]="compareComanda"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="comandaOption" *ngFor="let comandaOption of comandasSharedCollection">{{ comandaOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.itemComanda.comanda" for="field_comanda">Comanda</label>
+          <select
+            class="form-control"
+            id="field_comanda"
+            data-cy="comanda"
+            name="comanda"
+            formControlName="comanda"
+            [compareWith]="compareComanda"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="comandaOption" *ngFor="let comandaOption of comandasSharedCollection">{{ comandaOption.descricao }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "appErpApp": {
+    "tipoDespesa": {
+      "home": {
+        "title": "Tipo Despesas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Tipo Despesa",
+        "createOrEditLabel": "Create or edit a Tipo Despesa",
+        "notFound": "No Tipo Despesas found"
+      },
+      "created": "A new Tipo Despesa is created with identifier {{ param }}",
+      "updated": "A Tipo Despesa is updated with identifier {{ param }}",
+      "deleted": "A Tipo Despesa is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tipo Despesa {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Despesa"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "grupoDespesa": "Grupo Despesa"
+    }
+  }
+}

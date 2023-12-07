@@ -48,6 +48,24 @@ public class CacheConfiguration {
             createCache(cm, com.apperp.domain.User.class.getName());
             createCache(cm, com.apperp.domain.Authority.class.getName());
             createCache(cm, com.apperp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.apperp.domain.Comanda.class.getName());
+            createCache(cm, com.apperp.domain.Comanda.class.getName() + ".itens");
+            createCache(cm, com.apperp.domain.Comanda.class.getName() + ".listaItens");
+            createCache(cm, com.apperp.domain.ItemComanda.class.getName());
+            createCache(cm, com.apperp.domain.Despesa.class.getName());
+            createCache(cm, com.apperp.domain.Cor.class.getName());
+            createCache(cm, com.apperp.domain.TipoPagamento.class.getName());
+            createCache(cm, com.apperp.domain.TipoPagamento.class.getName() + ".tipoPagamentos");
+            createCache(cm, com.apperp.domain.TipoServico.class.getName());
+            createCache(cm, com.apperp.domain.TipoServico.class.getName() + ".tipoServicos");
+            createCache(cm, com.apperp.domain.TipoDespesa.class.getName());
+            createCache(cm, com.apperp.domain.Situacao.class.getName());
+            createCache(cm, com.apperp.domain.GrupoDespesa.class.getName());
+            createCache(cm, com.apperp.domain.GrupoPagamento.class.getName());
+            createCache(cm, com.apperp.domain.GrupoServico.class.getName());
+            createCache(cm, com.apperp.domain.ControleComanda.class.getName());
+            createCache(cm, com.apperp.domain.ControleComanda.class.getName() + ".comandas");
+            createCache(cm, com.apperp.domain.ControleComanda.class.getName() + ".listaComandas");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,26 @@
+{
+  "appErpApp": {
+    "tipoPagamento": {
+      "home": {
+        "title": "TipoPagamentos",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tipo Pagamento",
+        "createOrEditLabel": "Créer ou éditer un Tipo Pagamento",
+        "notFound": "Aucun Tipo Pagamento trouvé"
+      },
+      "created": "Un nouveau Tipo Pagamento a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tipo Pagamento avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tipo Pagamento avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Tipo Pagamento {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tipo Pagamento"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "grupoPagamento": "Grupo Pagamento",
+      "tipoPagamento": "Tipo Pagamento"
+    }
+  }
+}

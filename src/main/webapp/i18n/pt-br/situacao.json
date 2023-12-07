@@ -1,0 +1,24 @@
+{
+  "appErpApp": {
+    "situacao": {
+      "home": {
+        "title": "Situacaos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Situacao",
+        "createOrEditLabel": "Criar ou editar Situacao",
+        "notFound": "Nenhum Situacao encontrado"
+      },
+      "created": "Um novo Situacao foi criado com o identificador {{ param }}",
+      "updated": "Um Situacao foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Situacao foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Situacao {{ id }}?"
+      },
+      "detail": {
+        "title": "Situacao"
+      },
+      "id": "ID",
+      "descricao": "Descricao"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="comanda">
+      <h2 data-cy="comandaDetailsHeading"><span jhiTranslate="appErpApp.comanda.detail.title">Comanda</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ comanda.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.descricao">Descricao</span></dt>
+        <dd>
+          <span>{{ comanda.descricao }}</span>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.observacao">Observacao</span></dt>
+        <dd>
+          <span>{{ comanda.observacao }}</span>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.data">Data</span></dt>
+        <dd>
+          <span>{{ comanda.data | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.numero">Numero</span></dt>
+        <dd>
+          <span>{{ comanda.numero }}</span>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.situacao">Situacao</span></dt>
+        <dd>
+          <div *ngIf="comanda.situacao">
+            <a [routerLink]="['/situacao', comanda.situacao.id, 'view']">{{ comanda.situacao.descricao }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.controle">Controle</span></dt>
+        <dd>
+          <div *ngIf="comanda.controle">
+            <a [routerLink]="['/controle-comanda', comanda.controle.id, 'view']">{{ comanda.controle.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="appErpApp.comanda.controleComanda">Controle Comanda</span></dt>
+        <dd>
+          <div *ngIf="comanda.controleComanda">
+            <a [routerLink]="['/controle-comanda', comanda.controleComanda.id, 'view']">{{ comanda.controleComanda.descricao }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/comanda', comanda.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

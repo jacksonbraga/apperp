@@ -1,0 +1,32 @@
+{
+  "appErpApp": {
+    "comanda": {
+      "home": {
+        "title": "Comandas",
+        "refreshListLabel": "Pesquisar",
+        "createLabel": "Criar nova Comanda",
+        "createOrEditLabel": "Criar ou editar Comanda",
+        "notFound": "Nenhuma Comanda encontrada"
+      },
+      "created": "Uma nova Comanda foi criada",
+      "updated": "Uma Comanda foi atualizada",
+      "deleted": "Uma Comanda foi excluída",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir a Comanda?"
+      },
+      "detail": {
+        "title": "Comanda"
+      },
+      "id": "ID",
+      "descricao": "Descrição",
+      "observacao": "Observação",
+      "data": "Data",
+      "numero": "Número",
+      "itens": "Itens",
+      "situacao": "Situação",
+      "controleComanda": "Controle de comanda",
+      "listaItens": "Itens",
+      "comanda": "Comanda"
+    }
+  }
+}

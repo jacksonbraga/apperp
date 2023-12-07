@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity TipoDespesa.
+    -->
+    <changeSet id="20231125204948-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="grupo_despesa_id"
+                                 baseTableName="tipo_despesa"
+                                 constraintName="fk_tipo_despesa__grupo_despesa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="grupo_despesa"
+                                 />
+    </changeSet>
+</databaseChangeLog>
