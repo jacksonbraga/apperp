@@ -139,7 +139,7 @@
     "webpack-notifier": "1.15.0"
   },
   "engines": {
-    "node": ">=18.18.2",
+    "node": "18.18.2",
     "npm": "9.8.1"
   },
   "cacheDirectories": [
