@@ -1,0 +1,32 @@
+{
+  "appErpApp": {
+    "comanda": {
+      "home": {
+        "title": "Comandas",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Comanda",
+        "createOrEditLabel": "Créer ou éditer un Comanda",
+        "notFound": "Aucun Comanda trouvé"
+      },
+      "created": "Un nouveau Comanda a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Comanda avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Comanda avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Comanda {{ id }} ?"
+      },
+      "detail": {
+        "title": "Comanda"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "observacao": "Observacao",
+      "data": "Data",
+      "numero": "Numero",
+      "itens": "Itens",
+      "situacao": "Situacao",
+      "controle": "Controle",
+      "controleComanda": "Controle Comanda",
+      "listaItens": "Lista Itens"
+    }
+  }
+}

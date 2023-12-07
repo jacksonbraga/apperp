@@ -1,0 +1,33 @@
+{
+  "appErpApp": {
+    "itemComanda": {
+      "home": {
+        "title": "Item Comandas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Item Comanda",
+        "createOrEditLabel": "Create or edit a Item Comanda",
+        "notFound": "No Item Comandas found"
+      },
+      "created": "A new Item Comanda is created with identifier {{ param }}",
+      "updated": "A Item Comanda is updated with identifier {{ param }}",
+      "deleted": "A Item Comanda is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Item Comanda {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Comanda"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "observacao": "Observacao",
+      "data": "Data",
+      "numero": "Numero",
+      "qtde": "Qtde",
+      "valor": "Valor",
+      "tipoPagamento": "Tipo Pagamento",
+      "tipoServico": "Tipo Servico",
+      "comandaPai": "Comanda Pai",
+      "comanda": "Comanda"
+    }
+  }
+}

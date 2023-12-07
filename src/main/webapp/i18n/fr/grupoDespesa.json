@@ -1,0 +1,24 @@
+{
+  "appErpApp": {
+    "grupoDespesa": {
+      "home": {
+        "title": "GrupoDespesas",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Grupo Despesa",
+        "createOrEditLabel": "Créer ou éditer un Grupo Despesa",
+        "notFound": "Aucun Grupo Despesa trouvé"
+      },
+      "created": "Un nouveau Grupo Despesa a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Grupo Despesa avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Grupo Despesa avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Grupo Despesa {{ id }} ?"
+      },
+      "detail": {
+        "title": "Grupo Despesa"
+      },
+      "id": "ID",
+      "descricao": "Descricao"
+    }
+  }
+}

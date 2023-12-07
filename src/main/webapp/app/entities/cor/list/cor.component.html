@@ -1,0 +1,86 @@
+<div>
+  <h2 id="page-heading" data-cy="CorHeading">
+    <span jhiTranslate="appErpApp.cor.home.title">Cors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="appErpApp.cor.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cor"
+        [routerLink]="['/cor/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="appErpApp.cor.home.createLabel">Criar novo Cor</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="cors?.length === 0">
+    <span jhiTranslate="appErpApp.cor.home.notFound">Nenhum Cor encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="cors && cors.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.cor.descricao">Descricao</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="valor">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.cor.valor">Valor</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cor of cors; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/cor', cor.id, 'view']">{{ cor.id }}</a>
+          </td>
+          <td>{{ cor.descricao }}</td>
+          <td [style.background-color]="getBackgroundColor(cor)">{{ cor.valor }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/cor', cor.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/cor', cor.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(cor)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "appErpApp": {
+    "controleComanda": {
+      "home": {
+        "title": "Controle de comandas",
+        "refreshListLabel": "Pesquisar",
+        "createLabel": "Criar novo Controle de comanda",
+        "createOrEditLabel": "Criar ou editar Controle de comanda",
+        "notFound": "Nenhum Controle de comanda encontrado"
+      },
+      "created": "Um novo Controle de comanda foi criado",
+      "updated": "Um Controle de comanda foi atualizado",
+      "deleted": "Um Controle de comanda foi excluído",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Controle de comanda?"
+      },
+      "detail": {
+        "title": "Controle de comanda"
+      },
+      "id": "ID",
+      "descricao": "Descrição",
+      "faixaInicio": "Início",
+      "faixaFim": "Término",
+      "data": "Data",
+      "comandas": "Comandas",
+      "cor": "Cor"
+    }
+  }
+}

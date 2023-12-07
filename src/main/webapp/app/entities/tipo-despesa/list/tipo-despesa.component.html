@@ -1,0 +1,89 @@
+<div>
+  <h2 id="page-heading" data-cy="TipoDespesaHeading">
+    <span jhiTranslate="appErpApp.tipoDespesa.home.title">Tipo Despesas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="appErpApp.tipoDespesa.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tipo-despesa"
+        [routerLink]="['/tipo-despesa/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="appErpApp.tipoDespesa.home.createLabel">Criar novo Tipo Despesa</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tipoDespesas?.length === 0">
+    <span jhiTranslate="appErpApp.tipoDespesa.home.notFound">Nenhum Tipo Despesa encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="tipoDespesas && tipoDespesas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.tipoDespesa.descricao">Descricao</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="grupoDespesa.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.tipoDespesa.grupoDespesa">Grupo Despesa</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipoDespesa of tipoDespesas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tipo-despesa', tipoDespesa.id, 'view']">{{ tipoDespesa.id }}</a>
+          </td>
+          <td>{{ tipoDespesa.descricao }}</td>
+          <td>
+            <div *ngIf="tipoDespesa.grupoDespesa">
+              <a [routerLink]="['/grupo-despesa', tipoDespesa.grupoDespesa.id, 'view']">{{ tipoDespesa.grupoDespesa.descricao }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/tipo-despesa', tipoDespesa.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/tipo-despesa', tipoDespesa.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(tipoDespesa)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

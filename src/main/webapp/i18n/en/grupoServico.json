@@ -1,0 +1,24 @@
+{
+  "appErpApp": {
+    "grupoServico": {
+      "home": {
+        "title": "Grupo Servicos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Grupo Servico",
+        "createOrEditLabel": "Create or edit a Grupo Servico",
+        "notFound": "No Grupo Servicos found"
+      },
+      "created": "A new Grupo Servico is created with identifier {{ param }}",
+      "updated": "A Grupo Servico is updated with identifier {{ param }}",
+      "deleted": "A Grupo Servico is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Grupo Servico {{ id }}?"
+      },
+      "detail": {
+        "title": "Grupo Servico"
+      },
+      "id": "ID",
+      "descricao": "Descricao"
+    }
+  }
+}
