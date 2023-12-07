@@ -100,8 +100,10 @@ export class ComandaComponent implements OnInit {
           console.log('PASSO 2222222222222222');
           console.log(this.listaControles.length);
           const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
-          const controle: IControleComanda = { id: Number(valor), descricao: 'CONTROL...' };
-          this.selectedControles.push(controle);
+          if (controlex) {
+            const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
+            this.selectedControles.push(controle);
+          }
         });
       }
     });
@@ -232,6 +234,24 @@ export class ComandaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBodyControle(response.body);
     this.listaControles = dataFromBody;
+
+    this.filters.filterOptions.forEach(item => {
+      console.log('PASSO 11111111111111');
+      if (item.name === 'controleComandaId.in') {
+        item.values.forEach(valor => {
+          console.log('PASSO 2222222222222222');
+          console.log(Number(valor));
+          console.log(this.listaControles.length);
+          const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
+          console.log(controlex);
+          if (controlex) {
+            const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
+            console.log(controle);
+            this.selectedControles.push(controle);
+          }
+        });
+      }
+    });
   }
 
   protected fillComponentAttributesFromResponseBody(data: IComanda[] | null): IComanda[] {

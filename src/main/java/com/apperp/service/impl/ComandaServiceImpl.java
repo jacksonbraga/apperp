@@ -71,22 +71,22 @@ public class ComandaServiceImpl implements ComandaService {
 
         List<TipoServico> servicos = tipoServicoRepository.findAll();
 
-        for (TipoServico tipo : servicos) {
+        for (TipoServico tipoServico : servicos) {
             ItemComanda item = new ItemComanda();
             item.setComanda(comanda);
             item.setData(LocalDate.now());
-            item.setTipoServico(tipo);
+            item.setTipoServico(tipoServico);
             item.setTipo("S");
             itemComandaRepository.save(item);
         }
 
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
-        for (TipoPagamento tipo : pagamentos) {
+        for (TipoPagamento tipoPagamento : pagamentos) {
             ItemComanda item = new ItemComanda();
             item.setComanda(comanda);
             item.setData(LocalDate.now());
-            item.setTipoPagamento(tipo);
+            item.setTipoPagamento(tipoPagamento);
             item.setTipo("P");
             itemComandaRepository.save(item);
         }

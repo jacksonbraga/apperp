@@ -4,10 +4,12 @@ import com.apperp.domain.Comanda;
 import com.apperp.domain.ControleComanda;
 import com.apperp.domain.ItemComanda;
 import com.apperp.domain.Situacao;
+import com.apperp.domain.TipoPagamento;
 import com.apperp.domain.TipoServico;
 import com.apperp.repository.ComandaRepository;
 import com.apperp.repository.ControleComandaRepository;
 import com.apperp.repository.ItemComandaRepository;
+import com.apperp.repository.TipoPagamentoRepository;
 import com.apperp.repository.TipoServicoRepository;
 import com.apperp.service.ControleComandaService;
 import com.apperp.service.dto.ControleComandaDTO;
@@ -39,17 +41,21 @@ public class ControleComandaServiceImpl implements ControleComandaService {
 
     private final TipoServicoRepository tipoServicoRepository;
 
+    private final TipoPagamentoRepository tipoPagamentoRepository;
+
     private final ControleComandaMapper controleComandaMapper;
 
     public ControleComandaServiceImpl(
         ItemComandaRepository itemComandaRepository,
         TipoServicoRepository tipoServicoRepository,
+        TipoPagamentoRepository tipoPagamentoRepository,
         ComandaRepository comandaRepository,
         ControleComandaRepository controleComandaRepository,
         ControleComandaMapper controleComandaMapper
     ) {
         this.controleComandaRepository = controleComandaRepository;
         this.tipoServicoRepository = tipoServicoRepository;
+        this.tipoPagamentoRepository = tipoPagamentoRepository;
         this.itemComandaRepository = itemComandaRepository;
         this.comandaRepository = comandaRepository;
         this.controleComandaMapper = controleComandaMapper;
@@ -69,6 +75,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
         situacao.setId(1L);
 
         List<TipoServico> servicos = tipoServicoRepository.findAll();
+        List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
         for (Long i = controleComanda.getFaixaInicio(); i <= controleComanda.getFaixaFim(); i++) {
             Comanda comanda = new Comanda();
@@ -83,6 +90,15 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 item.setComanda(comanda);
                 item.setData(LocalDate.now());
                 item.setTipoServico(tipo);
+                item.setTipo("S");
+                itemComandaRepository.save(item);
+            }
+            for (TipoPagamento tipo : pagamentos) {
+                ItemComanda item = new ItemComanda();
+                item.setComanda(comanda);
+                item.setData(LocalDate.now());
+                item.setTipoPagamento(tipo);
+                item.setTipo("P");
                 itemComandaRepository.save(item);
             }
         }
@@ -101,6 +117,8 @@ public class ControleComandaServiceImpl implements ControleComandaService {
         Situacao situacao = new Situacao();
         situacao.setId(1L);
         List<TipoServico> servicos = tipoServicoRepository.findAll();
+        List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
+
         for (Long i = controleComanda.getFaixaInicio(); i <= controleComanda.getFaixaFim(); i++) {
             List<Comanda> listaComandas = comandaRepository.findByNumeroAndControleComandaId(i, controleComanda.getId());
             if (listaComandas.isEmpty()) {
@@ -116,6 +134,15 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     item.setComanda(comanda);
                     item.setData(LocalDate.now());
                     item.setTipoServico(tipo);
+                    item.setTipo("S");
+                    itemComandaRepository.save(item);
+                }
+                for (TipoPagamento tipo : pagamentos) {
+                    ItemComanda item = new ItemComanda();
+                    item.setComanda(comanda);
+                    item.setData(LocalDate.now());
+                    item.setTipoPagamento(tipo);
+                    item.setTipo("P");
                     itemComandaRepository.save(item);
                 }
             } else {
@@ -132,6 +159,23 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                             item.setComanda(comanda);
                             item.setData(LocalDate.now());
                             item.setTipoServico(tipo);
+                            item.setTipo("S");
+                            itemComandaRepository.save(item);
+                        } else {
+                            for (ItemComanda item : itens) {
+                                item.setData(LocalDate.now());
+                                itemComandaRepository.save(item);
+                            }
+                        }
+                    }
+                    for (TipoPagamento tipo : pagamentos) {
+                        List<ItemComanda> itens = itemComandaRepository.findByComandaIdAndTipoPagamentoId(comanda.getId(), tipo.getId());
+                        if (itens.isEmpty()) {
+                            ItemComanda item = new ItemComanda();
+                            item.setComanda(comanda);
+                            item.setData(LocalDate.now());
+                            item.setTipoPagamento(tipo);
+                            item.setTipo("P");
                             itemComandaRepository.save(item);
                         } else {
                             for (ItemComanda item : itens) {
