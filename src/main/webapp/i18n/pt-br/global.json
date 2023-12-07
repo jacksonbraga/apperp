@@ -1,25 +1,13 @@
 {
   "global": {
-    "title": "AppErp",
+    "title": "Apperp",
     "browsehappy": "Você está usando um navegador <strong>desatualizado</strong>. Favor <a href=\"http://browsehappy.com/?locale=pt_BR\">atualize o seu navegador</a> para ter uma experiência melhor.",
     "menu": {
       "home": "Início",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "comanda": "Comanda",
-        "itemComanda": "Item Comanda",
-        "despesa": "Despesa",
-        "cor": "Cor",
-        "tipoPagamento": "Tipo Pagamento",
-        "tipoServico": "Tipo Servico",
-        "tipoDespesa": "Tipo Despesa",
-        "situacao": "Situacao",
-        "grupoDespesa": "Grupo Despesa",
-        "grupoPagamento": "Grupo Pagamento",
-        "grupoServico": "Grupo Servico",
-        "controleComanda": "Controle Comanda"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
         "main": "Conta",
