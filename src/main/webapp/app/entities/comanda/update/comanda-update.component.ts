@@ -14,6 +14,7 @@ import { ControleComandaService } from 'app/entities/controle-comanda/service/co
 import { ComandaService } from '../service/comanda.service';
 import { IComanda } from '../comanda.model';
 import { ComandaFormService, ComandaFormGroup } from './comanda-form.service';
+import dayjs from 'dayjs/esm';
 
 @Component({
   standalone: true,
@@ -48,8 +49,9 @@ export class ComandaUpdateComponent implements OnInit {
       this.comanda = comanda;
       if (comanda) {
         this.updateForm(comanda);
+      } else {
+        this.editForm.get('data')?.setValue(dayjs());
       }
-
       this.loadRelationshipsOptions();
     });
   }

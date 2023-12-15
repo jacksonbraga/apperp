@@ -94,11 +94,8 @@ export class ComandaComponent implements OnInit {
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
 
     this.filters.filterOptions.forEach(item => {
-      console.log('PASSO 11111111111111');
       if (item.name === 'controleComandaId.in') {
         item.values.forEach(valor => {
-          console.log('PASSO 2222222222222222');
-          console.log(this.listaControles.length);
           const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
           if (controlex) {
             const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
@@ -108,8 +105,6 @@ export class ComandaComponent implements OnInit {
       }
     });
 
-    console.log('PASSSOOOOOOOOOOOXXXXXXXXXXXXXXXXXXXXXXXX');
-    console.log(this.selectedControles);
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -159,39 +154,27 @@ export class ComandaComponent implements OnInit {
   onItemSelectComandas(item: any): void {
     // this.filters.removeFilter('id.in', item.id);
     // this.filters.addFilter('id.in', item.id);
-    console.log(item);
   }
 
   onItemDeSelectComandas(item: any): void {
     // this.filters.removeFilter('id.in', item.id);
-    console.log(item);
   }
 
-  onSelectAllComandas(items: any): void {
-    console.log(items);
-  }
+  onSelectAllComandas(items: any): void {}
 
-  onDeSelectAllComandas(items: any): void {
-    console.log(items);
-  }
+  onDeSelectAllComandas(items: any): void {}
 
   onItemSelectControles(item: any): void {
     //this.filters.addFilter('foo', 'addedValue1', 'addedValue2');
-    console.log(item);
   }
 
   onItemDeSelectControles(item: any): void {
     //this.filters.addFilter('foo', 'addedValue1', 'addedValue2');
-    console.log(item);
   }
 
-  onSelectAllControles(items: any): void {
-    console.log(items);
-  }
+  onSelectAllControles(items: any): void {}
 
-  onDeSelectAllControles(items: any): void {
-    console.log(items);
-  }
+  onDeSelectAllControles(items: any): void {}
 
   navigateToWithComponentValues(): void {
     this.handleNavigation(this.page, this.predicate, this.ascending, this.filters.filterOptions);
@@ -236,17 +219,11 @@ export class ComandaComponent implements OnInit {
     this.listaControles = dataFromBody;
 
     this.filters.filterOptions.forEach(item => {
-      console.log('PASSO 11111111111111');
       if (item.name === 'controleComandaId.in') {
         item.values.forEach(valor => {
-          console.log('PASSO 2222222222222222');
-          console.log(Number(valor));
-          console.log(this.listaControles.length);
           const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
-          console.log(controlex);
           if (controlex) {
             const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
-            console.log(controle);
             this.selectedControles.push(controle);
           }
         });
@@ -281,21 +258,15 @@ export class ComandaComponent implements OnInit {
       sort: this.getSortQueryParam(predicate, ascending),
     };
 
-    console.log('FILTROSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
-    console.log(this.selectedComandas.length);
     filterOptions?.forEach(filterOption => {
       queryObject[filterOption.name] = filterOption.values;
     });
 
     this.selectedComandas.forEach(item => {
-      console.log('id.in');
-      console.log(item.id);
       queryObject['id.in'] = item.id;
     });
 
     this.selectedControles.forEach(item => {
-      console.log('controleComandaId.in');
-      console.log(item.id);
       queryObject['controleComandaId.in'] = item.id;
     });
 

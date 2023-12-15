@@ -96,11 +96,11 @@
           </td>
           <td>{{ despesa.descricao }}</td>
           <td>{{ despesa.observacao }}</td>
-          <td>{{ despesa.parcela }}</td>
-          <td>{{ despesa.totalParcela }}</td>
-          <td>{{ despesa.valor }}</td>
-          <td>{{ despesa.data | formatMediumDate }}</td>
-          <td>{{ despesa.dataVencimento | formatMediumDate }}</td>
+          <td style="text-align: center">{{ despesa.parcela }}</td>
+          <td style="text-align: center">{{ despesa.totalParcela }}</td>
+          <td style="text-align: right">{{ despesa.valor | currency: 'R$' }}</td>
+          <td style="text-align: center">{{ despesa.data | formatMediumDate }}</td>
+          <td style="text-align: center">{{ despesa.dataVencimento | formatMediumDate }}</td>
           <td>
             <div *ngIf="despesa.tipoDespesa">
               <a [routerLink]="['/tipo-despesa', despesa.tipoDespesa.id, 'view']">{{ despesa.tipoDespesa.descricao }}</a>

@@ -15,6 +15,7 @@ import { ItemComandaDeleteDialogComponent } from '../delete/item-comanda-delete-
 import { FilterOptions, IFilterOption, IFilterOptions } from 'app/shared/filter';
 import { HttpResponse } from '@angular/common/http';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   standalone: true,
@@ -27,13 +28,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
     SortDirective,
     SortByDirective,
     InputNumberModule,
+    InputTextModule,
     DurationPipe,
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
   ],
 })
 export class ItemComandaComponent implements OnInit {
-  itemComandas?: IItemComanda[];
+  itemComandas!: IItemComanda[];
   isLoading = false;
 
   predicate = 'id';
@@ -72,9 +74,6 @@ export class ItemComandaComponent implements OnInit {
   }
 
   load(): void {
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-    this.itemComandas?.forEach(item => console.log(item.qtde));
-
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
@@ -94,7 +93,11 @@ export class ItemComandaComponent implements OnInit {
     return itens.filter(p => p.tipo === 'S');
   }
 
-  findPagamentos(itens: IItemComanda[]): IItemComanda[] {
+  findPagamentos(itens: IItemComanda[] | undefined): IItemComanda[] {
+    const itensVazio: IItemComanda[] = [];
+    if (!itens) {
+      return itensVazio;
+    }
     return itens.filter(p => p.tipo === 'P');
   }
 
@@ -132,9 +135,6 @@ export class ItemComandaComponent implements OnInit {
     const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
     this.predicate = sort[0];
     this.ascending = sort[1] === ASC;
-    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
-    console.log(params);
-
     this.filters.initializeFromParams(params);
   }
 

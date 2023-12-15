@@ -40,14 +40,14 @@
             <input
               id="field_data"
               data-cy="data"
-              type="text"
+              type="date"
               class="form-control"
               name="data"
               ngbDatepicker
               #dataDp="ngbDatepicker"
               formControlName="data"
             />
-            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
           </div>
         </div>
 
@@ -100,7 +100,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <!--    <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.itemComanda.comandaPai" for="field_comandaPai">Comanda Pai</label>
           <select
             class="form-control"
@@ -113,7 +113,7 @@
             <option [ngValue]="null"></option>
             <option [ngValue]="comandaOption" *ngFor="let comandaOption of comandasSharedCollection">{{ comandaOption.id }}</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.itemComanda.comanda" for="field_comanda">Comanda</label>

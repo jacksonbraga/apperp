@@ -36,14 +36,14 @@
             <input
               id="field_data"
               data-cy="data"
-              type="text"
+              type="date"
               class="form-control"
               name="data"
               ngbDatepicker
               #dataDp="ngbDatepicker"
               formControlName="data"
             />
-            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
           </div>
         </div>
 
@@ -69,7 +69,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <!--         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.comanda.controle" for="field_controle">Controle</label>
           <select
             class="form-control"
@@ -85,7 +85,7 @@
             </option>
           </select>
         </div>
-
+ -->
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.comanda.controleComanda" for="field_controleComanda">Controle Comanda</label>
           <select

@@ -1,0 +1,80 @@
+{
+  "dataSource": {
+    "dataSourceType": "json"
+  },
+  "slice": {
+    "rows": [
+      {
+        "uniqueName": "MOVIMENTO"
+      }
+    ],
+    "columns": [
+      {
+        "uniqueName": "dia"
+      },
+      {
+        "uniqueName": "Measures"
+      }
+    ],
+    "measures": [
+      {
+        "uniqueName": "valor",
+        "aggregation": "sum"
+      }
+    ],
+    "expandAll": true,
+    "drills": {
+      "drillAll": true
+    }
+  },
+  "conditions": [
+    {
+      "formula": "#value < 0",
+      "format": {
+        "backgroundColor": "#FFFFFF",
+        "color": "#F44336",
+        "fontFamily": "Arial",
+        "fontSize": "12px"
+      }
+    }
+  ],
+  "formats": [
+    {
+      "name": "",
+      "thousandsSeparator": ".",
+      "decimalSeparator": ",",
+      "decimalPlaces": 2,
+      "currencySymbol": "",
+      "currencySymbolAlign": "left",
+      "nullValue": "",
+      "textAlign": "right",
+      "isPercent": false
+    }
+  ],
+  "options": {
+    "grid": {
+      "type": "compact",
+      "title": "",
+      "showFilter": false,
+      "showHeaders": true,
+      "showTotals": true,
+      "showGrandTotals": "on",
+      "showHierarchies": true,
+      "showHierarchyCaptions": true,
+      "showReportFiltersArea": false
+    },
+    "configuratorActive": false,
+    "configuratorButton": true,
+    "showAggregations": true,
+    "showCalculatedValuesButton": true,
+    "drillThrough": true,
+    "showDrillThroughConfigurator": true,
+    "sorting": "on",
+    "datePattern": "dd/MM/yyyy",
+    "dateTimePattern": "dd/MM/yyyy HH:mm:ss",
+    "saveAllFormats": false,
+    "showDefaultSlice": true,
+    "defaultHierarchySortName": "asc"
+  },
+  "localization": "http://localhost:4200/content/pr.json"
+}

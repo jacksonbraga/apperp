@@ -12,12 +12,14 @@ import { TipoDespesaService } from 'app/entities/tipo-despesa/service/tipo-despe
 import { IDespesa } from '../despesa.model';
 import { DespesaService } from '../service/despesa.service';
 import { DespesaFormService, DespesaFormGroup } from './despesa-form.service';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   standalone: true,
   selector: 'jhi-despesa-update',
   templateUrl: './despesa-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  styleUrls: ['./despesa-update.component.css'],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, InputNumberModule],
 })
 export class DespesaUpdateComponent implements OnInit {
   isSaving = false;

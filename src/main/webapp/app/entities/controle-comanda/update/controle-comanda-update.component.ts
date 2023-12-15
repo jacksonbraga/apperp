@@ -12,6 +12,7 @@ import { CorService } from 'app/entities/cor/service/cor.service';
 import { IControleComanda } from '../controle-comanda.model';
 import { ControleComandaService } from '../service/controle-comanda.service';
 import { ControleComandaFormService, ControleComandaFormGroup } from './controle-comanda-form.service';
+import dayjs from 'dayjs/esm';
 
 @Component({
   standalone: true,
@@ -38,13 +39,12 @@ export class ControleComandaUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ controleComanda }) => {
-      console.log('???????????????????????');
-      console.log(controleComanda);
       this.controleComanda = controleComanda;
       if (controleComanda) {
         this.updateForm(controleComanda);
+      } else {
+        this.editForm.get('data')?.setValue(dayjs());
       }
-
       this.loadRelationshipsOptions();
     });
   }
@@ -56,8 +56,6 @@ export class ControleComandaUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const controleComanda = this.controleComandaFormService.getControleComanda(this.editForm);
-    console.log(controleComanda.cor?.id);
-    console.log(controleComanda.cor?.descricao);
     if (controleComanda.id !== null) {
       this.subscribeToSaveResponse(this.controleComandaService.update(controleComanda));
     } else {
@@ -81,8 +79,6 @@ export class ControleComandaUpdateComponent implements OnInit {
   }
 
   protected getBackgroundColor2(): string {
-    console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
-    console.log(this.editForm.get('cor')!.value);
     if (this.editForm.get('cor') != null) {
       const cor = this.editForm.get('cor')!.value;
       if (cor?.valor == null) {

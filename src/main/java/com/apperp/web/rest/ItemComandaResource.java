@@ -4,6 +4,7 @@ import com.apperp.repository.ItemComandaRepository;
 import com.apperp.service.ItemComandaQueryService;
 import com.apperp.service.ItemComandaService;
 import com.apperp.service.criteria.ItemComandaCriteria;
+import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -173,6 +174,11 @@ public class ItemComandaResource {
     public ResponseEntity<Long> countItemComandas(ItemComandaCriteria criteria) {
         log.debug("REST request to count ItemComandas by criteria: {}", criteria);
         return ResponseEntity.ok().body(itemComandaQueryService.countByCriteria(criteria));
+    }
+
+    @GetMapping("/relatorio/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorio>> listaRelatorioPorDia(@PathVariable String dataInicio, @PathVariable String dataFim) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioPorDia(dataInicio, dataFim));
     }
 
     /**

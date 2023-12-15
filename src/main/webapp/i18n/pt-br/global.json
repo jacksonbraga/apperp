@@ -11,6 +11,7 @@
         "comanda": "Comandas",
         "itemComanda": "Itens de comanda",
         "despesa": "Despesas",
+        "relatorio": "Relatório",
         "cor": "Cores",
         "tipoPagamento": "Tipos de pagamento",
         "tipoServico": "Tipos de serviço",
@@ -110,7 +111,7 @@
       "open": "Abrir",
       "save": "Salvar",
       "view": "Visualizar",
-      "show": "Mostrar {{otherEntity}}"
+      "show": "{{otherEntity}}"
     },
     "detail": {
       "field": "Campo",

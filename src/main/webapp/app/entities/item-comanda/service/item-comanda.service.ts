@@ -44,16 +44,13 @@ export class ItemComandaService {
   }
 
   update(itemComanda: IItemComanda): Observable<EntityResponseType> {
-    console.log('update', itemComanda);
     const copy = this.convertDateFromClient(itemComanda);
-    console.log(copy);
     return this.http
       .put<RestItemComanda>(`${this.resourceUrl}/${this.getItemComandaIdentifier(itemComanda)}`, copy, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   updateLista(itemComanda: IItemComanda[] | undefined): any {
-    console.log('update', itemComanda);
     return this.http
       .put<RestItemComanda[]>(`${this.resourceUrl}/updateLista`, itemComanda, { observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));

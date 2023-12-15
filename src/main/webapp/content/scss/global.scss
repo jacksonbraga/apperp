@@ -2,6 +2,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootswatch/dist/cerulean/variables';
 @import 'bootstrap/scss/variables';
+@import '@webdatarocks/webdatarocks/webdatarocks.min.css';
 
 /* ==============================================================
 Bootstrap tweaks
@@ -207,4 +208,5 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

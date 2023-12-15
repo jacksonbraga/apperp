@@ -70,9 +70,6 @@ export class ControleComandaComponent implements OnInit {
   ngOnInit(): void {
     this.load();
     this.dt = new Date();
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(this.dt);
-
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
   }
 
@@ -101,7 +98,6 @@ export class ControleComandaComponent implements OnInit {
   }
 
   loadComFiltro(): void {
-    console.log(this.dt);
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
@@ -167,9 +163,6 @@ export class ControleComandaComponent implements OnInit {
       queryObject[filterOption.name] = filterOption.values;
     });
     if (this.formGroup.get('dataFiltro')!.value) {
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-
-      console.log(this.formGroup.get('dataFiltro')!.value);
       queryObject['data.equals'] = this.formGroup.get('dataFiltro')!.value;
     }
 

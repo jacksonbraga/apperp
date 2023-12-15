@@ -16,7 +16,7 @@ import { ComandaService } from 'app/entities/comanda/service/comanda.service';
 import { ItemComandaService } from '../service/item-comanda.service';
 import { IItemComanda } from '../item-comanda.model';
 import { ItemComandaFormService, ItemComandaFormGroup } from './item-comanda-form.service';
-
+import dayjs from 'dayjs/esm';
 @Component({
   standalone: true,
   selector: 'jhi-item-comanda-update',
@@ -54,8 +54,9 @@ export class ItemComandaUpdateComponent implements OnInit {
       this.itemComanda = itemComanda;
       if (itemComanda) {
         this.updateForm(itemComanda);
+      } else {
+        this.editForm.get('data')?.setValue(dayjs());
       }
-
       this.loadRelationshipsOptions();
     });
   }

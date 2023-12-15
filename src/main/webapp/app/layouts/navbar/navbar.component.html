@@ -92,6 +92,19 @@
                 <span jhiTranslate="global.menu.entities.despesa">Despesa</span>
               </a>
             </li>
+            <hr />
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/relatorio"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.relatorio">Relatório</span>
+              </a>
+            </li>
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>

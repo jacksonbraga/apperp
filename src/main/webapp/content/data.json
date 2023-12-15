@@ -1,0 +1,54 @@
+[
+  {
+    "grupoContabil": {
+      "type": "level",
+      "hierarchy": "MOVIMENTO"
+    },
+    "grupo": {
+      "type": "level",
+      "hierarchy": "MOVIMENTO",
+      "level": "grupo",
+      "parent": "grupoContabil"
+    },
+    "tipo": {
+      "type": "level",
+      "hierarchy": "MOVIMENTO",
+      "level": "tipo",
+      "parent": "grupo"
+    },
+    "valor": {
+      "type": "number"
+    },
+    "dia": {
+      "type": "number"
+    }
+  },
+  {
+    "grupoContabil": "1 - Vendas",
+    "grupo": "1.1 - Jantar",
+    "tipo": "1.1.1 - Jantar a la carte",
+    "dia": "05",
+    "valor": 300.05
+  },
+  {
+    "grupoContabil": "1 - Vendas",
+    "grupo": "1.2 - Jantar",
+    "tipo": "1.2.1 - Jantar self service",
+    "dia": "06",
+    "valor": 200.01
+  },
+  {
+    "grupoContabil": "2 - Despesas",
+    "grupo": "2.1 - Operacional",
+    "tipo": "2.1.1 - Aluguel",
+    "dia": "07",
+    "valor": -300.15
+  },
+  {
+    "grupoContabil": "2 - Despesas",
+    "grupo": "2.2 - Impostos",
+    "tipo": "2.2.1 - IPTU",
+    "dia": "08",
+    "valor": -200.34
+  }
+]
