@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'cor',
-        data: { pageTitle: 'appErpApp.cor.home.title' },
+        data: { pageTitle: 'appErpApp.turno.home.title' },
         loadChildren: () => import('./cor/cor.routes'),
       },
       {

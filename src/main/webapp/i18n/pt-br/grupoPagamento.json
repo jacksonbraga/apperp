@@ -18,7 +18,8 @@
         "title": "Grupo de pagamento"
       },
       "id": "ID",
-      "descricao": "Descrição"
+      "descricao": "Descrição",
+      "tipoColuna": "Tipo de coluna"
     }
   }
 }

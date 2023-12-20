@@ -24,7 +24,18 @@ public class GrupoPagamento implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
+    @Column(name = "tipo_coluna")
+    private String tipoColuna;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public String getTipoColuna() {
+        return tipoColuna;
+    }
+
+    public void setTipoColuna(String tipoColuna) {
+        this.tipoColuna = tipoColuna;
+    }
 
     public Long getId() {
         return this.id;

@@ -1,13 +1,17 @@
 package com.apperp.service;
 
 import com.apperp.domain.*; // for static metamodels
+import com.apperp.repository.GrupoPagamentoRepository;
 import com.apperp.repository.ItemComandaRepository;
+import com.apperp.repository.TipoPagamentoRepository;
 import com.apperp.service.criteria.ItemComandaCriteria;
 import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.mapper.ItemComandaMapper;
 import jakarta.persistence.criteria.JoinType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -31,10 +35,21 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
 
     private final ItemComandaRepository itemComandaRepository;
 
+    private final GrupoPagamentoRepository grupoPagamentoRepository;
+
+    private final TipoPagamentoRepository tipoPagamentoRepository;
+
     private final ItemComandaMapper itemComandaMapper;
 
-    public ItemComandaQueryService(ItemComandaRepository itemComandaRepository, ItemComandaMapper itemComandaMapper) {
+    public ItemComandaQueryService(
+        TipoPagamentoRepository tipoPagamentoRepository,
+        GrupoPagamentoRepository grupoPagamentoRepository,
+        ItemComandaRepository itemComandaRepository,
+        ItemComandaMapper itemComandaMapper
+    ) {
         this.itemComandaRepository = itemComandaRepository;
+        this.tipoPagamentoRepository = tipoPagamentoRepository;
+        this.grupoPagamentoRepository = grupoPagamentoRepository;
         this.itemComandaMapper = itemComandaMapper;
     }
 
@@ -47,6 +62,7 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
     public List<ItemComandaDTO> findByCriteria(ItemComandaCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<ItemComanda> specification = createSpecification(criteria);
+
         return itemComandaMapper.toDto(itemComandaRepository.findAll(specification));
     }
 

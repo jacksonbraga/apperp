@@ -19,6 +19,7 @@ type GrupoPagamentoFormDefaults = Pick<NewGrupoPagamento, 'id'>;
 type GrupoPagamentoFormGroupContent = {
   id: FormControl<IGrupoPagamento['id'] | NewGrupoPagamento['id']>;
   descricao: FormControl<IGrupoPagamento['descricao']>;
+  tipoColuna: FormControl<IGrupoPagamento['tipoColuna']>;
 };
 
 export type GrupoPagamentoFormGroup = FormGroup<GrupoPagamentoFormGroupContent>;
@@ -39,6 +40,7 @@ export class GrupoPagamentoFormService {
         },
       ),
       descricao: new FormControl(grupoPagamentoRawValue.descricao),
+      tipoColuna: new FormControl(grupoPagamentoRawValue.tipoColuna),
     });
   }
 

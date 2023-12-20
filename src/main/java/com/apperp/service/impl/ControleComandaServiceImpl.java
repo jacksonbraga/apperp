@@ -15,6 +15,7 @@ import com.apperp.service.ControleComandaService;
 import com.apperp.service.dto.ControleComandaDTO;
 import com.apperp.service.mapper.ControleComandaMapper;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -74,7 +75,9 @@ public class ControleComandaServiceImpl implements ControleComandaService {
         Situacao situacao = new Situacao();
         situacao.setId(1L);
 
-        List<TipoServico> servicos = tipoServicoRepository.findAll();
+        //List<TipoServico> servicos = tipoServicoRepository.findAll();
+        List<TipoServico> servicos = new ArrayList<>();
+
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
         for (Long i = controleComanda.getFaixaInicio(); i <= controleComanda.getFaixaFim(); i++) {
@@ -116,7 +119,8 @@ public class ControleComandaServiceImpl implements ControleComandaService {
     private void updateComandas(ControleComanda controleComanda) {
         Situacao situacao = new Situacao();
         situacao.setId(1L);
-        List<TipoServico> servicos = tipoServicoRepository.findAll();
+        // List<TipoServico> servicos = tipoServicoRepository.findAll();
+        List<TipoServico> servicos = new ArrayList<>();
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
         for (Long i = controleComanda.getFaixaInicio(); i <= controleComanda.getFaixaFim(); i++) {

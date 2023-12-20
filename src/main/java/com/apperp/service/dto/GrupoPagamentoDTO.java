@@ -13,6 +13,16 @@ public class GrupoPagamentoDTO implements Serializable {
 
     private String descricao;
 
+    private String tipoColuna;
+
+    public String getTipoColuna() {
+        return tipoColuna;
+    }
+
+    public void setTipoColuna(String tipoColuna) {
+        this.tipoColuna = tipoColuna;
+    }
+
     public Long getId() {
         return id;
     }

@@ -2,7 +2,7 @@
   "appErpApp": {
     "itemComanda": {
       "home": {
-        "title": "Itens da ",
+        "title": "Valores da ",
         "refreshListLabel": "Pesquisar",
         "createLabel": "Criar novo Item da comanda",
         "createOrEditLabel": "Criar ou editar Item da comanda",
@@ -26,7 +26,11 @@
       "valor": "Valor",
       "tipoPagamento": "Pagamento",
       "tipoServico": "Serviço",
-      "comanda": "Comanda"
+      "comanda": "Comanda",
+      "credito": "Crédito",
+      "debito": "Débito",
+      "ticket": "Ticket",
+      "outros": "Outros"
     }
   }
 }

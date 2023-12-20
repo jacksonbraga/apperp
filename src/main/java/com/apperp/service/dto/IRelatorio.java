@@ -5,6 +5,8 @@ public interface IRelatorio {
 
     String getGrupo();
 
+    String getTipoColuna();
+
     String getTipo();
 
     String getDia();

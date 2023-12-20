@@ -95,30 +95,39 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+
           <th scope="col" jhiSortBy="descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.descricao">Descricao</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="observacao">
+
+          <th scope="col" jhiSortBy="controleComanda.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.comanda.turno">Controle Comanda</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <!--    <th scope="col" jhiSortBy="observacao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.observacao">Observacao</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="data">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.data">Data</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="numero">
+          <!--   <th scope="col" jhiSortBy="numero">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.numero">Numero</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="situacao.descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.situacao">Situacao</span>
@@ -131,12 +140,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th> -->
-          <th scope="col" jhiSortBy="controleComanda.descricao">
-            <div class="d-flex">
-              <span jhiTranslate="appErpApp.comanda.controleComanda">Controle Comanda</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -146,12 +149,21 @@
             <a [routerLink]="['/comanda', comanda.id, 'view']">{{ comanda.id }}</a>
           </td>
           <td>{{ comanda.descricao }}</td>
-          <td>{{ comanda.observacao }}</td>
+          <td>
+            <div *ngIf="comanda.controleComanda">
+              <span [style.background-color]="getBackgroundColor(comanda.controleComanda.cor?.valor)">{{
+                comanda.controleComanda.cor?.descricao
+              }}</span>
+            </div>
+          </td>
+
+          <!-- <td>{{ comanda.observacao }}</td> -->
           <td>{{ comanda.data | formatMediumDate }}</td>
-          <td>{{ comanda.numero }}</td>
+          <!-- <td>{{ comanda.numero }}</td> -->
+
           <td>
             <div *ngIf="comanda.situacao">
-              <a [routerLink]="['/situacao', comanda.situacao.id, 'view']">{{ comanda.situacao.descricao }}</a>
+              {{ comanda.situacao.descricao }}
             </div>
           </td>
           <!--           <td>
@@ -160,20 +172,10 @@
             </div>
           </td>
  -->
-          <td>
-            <div *ngIf="comanda.controleComanda">
-              <a [routerLink]="['/controle-comanda', comanda.controleComanda.id, 'view']">{{ comanda.controleComanda.descricao }}</a>
-            </div>
-          </td>
+
           <td class="text-end">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/item-comanda']"
-                [queryParams]="{ 'filter[comandaId.in]': comanda.id }"
-                class="btn btn-success btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
+              <button type="button" (click)="delete2(comanda)" class="btn btn-success btn-sm" data-cy="filterOtherEntityButton">
                 <fa-icon icon="navicon"></fa-icon>
                 <span
                   class="d-none d-md-inline"
@@ -183,10 +185,10 @@
                 >
               </button>
 
-              <a [routerLink]="['/comanda', comanda.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+              <!--        <a [routerLink]="['/comanda', comanda.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
-              </a>
+              </a> -->
 
               <a [routerLink]="['/comanda', comanda.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
@@ -220,5 +222,7 @@
         (pageChange)="navigateToPage($event)"
       ></ngb-pagination>
     </div>
+
+    <!-- <button class="btn btn-primary" (click)="delete2()">Open modal</button> -->
   </div>
 </div>

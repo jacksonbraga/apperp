@@ -21,6 +21,17 @@
           <label class="form-label" jhiTranslate="appErpApp.grupoPagamento.descricao" for="field_descricao">Descricao</label>
           <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
         </div>
+
+        <div class="mb-3">
+          <label jhiTranslate="appErpApp.grupoPagamento.tipoColuna" for="field_tipoCouna">Tipo Coluna</label>
+          <select class="form-control" id="field_tipoColuna" name="tipoColuna" formControlName="tipoColuna">
+            <option value=""></option>
+            <option value="D">Débito</option>
+            <option value="C">Crédito</option>
+            <option value="T">Ticket</option>
+            <option value="O">Outros</option>
+          </select>
+        </div>
       </div>
 
       <div>

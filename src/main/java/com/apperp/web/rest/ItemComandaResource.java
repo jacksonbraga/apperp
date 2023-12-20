@@ -59,7 +59,6 @@ public class ItemComandaResource {
      */
     @PostMapping("")
     public ResponseEntity<ItemComandaDTO> createItemComanda(@RequestBody ItemComandaDTO itemComandaDTO) throws URISyntaxException {
-        System.out.println("PASSO 111111111111");
         log.debug("REST request to save ItemComanda : {}", itemComandaDTO);
         if (itemComandaDTO.getId() != null) {
             throw new BadRequestAlertException("A new itemComanda cannot already have an ID", ENTITY_NAME, "idexists");
@@ -86,7 +85,6 @@ public class ItemComandaResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody ItemComandaDTO itemComandaDTO
     ) throws URISyntaxException {
-        System.out.println("PASSO 2222222222222222");
         log.debug("REST request to update ItemComanda : {}, {}", id, itemComandaDTO);
         if (itemComandaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

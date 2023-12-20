@@ -33,5 +33,6 @@ public interface ComandaMapper extends EntityMapper<ComandaDTO, Comanda> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "cor", source = "cor")
     ControleComandaDTO toDtoControleComandaDescricao(ControleComanda controleComanda);
 }

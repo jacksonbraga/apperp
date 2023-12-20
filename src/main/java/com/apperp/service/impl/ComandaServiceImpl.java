@@ -69,7 +69,7 @@ public class ComandaServiceImpl implements ComandaService {
         Situacao situacao = new Situacao();
         situacao.setId(1L);
 
-        List<TipoServico> servicos = tipoServicoRepository.findAll();
+        /*         List<TipoServico> servicos = tipoServicoRepository.findAll();
 
         for (TipoServico tipoServico : servicos) {
             ItemComanda item = new ItemComanda();
@@ -78,7 +78,7 @@ public class ComandaServiceImpl implements ComandaService {
             item.setTipoServico(tipoServico);
             item.setTipo("S");
             itemComandaRepository.save(item);
-        }
+        } */
 
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
@@ -105,7 +105,7 @@ public class ComandaServiceImpl implements ComandaService {
         Situacao situacao = new Situacao();
         situacao.setId(1L);
 
-        List<TipoServico> servicos = tipoServicoRepository.findAll();
+        /*    List<TipoServico> servicos = tipoServicoRepository.findAll();
 
         for (TipoServico tipo : servicos) {
             List<ItemComanda> itens = itemComandaRepository.findByComandaIdAndTipoServicoIdAndTipo(comanda.getId(), tipo.getId(), "S");
@@ -123,7 +123,7 @@ public class ComandaServiceImpl implements ComandaService {
                     itemComandaRepository.save(item);
                 }
             }
-        }
+        } */
 
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 

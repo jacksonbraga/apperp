@@ -55,6 +55,13 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         value = "select\r\n" + //
         "\t\"(A) Vendas\" as grupoContabil,\r\n" + //
         "\tgs.descricao as grupo,\r\n" + //
+        "\tCASE\r\n" + //
+        "    WHEN gs.tipo_coluna = 'D' THEN \"Débito\"\r\n" + //
+        "    WHEN gs.tipo_coluna = 'C' THEN \"Crédito\"\r\n" + //
+        "    WHEN gs.tipo_coluna = 'O' THEN \"Outros\"\r\n" + //
+        "    WHEN gs.tipo_coluna = 'T' THEN \"Ticket\"\r\n" + //
+        "    ELSE \"Não definido\"\r\n" + //
+        "    END as tipoColuna,\r\n" + //
         "\tts.descricao as tipo,\r\n" + //
         "\tday(ic.data) as dia,\r\n" + //
         "\tmonth(ic.data) as mes,\r\n" + //
@@ -62,14 +69,15 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         "\tsum(ic.valor) as valor\r\n" + //
         "from\r\n" + //
         "\titem_comanda ic\r\n" + //
-        "inner join tipo_servico ts on\r\n" + //
-        "\tic.tipo_servico_id = ts.id\r\n" + //
-        "inner join grupo_servico gs on\r\n" + //
-        "\tts.grupo_servico_id = gs.id\r\n" + //
+        "inner join tipo_pagamento ts on\r\n" + //
+        "\tic.tipo_pagamento_id = ts.id\r\n" + //
+        "inner join grupo_pagamento gs on\r\n" + //
+        "\tts.grupo_pagamento_id = gs.id\r\n" + //
         "where ic.data between :dataInicio and :dataFim\t\r\n" + //
         "group by\r\n" + //
         "\tgs.descricao,\r\n" + //
         "\tts.descricao,\r\n" + //
+        "\tgs.tipo_coluna,\r\n" + //
         "\tday(ic.data),\r\n" + //
         "\tmonth(ic.data),\r\n" + //
         "\tyear(ic.data) \r\n" + //
@@ -79,7 +87,9 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         "select\r\n" + //
         "\t\"(B) Despesas\" as grupoContabil,\r\n" + //
         "\tgd.descricao as grupo,\r\n" + //
+        "\t\t'' as tipoColuna,\r\n" + //
         "\ttd.descricao as tipo,\r\n" + //
+        "\r\n" + //
         "\tday(de.data) as dia,\r\n" + //
         "\tmonth(de.data) as mes,\r\n" + //
         "\tyear(de.data) as ano,\r\n" + //

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, finalize, Observable, switchMap, tap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SplitterModule } from 'primeng/splitter';
 import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
@@ -16,6 +16,7 @@ import { FilterOptions, IFilterOption, IFilterOptions } from 'app/shared/filter'
 import { HttpResponse } from '@angular/common/http';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { TipoPagamentoService } from 'app/entities/tipo-pagamento/service/tipo-pagamento.service';
 
 @Component({
   standalone: true,
@@ -31,24 +32,29 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     DurationPipe,
     FormatMediumDatetimePipe,
+    SplitterModule,
     FormatMediumDatePipe,
   ],
 })
 export class ItemComandaComponent implements OnInit {
   itemComandas!: IItemComanda[];
   isLoading = false;
-
+  argComanda = null;
+  argControle = null;
   predicate = 'id';
+  total: number = 0;
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
   mostraId = false;
   descricao: string = '';
   constructor(
+    protected tipoPagamentoService: TipoPagamentoService,
     protected itemComandaService: ItemComandaService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected sortService: SortService,
     protected modalService: NgbModal,
+    protected activeModal: NgbActiveModal,
   ) {}
 
   trackId = (_index: number, item: IItemComanda): number => this.itemComandaService.getItemComandaIdentifier(item);
@@ -81,24 +87,37 @@ export class ItemComandaComponent implements OnInit {
     });
   }
 
-  atualizaItem(): void {
+  save(): void {
     this.subscribeToSaveResponse(this.itemComandaService.updateLista(this.itemComandas));
+    this.close();
+  }
+
+  atualizaValor() {
+    this.total = 0;
+    this.itemComandas.forEach(item => {
+      this.total += item.valor ?? 0;
+    });
   }
 
   previousState(): void {
     window.history.back();
   }
 
+  close() {
+    this.activeModal.dismiss();
+  }
+
   findServicos(itens: IItemComanda[]): IItemComanda[] {
     return itens.filter(p => p.tipo === 'S');
   }
 
-  findPagamentos(itens: IItemComanda[] | undefined): IItemComanda[] {
+  findPagamentos(itens: IItemComanda[] | undefined, tipo: string): IItemComanda[] {
     const itensVazio: IItemComanda[] = [];
     if (!itens) {
       return itensVazio;
     }
-    return itens.filter(p => p.tipo === 'P');
+
+    return itens.filter(p => p.tipo === 'P' && p.tipoPagamento?.grupoPagamento?.tipoColuna?.trim() === tipo);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IItemComanda[]>>): void {
@@ -132,9 +151,17 @@ export class ItemComandaComponent implements OnInit {
   }
 
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
-    const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
-    this.predicate = sort[0];
-    this.ascending = sort[1] === ASC;
+    if (!params) {
+      return;
+    }
+
+    if (!data) {
+      return;
+    }
+
+    // const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
+    // this.predicate = sort[0];
+    // this.ascending = sort[1] === ASC;
     this.filters.initializeFromParams(params);
   }
 
@@ -147,6 +174,8 @@ export class ItemComandaComponent implements OnInit {
         this.descricao = item.comanda.descricao;
       }
     });
+
+    this.atualizaValor();
   }
 
   protected refineData(data: IItemComanda[]): IItemComanda[] {
@@ -160,14 +189,14 @@ export class ItemComandaComponent implements OnInit {
   protected queryBackend(predicate?: string, ascending?: boolean, filterOptions?: IFilterOption[]): Observable<EntityArrayResponseType> {
     this.isLoading = true;
     const queryObject: any = {
-      eagerload: true,
+      eagerload: false,
       sort: this.getSortQueryParam(predicate, ascending),
     };
 
     filterOptions?.forEach(filterOption => {
       queryObject[filterOption.name] = filterOption.values;
     });
-
+    queryObject['comandaId.in'] = this.argComanda;
     return this.itemComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
@@ -189,5 +218,14 @@ export class ItemComandaComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  protected queryBackendTiposPagamento(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject: any = {
+      eagerload: true,
+      sort: this.getSortQueryParam(predicate, ascending),
+    };
+    return this.tipoPagamentoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 }

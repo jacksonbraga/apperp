@@ -36,7 +36,6 @@ public class ItemComandaServiceImpl implements ItemComandaService {
 
     @Override
     public ItemComandaDTO save(ItemComandaDTO itemComandaDTO) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         log.debug("Request to save ItemComanda : {}", itemComandaDTO);
         ItemComanda itemComanda = itemComandaMapper.toEntity(itemComandaDTO);
         itemComanda = itemComandaRepository.save(itemComanda);
@@ -45,7 +44,6 @@ public class ItemComandaServiceImpl implements ItemComandaService {
 
     @Override
     public ItemComandaDTO update(ItemComandaDTO itemComandaDTO) {
-        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         log.debug("Request to update ItemComanda : {}", itemComandaDTO);
         ItemComanda itemComanda = itemComandaMapper.toEntity(itemComandaDTO);
         itemComanda = itemComandaRepository.save(itemComanda);
@@ -75,6 +73,7 @@ public class ItemComandaServiceImpl implements ItemComandaService {
     }
 
     public Page<ItemComandaDTO> findAllWithEagerRelationships(Pageable pageable) {
+        Page<ItemComandaDTO> lista = itemComandaRepository.findAllWithEagerRelationships(pageable).map(itemComandaMapper::toDto);
         return itemComandaRepository.findAllWithEagerRelationships(pageable).map(itemComandaMapper::toDto);
     }
 
@@ -82,6 +81,7 @@ public class ItemComandaServiceImpl implements ItemComandaService {
     @Transactional(readOnly = true)
     public Optional<ItemComandaDTO> findOne(Long id) {
         log.debug("Request to get ItemComanda : {}", id);
+
         return itemComandaRepository.findOneWithEagerRelationships(id).map(itemComandaMapper::toDto);
     }
 

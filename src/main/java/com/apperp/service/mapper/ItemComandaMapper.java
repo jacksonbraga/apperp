@@ -25,6 +25,7 @@ public interface ItemComandaMapper extends EntityMapper<ItemComandaDTO, ItemComa
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "grupoPagamento", source = "grupoPagamento")
     TipoPagamentoDTO toDtoTipoPagamentoDescricao(TipoPagamento tipoPagamento);
 
     @Named("tipoServicoDescricao")

@@ -61,9 +61,16 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="descricao">
+          <!--      <th scope="col" jhiSortBy="descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.controleComanda.descricao">Descricao</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th> -->
+
+          <th scope="col" jhiSortBy="cor.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.controleComanda.cor">Cor</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -85,12 +92,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="cor.descricao">
-            <div class="d-flex">
-              <span jhiTranslate="appErpApp.controleComanda.cor">Cor</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+
           <th scope="col"></th>
         </tr>
       </thead>
@@ -99,15 +101,20 @@
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">
             <a [routerLink]="['/controle-comanda', controleComanda.id, 'view']">{{ controleComanda.id }}</a>
           </td>
-          <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.descricao }}</td>
+          <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">
+            <div *ngIf="controleComanda.cor">
+              {{ controleComanda.cor.descricao }}
+            </div>
+          </td>
+          <!-- <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.descricao }}</td> -->
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.faixaInicio }}</td>
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.faixaFim }}</td>
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.data | formatMediumDate }}</td>
-          <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">
+          <!--      <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">
             <div *ngIf="controleComanda.cor">
               <a [routerLink]="['/cor', controleComanda.cor.id, 'view']">{{ controleComanda.cor.descricao }}</a>
             </div>
-          </td>
+          </td> -->
           <td class="text-end">
             <div class="btn-group">
               <button
@@ -140,10 +147,10 @@
               >Mostrar Comanda</span
             >
           </button> -->
-              <a [routerLink]="['/controle-comanda', controleComanda.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+              <!--     <a [routerLink]="['/controle-comanda', controleComanda.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
-              </a>
+              </a> -->
 
               <a [routerLink]="['/controle-comanda', controleComanda.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>

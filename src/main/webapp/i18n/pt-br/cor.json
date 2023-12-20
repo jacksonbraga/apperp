@@ -1,25 +1,25 @@
 {
   "appErpApp": {
-    "cor": {
+    "turno": {
       "home": {
-        "title": "Cores",
+        "title": "Turnos",
         "refreshListLabel": "Pesquisar",
-        "createLabel": "Criar nova Cor",
-        "createOrEditLabel": "Criar ou editar Cor",
-        "notFound": "Nenhuma Cor encontrado"
+        "createLabel": "Criar novo Turno",
+        "createOrEditLabel": "Criar ou editar Turno",
+        "notFound": "Nenhum Turno encontrado"
       },
-      "created": "Uma nova Cor foi criada",
-      "updated": "Uma Cor foi atualizada",
-      "deleted": "Uma Cor foi excluída",
+      "created": "Um novo Turno foi criado",
+      "updated": "Um Turno foi atualizado",
+      "deleted": "Um Turno foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir essa Cor?"
+        "question": "Tem certeza de que deseja excluir esse Turno?"
       },
       "detail": {
-        "title": "Cor"
+        "title": "Turno"
       },
       "id": "ID",
       "descricao": "Descrição",
-      "valor": "Valor"
+      "valor": "Cor"
     }
   }
 }

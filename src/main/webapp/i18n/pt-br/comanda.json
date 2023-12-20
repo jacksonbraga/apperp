@@ -26,7 +26,8 @@
       "situacao": "Situação",
       "controleComanda": "Controle de comanda",
       "listaItens": "Itens",
-      "comanda": "Comanda"
+      "comanda": "Comanda",
+      "turno": "Turno"
     }
   }
 }

@@ -18,9 +18,31 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.controleComanda.cor" for="field_cor">Cor</label>
+          <select
+            [style.background-color]="getBackgroundColor2()"
+            class="form-control"
+            id="field_cor"
+            data-cy="cor"
+            name="cor"
+            formControlName="cor"
+            [compareWith]="compareCor"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [style.background-color]="getBackgroundColor(corOption)"
+              [ngValue]="corOption"
+              *ngFor="let corOption of corsSharedCollection"
+            >
+              {{ corOption.descricao }}
+            </option>
+          </select>
+        </div>
+
+        <!--         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.controleComanda.descricao" for="field_descricao">Descricao</label>
           <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.controleComanda.faixaInicio" for="field_faixaInicio">Faixa Inicio</label>
@@ -54,28 +76,6 @@
             />
             <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
           </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.cor" for="field_cor">Cor</label>
-          <select
-            [style.background-color]="getBackgroundColor2()"
-            class="form-control"
-            id="field_cor"
-            data-cy="cor"
-            name="cor"
-            formControlName="cor"
-            [compareWith]="compareCor"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [style.background-color]="getBackgroundColor(corOption)"
-              [ngValue]="corOption"
-              *ngFor="let corOption of corsSharedCollection"
-            >
-              {{ corOption.descricao }}
-            </option>
-          </select>
         </div>
       </div>
 

@@ -1,23 +1,9 @@
 <div>
   <h2 id="page-heading" data-cy="ItemComandaHeading">
-    <span style="font-weight: bold"
-      ><span style="font-weight: bold" jhiTranslate="appErpApp.itemComanda.home.title">Item Comandas</span> {{ descricao }}</span
+    <span style="font-size: 26px; font-weight: bold"
+      ><span style="font-size: 26px; font-weight: bold" jhiTranslate="appErpApp.itemComanda.home.title">Item Comandas</span>
+      {{ descricao }} do Turno: {{ argControle }}</span
     >
-    <div class="d-flex justify-content-end">
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
-      </button>
-      <button
-        style="margin-left: 5px"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-item-comanda"
-        [routerLink]="['/item-comanda/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="appErpApp.itemComanda.home.createLabel">Criar novo Item Comanda</span>
-      </button>
-    </div>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -28,243 +14,257 @@
     <span jhiTranslate="appErpApp.itemComanda.home.notFound">Nenhum Item Comanda encontrado</span>
   </div>
 
-  <div ngbAccordion>
-    <div ngbAccordionItem>
-      <h2 ngbAccordionHeader>
-        <button ngbAccordionButton><span style="font-weight: bold">Serviços</span></button>
-      </h2>
-      <div ngbAccordionCollapse>
-        <div ngbAccordionBody>
-          <ng-template>
-            <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
-              <table class="table table-striped" aria-describedby="page-heading">
-                <thead>
-                  <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-                    <th scope="col" jhiSortBy="id" *ngIf="mostraId">
-                      <div class="d-flex">
-                        <span jhiTranslate="global.field.id">Código</span>
-                        <fa-icon class="p-1" icon="sort"></fa-icon>
-                      </div>
-                    </th>
+  <p-splitter [style]="{ height: 'auto' }">
+    <ng-template pTemplate>
+      <div class="col flex align-items-center justify-content-center">
+        <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                <th scope="col" jhiSortBy="id" *ngIf="mostraId">
+                  <div class="d-flex">
+                    <span jhiTranslate="global.field.id">Código</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
 
-                    <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.tipoServico">Tipo Servico</span>
-                      </div>
-                    </th>
+                <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.credito">Meio de Pagamento</span>
+                  </div>
+                </th>
 
-                    <th scope="col" jhiSortBy="qtde" style="width: 5%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.qtde">Qtde</span>
-                      </div>
-                    </th>
-                    <th scope="col" jhiSortBy="valor" style="width: 10%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
-                      </div>
-                    </th>
-                    <th scope="col" jhiSortBy="observacao" style="width: 60%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.observacao">Observacao</span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let itemComanda of findServicos(itemComandas); trackBy: trackId" data-cy="entityTable">
-                    <td *ngIf="mostraId">
-                      <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
-                    </td>
+                <!--      <th scope="col" jhiSortBy="valor" style="width: 10%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
+                  </div>
+                </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'C'); trackBy: trackId" data-cy="entityTable">
+                <td *ngIf="mostraId">
+                  <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
+                </td>
 
-                    <td>
-                      <div *ngIf="itemComanda.tipoServico" style="font-size: larger; font-weight: bold">
-                        {{ itemComanda.tipoServico.descricao }}
-                      </div>
-                    </td>
-                    <td>
-                      <p-inputNumber
-                        [inputStyle]="{ 'text-align': 'right', width: '100%' }"
-                        name="qtde"
-                        id="field_qtde"
-                        data-cy="qtde"
-                        inputId="integeronly"
-                        [(ngModel)]="itemComanda.qtde"
-                        (ngModelChange)="atualizaItem()"
-                      >
-                      </p-inputNumber>
+                <td>
+                  <div *ngIf="itemComanda.tipoPagamento">
+                    {{ itemComanda.tipoPagamento.descricao }}
+                  </div>
+                </td>
 
-                      <!--                   <input pattern="[0-9]" type="number" class="form-control" name="qtde" id="field_qtde" data-cy="qtde"
-                      [(ngModel)]="itemComanda.qtde" (ngModelChange)="atualizaItem()" value="{{ itemComanda.qtde }}" />
-   -->
-                    </td>
-                    <td>
-                      <p-inputNumber
-                        [inputStyle]="{ 'text-align': 'right', width: '100%' }"
-                        inputId="locale-user"
-                        [minFractionDigits]="2"
-                        name="valor"
-                        id="field_valor"
-                        data-cy="valor"
-                        [(ngModel)]="itemComanda.valor"
-                        (ngModelChange)="atualizaItem()"
-                      >
-                      </p-inputNumber>
-
-                      <!--                  <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor"
-                      [(ngModel)]="itemComanda.valor" (ngModelChange)="atualizaItem()" value="{{ itemComanda.valor }}" />
-  
-    -->
-                    </td>
-
-                    <td>
-                      <input
-                        style="width: 100%"
-                        type="text"
-                        pInputText
-                        name="observacao"
-                        id="field_observacao"
-                        data-cy="observacao"
-                        [(ngModel)]="itemComanda.observacao"
-                        (ngModelChange)="atualizaItem()"
-                        value="{{ itemComanda.observacao }}"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </ng-template>
+                <td>
+                  <p-inputNumber
+                    [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
+                    inputId="locale-user"
+                    [minFractionDigits]="2"
+                    name="valor"
+                    id="field_valor"
+                    data-cy="valor"
+                    [(ngModel)]="itemComanda.valor"
+                    (ngModelChange)="atualizaValor()"
+                  >
+                  </p-inputNumber>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
+    </ng-template>
+    <ng-template pTemplate>
+      <div class="col flex align-items-center justify-content-center">
+        <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                <th scope="col" jhiSortBy="id" *ngIf="mostraId">
+                  <div class="d-flex">
+                    <span jhiTranslate="global.field.id">Código</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
 
-    <div ngbAccordionItem>
-      <h2 ngbAccordionHeader>
-        <button ngbAccordionButton><span style="font-weight: bold">Pagamentos</span></button>
-      </h2>
-      <div ngbAccordionCollapse>
-        <div ngbAccordionBody>
-          <ng-template>
-            <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
-              <table class="table table-striped" aria-describedby="page-heading">
-                <thead>
-                  <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-                    <th scope="col" jhiSortBy="id" *ngIf="mostraId">
-                      <div class="d-flex">
-                        <span jhiTranslate="global.field.id">Código</span>
-                        <fa-icon class="p-1" icon="sort"></fa-icon>
-                      </div>
-                    </th>
+                <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.debito">Meio de Pagamento</span>
+                  </div>
+                </th>
 
-                    <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.tipoPagamento">Meio de Pagamento</span>
-                      </div>
-                    </th>
+                <!--     <th scope="col" jhiSortBy="valor" style="width: 10%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
+                  </div>
+                </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'D'); trackBy: trackId" data-cy="entityTable">
+                <td *ngIf="mostraId">
+                  <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
+                </td>
 
-                    <th scope="col" jhiSortBy="qtde" style="width: 5%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.qtde">Qtde</span>
-                      </div>
-                    </th>
-                    <th scope="col" jhiSortBy="valor" style="width: 10%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
-                      </div>
-                    </th>
-                    <th scope="col" jhiSortBy="observacao" style="width: 60%">
-                      <div class="d-flex">
-                        <span jhiTranslate="appErpApp.itemComanda.observacao">Observacao</span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let itemComanda of findPagamentos(itemComandas); trackBy: trackId" data-cy="entityTable">
-                    <td *ngIf="mostraId">
-                      <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
-                    </td>
+                <td>
+                  <div *ngIf="itemComanda.tipoPagamento">
+                    {{ itemComanda.tipoPagamento.descricao }}
+                  </div>
+                </td>
 
-                    <td>
-                      <div *ngIf="itemComanda.tipoPagamento" style="font-size: larger; font-weight: bold">
-                        {{ itemComanda.tipoPagamento.descricao }}
-                      </div>
-                    </td>
-
-                    <td>
-                      <p-inputNumber
-                        [inputStyle]="{ 'text-align': 'right', width: '100%' }"
-                        name="qtde"
-                        id="field_qtde"
-                        data-cy="qtde"
-                        inputId="integeronly"
-                        [(ngModel)]="itemComanda.qtde"
-                        (ngModelChange)="atualizaItem()"
-                      >
-                      </p-inputNumber>
-
-                      <!--                   <input pattern="[0-9]" type="number" class="form-control" name="qtde" id="field_qtde" data-cy="qtde"
-                        [(ngModel)]="itemComanda.qtde" (ngModelChange)="atualizaItem()" value="{{ itemComanda.qtde }}" />
-     -->
-                    </td>
-                    <td>
-                      <p-inputNumber
-                        [inputStyle]="{ 'text-align': 'right', width: '100%' }"
-                        inputId="locale-user"
-                        [minFractionDigits]="2"
-                        name="valor"
-                        id="field_valor"
-                        data-cy="valor"
-                        [(ngModel)]="itemComanda.valor"
-                        (ngModelChange)="atualizaItem()"
-                      >
-                      </p-inputNumber>
-
-                      <!--                  <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor"
-                        [(ngModel)]="itemComanda.valor" (ngModelChange)="atualizaItem()" value="{{ itemComanda.valor }}" />
-    
-      -->
-                    </td>
-
-                    <td>
-                      <input
-                        style="width: 100%"
-                        type="text"
-                        pInputText
-                        name="observacao"
-                        id="field_observacao"
-                        data-cy="observacao"
-                        [(ngModel)]="itemComanda.observacao"
-                        (ngModelChange)="atualizaItem()"
-                        value="{{ itemComanda.observacao }}"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </ng-template>
+                <td>
+                  <p-inputNumber
+                    [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
+                    inputId="locale-user"
+                    [minFractionDigits]="2"
+                    name="valor"
+                    id="field_valor"
+                    data-cy="valor"
+                    [(ngModel)]="itemComanda.valor"
+                    (ngModelChange)="atualizaValor()"
+                  >
+                  </p-inputNumber>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </div>
+    </ng-template>
 
-  <!--   <div class="d-flex justify-content-end">
-    <div class="col-6" style="padding: 10px">
-      <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
-        <fieldset class="border p-2">
-          <legend class="w-auto">Serviços</legend>
-          <hr />
-        </fieldset>
+    <ng-template pTemplate>
+      <div class="col flex align-items-center justify-content-center">
+        <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                <th scope="col" jhiSortBy="id" *ngIf="mostraId">
+                  <div class="d-flex">
+                    <span jhiTranslate="global.field.id">Código</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+
+                <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.ticket">Meio de Pagamento</span>
+                  </div>
+                </th>
+
+                <!--      <th scope="col" jhiSortBy="valor" style="width: 10%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
+                  </div>
+                </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'T'); trackBy: trackId" data-cy="entityTable">
+                <td *ngIf="mostraId">
+                  <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
+                </td>
+
+                <td>
+                  <div *ngIf="itemComanda.tipoPagamento">
+                    {{ itemComanda.tipoPagamento.descricao }}
+                  </div>
+                </td>
+
+                <td>
+                  <p-inputNumber
+                    [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
+                    inputId="locale-user"
+                    [minFractionDigits]="2"
+                    name="valor"
+                    id="field_valor"
+                    data-cy="valor"
+                    [(ngModel)]="itemComanda.valor"
+                    (ngModelChange)="atualizaValor()"
+                  >
+                  </p-inputNumber>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="col-6" style="padding: 10px">
-      <fieldset class="border p-2">
-        <legend class="w-auto">Pagamentos</legend>
-        <hr />
-      </fieldset>
-    </div>
+    </ng-template>
+
+    <ng-template pTemplate>
+      <div class="col flex align-items-center justify-content-center">
+        <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                <th scope="col" jhiSortBy="id" *ngIf="mostraId">
+                  <div class="d-flex">
+                    <span jhiTranslate="global.field.id">Código</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+
+                <th scope="col" jhiSortBy="tipoServico.descricao" style="width: 25%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.outros">Meio de Pagamento</span>
+                  </div>
+                </th>
+
+                <!--           <th scope="col" jhiSortBy="valor" style="width: 10%">
+                  <div class="d-flex">
+                    <span jhiTranslate="appErpApp.itemComanda.valor">Valor</span>
+                  </div>
+                </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'O'); trackBy: trackId" data-cy="entityTable">
+                <td *ngIf="mostraId">
+                  <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
+                </td>
+
+                <td>
+                  <div *ngIf="itemComanda.tipoPagamento">
+                    {{ itemComanda.tipoPagamento.descricao }}
+                  </div>
+                </td>
+
+                <td>
+                  <p-inputNumber
+                    [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
+                    inputId="locale-user"
+                    [minFractionDigits]="2"
+                    name="valor"
+                    id="field_valor"
+                    data-cy="valor"
+                    [(ngModel)]="itemComanda.valor"
+                    (ngModelChange)="atualizaValor()"
+                  >
+                  </p-inputNumber>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </p-splitter>
+  <hr style="margin: 0" />
+  <div class="d-flex justify-content-end p-2">
+    <span style="font-size: larger; font-weight: bold">Total: {{ this.total | currency: 'R$' }}</span>
   </div>
-</div>
- -->
+  <hr style="margin: 0" />
+  <div class="d-flex justify-content-end p-2">
+    <button
+      style="margin: 2px"
+      type="button"
+      id="cancel-save"
+      data-cy="entityCreateCancelButton"
+      class="btn btn-secondary"
+      (click)="close()"
+    >
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+    </button>
+
+    <button style="margin: 2px" type="button" (click)="save()" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+    </button>
+  </div>
 </div>

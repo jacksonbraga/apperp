@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
@@ -16,9 +16,14 @@ import { IComanda } from '../comanda.model';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { EntityArrayResponseType, ComandaService } from '../service/comanda.service';
 import { ComandaDeleteDialogComponent } from '../delete/comanda-delete-dialog.component';
-import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ControleComandaService } from 'app/entities/controle-comanda/service/controle-comanda.service';
 import { IControleComanda } from 'app/entities/controle-comanda/controle-comanda.model';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ItemComandaComponent } from 'app/entities/item-comanda/list/item-comanda.component';
+import { ItemComandaUpdateComponent } from 'app/entities/item-comanda/update/item-comanda-update.component';
 
 @Component({
   standalone: true,
@@ -33,9 +38,12 @@ import { IControleComanda } from 'app/entities/controle-comanda/controle-comanda
     SortDirective,
     NgMultiSelectDropDownModule,
     SortByDirective,
+    ButtonModule,
     MultiSelectModule,
     DurationPipe,
     ReactiveFormsModule,
+    NgbDatepickerModule,
+    DialogModule,
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
     FilterComponent,
@@ -45,6 +53,7 @@ import { IControleComanda } from 'app/entities/controle-comanda/controle-comanda
 export class ComandaComponent implements OnInit {
   comandas?: IComanda[];
   isLoading = false;
+  visible = false;
 
   predicate = 'id';
   ascending = true;
@@ -69,6 +78,8 @@ export class ComandaComponent implements OnInit {
   selectedControles: any[] = [];
 
   dataFiltro = new Date().toISOString().substring(0, 10);
+
+  closeResult = '';
 
   constructor(
     protected comandaService: ComandaService,
@@ -124,6 +135,23 @@ export class ComandaComponent implements OnInit {
   delete(comanda: IComanda): void {
     const modalRef = this.modalService.open(ComandaDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.comanda = comanda;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed
+      .pipe(
+        filter(reason => reason === ITEM_DELETED_EVENT),
+        switchMap(() => this.loadFromBackendWithRouteInformations()),
+      )
+      .subscribe({
+        next: (res: EntityArrayResponseType) => {
+          this.onResponseSuccess(res);
+        },
+      });
+  }
+
+  delete2(comanda: any): void {
+    const modalRef = this.modalService.open(ItemComandaComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.argComanda = comanda.id;
+    modalRef.componentInstance.argControle = comanda.controleComanda.cor?.descricao;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed
       .pipe(
@@ -217,7 +245,6 @@ export class ComandaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBodyControle(response.body);
     this.listaControles = dataFromBody;
-
     this.filters.filterOptions.forEach(item => {
       if (item.name === 'controleComandaId.in') {
         item.values.forEach(valor => {
@@ -271,6 +298,14 @@ export class ComandaComponent implements OnInit {
     });
 
     return this.comandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected getBackgroundColor(cor: string | undefined | null): string {
+    if (!cor) {
+      return '';
+    } else {
+      return cor;
+    }
   }
 
   protected queryBackendControle(
