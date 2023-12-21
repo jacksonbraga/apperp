@@ -27,6 +27,16 @@ public class ItemComandaDTO implements Serializable {
 
     private String observacao;
 
+    private Long situacao;
+
+    public Long getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Long situacao) {
+        this.situacao = situacao;
+    }
+
     private LocalDate data;
 
     private Integer numero;

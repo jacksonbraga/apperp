@@ -12,6 +12,7 @@ export interface IItemComanda {
   numero?: number | null;
   qtde?: number | null;
   valor?: number | null;
+  situacao?: string | null;
   tipoPagamento?: Pick<ITipoPagamento, 'id' | 'descricao' | 'grupoPagamento'> | null;
   tipoServico?: Pick<ITipoServico, 'id' | 'descricao'> | null;
   comandaPai?: Pick<IComanda, 'id'> | null;

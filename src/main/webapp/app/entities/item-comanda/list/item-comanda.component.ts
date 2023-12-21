@@ -7,7 +7,7 @@ import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { FormsModule } from '@angular/forms';
-import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
+import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA, ITEM_ALTERED_EVENT } from 'app/config/navigation.constants';
 import { SortService } from 'app/shared/sort/sort.service';
 import { IItemComanda } from '../item-comanda.model';
 import { EntityArrayResponseType, ItemComandaService } from '../service/item-comanda.service';
@@ -17,7 +17,7 @@ import { HttpResponse } from '@angular/common/http';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TipoPagamentoService } from 'app/entities/tipo-pagamento/service/tipo-pagamento.service';
-
+import { AutoFocusModule } from 'primeng/autofocus';
 @Component({
   standalone: true,
   selector: 'jhi-item-comanda',
@@ -29,6 +29,7 @@ import { TipoPagamentoService } from 'app/entities/tipo-pagamento/service/tipo-p
     SortDirective,
     SortByDirective,
     InputNumberModule,
+    AutoFocusModule,
     InputTextModule,
     DurationPipe,
     FormatMediumDatetimePipe,
@@ -43,6 +44,7 @@ export class ItemComandaComponent implements OnInit {
   argControle = null;
   predicate = 'id';
   total: number = 0;
+  primeiro = 0;
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
   mostraId = false;
@@ -61,6 +63,7 @@ export class ItemComandaComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    document.getElementById('field_valor')?.focus();
   }
 
   delete(itemComanda: IItemComanda): void {
@@ -88,11 +91,14 @@ export class ItemComandaComponent implements OnInit {
   }
 
   save(): void {
+    this.itemComandas.forEach(item => {
+      item.situacao = '4';
+    });
     this.subscribeToSaveResponse(this.itemComandaService.updateLista(this.itemComandas));
-    this.close();
+    this.activeModal.close(ITEM_ALTERED_EVENT);
   }
 
-  atualizaValor() {
+  atualizaValor(): void {
     this.total = 0;
     this.itemComandas.forEach(item => {
       this.total += item.valor ?? 0;
@@ -125,6 +131,13 @@ export class ItemComandaComponent implements OnInit {
       next: () => this.onSaveSuccess(),
       error: () => this.onSaveError(),
     });
+  }
+
+  protected getFocus(index: number): boolean {
+    if (index === 0) {
+      return true;
+    }
+    return false;
   }
 
   protected onSaveSuccess(): void {

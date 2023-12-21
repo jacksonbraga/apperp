@@ -14,8 +14,8 @@
     <span jhiTranslate="appErpApp.itemComanda.home.notFound">Nenhum Item Comanda encontrado</span>
   </div>
 
-  <p-splitter [style]="{ height: 'auto' }">
-    <ng-template pTemplate>
+  <div class="d-flex justify-content-start">
+    <div class="col-3 p-1">
       <div class="col flex align-items-center justify-content-center">
         <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
           <table class="table table-striped" aria-describedby="page-heading">
@@ -42,11 +42,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'C'); trackBy: trackId" data-cy="entityTable">
+              <tr
+                *ngFor="let itemComanda of findPagamentos(itemComandas, 'C'); trackBy: trackId; let indexOfelement = index"
+                data-cy="entityTable"
+              >
                 <td *ngIf="mostraId">
                   <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
                 </td>
-
                 <td>
                   <div *ngIf="itemComanda.tipoPagamento">
                     {{ itemComanda.tipoPagamento.descricao }}
@@ -55,6 +57,8 @@
 
                 <td>
                   <p-inputNumber
+                    pAutoFocus
+                    [autofocus]="getFocus(indexOfelement)"
                     [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
                     inputId="locale-user"
                     [minFractionDigits]="2"
@@ -71,8 +75,8 @@
           </table>
         </div>
       </div>
-    </ng-template>
-    <ng-template pTemplate>
+    </div>
+    <div class="col-3 p-1">
       <div class="col flex align-items-center justify-content-center">
         <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
           <table class="table table-striped" aria-describedby="page-heading">
@@ -99,7 +103,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'D'); trackBy: trackId" data-cy="entityTable">
+              <tr
+                *ngFor="let itemComanda of findPagamentos(itemComandas, 'D'); trackBy: trackId; let indexOfelement = index"
+                data-cy="entityTable"
+              >
                 <td *ngIf="mostraId">
                   <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
                 </td>
@@ -112,6 +119,7 @@
 
                 <td>
                   <p-inputNumber
+                    autofocus
                     [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
                     inputId="locale-user"
                     [minFractionDigits]="2"
@@ -128,9 +136,8 @@
           </table>
         </div>
       </div>
-    </ng-template>
-
-    <ng-template pTemplate>
+    </div>
+    <div class="col-3 p-1">
       <div class="col flex align-items-center justify-content-center">
         <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
           <table class="table table-striped" aria-describedby="page-heading">
@@ -157,7 +164,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'T'); trackBy: trackId" data-cy="entityTable">
+              <tr
+                *ngFor="let itemComanda of findPagamentos(itemComandas, 'T'); trackBy: trackId; let indexOfelement = index"
+                data-cy="entityTable"
+              >
                 <td *ngIf="mostraId">
                   <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
                 </td>
@@ -170,6 +180,7 @@
 
                 <td>
                   <p-inputNumber
+                    autofocus
                     [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
                     inputId="locale-user"
                     [minFractionDigits]="2"
@@ -186,9 +197,8 @@
           </table>
         </div>
       </div>
-    </ng-template>
-
-    <ng-template pTemplate>
+    </div>
+    <div class="col-3 p-1">
       <div class="col flex align-items-center justify-content-center">
         <div class="table-responsive table-entities" id="entities" *ngIf="itemComandas && itemComandas.length > 0">
           <table class="table table-striped" aria-describedby="page-heading">
@@ -215,7 +225,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let itemComanda of findPagamentos(itemComandas, 'O'); trackBy: trackId" data-cy="entityTable">
+              <tr
+                *ngFor="let itemComanda of findPagamentos(itemComandas, 'O'); trackBy: trackId; let indexOfelement = index"
+                data-cy="entityTable"
+              >
                 <td *ngIf="mostraId">
                   <a [routerLink]="['/item-comanda', itemComanda.id, 'view']">{{ itemComanda.id }}</a>
                 </td>
@@ -228,6 +241,7 @@
 
                 <td>
                   <p-inputNumber
+                    autofocus
                     [inputStyle]="{ 'border-radius': '7px', 'text-align': 'right', width: '100%' }"
                     inputId="locale-user"
                     [minFractionDigits]="2"
@@ -244,27 +258,20 @@
           </table>
         </div>
       </div>
-    </ng-template>
-  </p-splitter>
-  <hr style="margin: 0" />
-  <div class="d-flex justify-content-end p-2">
-    <span style="font-size: larger; font-weight: bold">Total: {{ this.total | currency: 'R$' }}</span>
+    </div>
   </div>
-  <hr style="margin: 0" />
-  <div class="d-flex justify-content-end p-2">
-    <button
-      style="margin: 2px"
-      type="button"
-      id="cancel-save"
-      data-cy="entityCreateCancelButton"
-      class="btn btn-secondary"
-      (click)="close()"
-    >
-      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
-    </button>
+</div>
+<hr style="margin: 0" />
+<div class="d-flex justify-content-end p-2">
+  <span style="font-size: larger; font-weight: bold">Total: {{ this.total | currency: 'R$' }}</span>
+</div>
+<hr style="margin: 0" />
+<div class="d-flex justify-content-end p-2">
+  <button style="margin: 2px" type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="close()">
+    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+  </button>
 
-    <button style="margin: 2px" type="button" (click)="save()" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
-      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
-    </button>
-  </div>
+  <button style="margin: 2px" type="button" (click)="save()" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
+    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+  </button>
 </div>

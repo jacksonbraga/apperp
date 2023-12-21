@@ -1,11 +1,14 @@
 package com.apperp.web.rest;
 
 import com.apperp.repository.ItemComandaRepository;
+import com.apperp.service.ComandaService;
 import com.apperp.service.ItemComandaQueryService;
 import com.apperp.service.ItemComandaService;
 import com.apperp.service.criteria.ItemComandaCriteria;
+import com.apperp.service.dto.ComandaDTO;
 import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.ItemComandaDTO;
+import com.apperp.service.dto.SituacaoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,16 +39,20 @@ public class ItemComandaResource {
 
     private final ItemComandaService itemComandaService;
 
+    private final ComandaService comandaService;
+
     private final ItemComandaRepository itemComandaRepository;
 
     private final ItemComandaQueryService itemComandaQueryService;
 
     public ItemComandaResource(
         ItemComandaService itemComandaService,
+        ComandaService comandaService,
         ItemComandaRepository itemComandaRepository,
         ItemComandaQueryService itemComandaQueryService
     ) {
         this.itemComandaService = itemComandaService;
+        this.comandaService = comandaService;
         this.itemComandaRepository = itemComandaRepository;
         this.itemComandaQueryService = itemComandaQueryService;
     }
@@ -109,6 +116,15 @@ public class ItemComandaResource {
         for (ItemComandaDTO item : itensComandaDTO) {
             log.debug("REST request to update ItemComanda : {}, {}", item.getId(), item);
             itemComandaService.update(item);
+
+            SituacaoDTO situacao = new SituacaoDTO();
+            situacao.setId(item.getSituacao());
+
+            Optional<ComandaDTO> comanda = comandaService.findOne(item.getComanda().getId());
+            if (comanda.isPresent()) {
+                comanda.get().setSituacao(situacao);
+                comandaService.update(comanda.get());
+            }
         }
     }
 

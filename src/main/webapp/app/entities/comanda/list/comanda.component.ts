@@ -10,7 +10,7 @@ import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'ap
 import { ItemCountComponent } from 'app/shared/pagination';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
-import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
+import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA, ITEM_ALTERED_EVENT } from 'app/config/navigation.constants';
 import { FilterComponent, FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter';
 import { IComanda } from '../comanda.model';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -24,6 +24,7 @@ import { ButtonModule } from 'primeng/button';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ItemComandaComponent } from 'app/entities/item-comanda/list/item-comanda.component';
 import { ItemComandaUpdateComponent } from 'app/entities/item-comanda/update/item-comanda-update.component';
+import { ISituacao } from 'app/entities/situacao/situacao.model';
 
 @Component({
   standalone: true,
@@ -148,21 +149,17 @@ export class ComandaComponent implements OnInit {
       });
   }
 
-  delete2(comanda: any): void {
+  delete2(comanda: IComanda): void {
     const modalRef = this.modalService.open(ItemComandaComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.argComanda = comanda.id;
-    modalRef.componentInstance.argControle = comanda.controleComanda.cor?.descricao;
+    modalRef.componentInstance.argControle = comanda.controleComanda?.cor?.descricao;
     // unsubscribe not needed because closed completes on modal close
-    modalRef.closed
-      .pipe(
-        filter(reason => reason === ITEM_DELETED_EVENT),
-        switchMap(() => this.loadFromBackendWithRouteInformations()),
-      )
-      .subscribe({
-        next: (res: EntityArrayResponseType) => {
-          this.onResponseSuccess(res);
-        },
-      });
+    modalRef.closed.forEach(item => this.setaSituacao(comanda));
+  }
+
+  setaSituacao(comanda: IComanda): void {
+    const situacao: ISituacao = { id: 4, descricao: 'LANÇADA' };
+    comanda.situacao = situacao;
   }
 
   load(): void {
