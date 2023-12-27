@@ -3,6 +3,7 @@ package com.apperp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +37,9 @@ public class Comanda implements Serializable {
 
     @Column(name = "numero")
     private Integer numero;
+
+    @Column(name = "valor", precision = 21, scale = 2)
+    private BigDecimal valor;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comanda")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -124,6 +128,23 @@ public class Comanda implements Serializable {
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
+
+
+    public BigDecimal getValor() {
+        return this.valor;
+    }
+
+    public Comanda valor(BigDecimal valor) {
+        this.setValor(valor);
+        return this;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+
+
 
     public Set<ItemComanda> getItens() {
         return this.itens;

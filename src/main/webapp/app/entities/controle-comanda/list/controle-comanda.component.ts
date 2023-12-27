@@ -28,6 +28,7 @@ import { DatePipe } from '@angular/common';
     SortDirective,
     SortByDirective,
     DurationPipe,
+    
     ReactiveFormsModule,
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
@@ -61,7 +62,9 @@ export class ControleComandaComponent implements OnInit {
     protected modalService: NgbModal,
   ) {
     this.formGroup = this.formBuilder.group({
-      dataFiltro: new FormControl(new Date().toISOString().substring(0, 10)),
+
+      //myDate:[{year:2018,month:3,day:28}]
+      dataFiltro: [{year:2018,month:3,day:28}],
     });
   }
 

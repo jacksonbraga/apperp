@@ -11,6 +11,7 @@ export interface IComanda {
   situacao?: Pick<ISituacao, 'id' | 'descricao'> | null;
   controle?: Pick<IControleComanda, 'id' | 'descricao' | 'cor'> | null;
   controleComanda?: Pick<IControleComanda, 'id' | 'descricao' | 'cor'> | null;
+  valor?: number | null;
 }
 
 export type NewComanda = Omit<IComanda, 'id'> & { id: null };

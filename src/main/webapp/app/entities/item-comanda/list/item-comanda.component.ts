@@ -94,8 +94,15 @@ export class ItemComandaComponent implements OnInit {
     this.itemComandas.forEach(item => {
       item.situacao = '4';
     });
+
+    let total=0;
+    this.itemComandas.forEach(item => {
+      const valor = item.valor;
+      if(valor) total += valor;
+    });
+
     this.subscribeToSaveResponse(this.itemComandaService.updateLista(this.itemComandas));
-    this.activeModal.close(ITEM_ALTERED_EVENT);
+    this.activeModal.close(total);
   }
 
   atualizaValor(): void {

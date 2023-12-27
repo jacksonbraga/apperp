@@ -3,6 +3,7 @@ package com.apperp.service.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.math.BigDecimal;
 
 /**
  * A DTO for the {@link com.apperp.domain.ControleComanda} entity.
@@ -21,6 +22,8 @@ public class ControleComandaDTO implements Serializable {
     private LocalDate data;
 
     private CorDTO cor;
+
+    private BigDecimal valor;
 
     public Long getId() {
         return id;
@@ -60,6 +63,14 @@ public class ControleComandaDTO implements Serializable {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 
     public CorDTO getCor() {

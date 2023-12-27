@@ -23,7 +23,8 @@
       "faixaFim": "Término",
       "data": "Data",
       "comandas": "Comandas",
-      "cor": "Turno"
+      "cor": "Turno",
+      "valor": "Valor"
     }
   }
 }

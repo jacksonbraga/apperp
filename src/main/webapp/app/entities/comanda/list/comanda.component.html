@@ -1,8 +1,9 @@
 <div>
   <h2 id="page-heading" data-cy="ComandaHeading">
-    <span class="p-2" style="font-weight: bold" jhiTranslate="appErpApp.comanda.home.title">Comandas</span>
+    <span class="p-2" style="font-weight: bold">Comandas: {{ this.turno }} {{ this.data | formatMediumDate }} </span>
     <div class="d-flex justify-content-start">
-      <div class="col-3 p-2">
+
+<!--       <div class="col-3 p-2">
         <label
           class="form-label"
           style="font-size: medium; font-weight: bold"
@@ -23,7 +24,7 @@
         >
         </ng-multiselect-dropdown>
       </div>
-
+ -->
       <div class="col-2 p-2">
         <label class="form-label" style="font-size: medium; font-weight: bold" jhiTranslate="appErpApp.comanda.comanda" for="comanda_data"
           >Comanda</label
@@ -42,7 +43,7 @@
         </ng-multiselect-dropdown>
       </div>
 
-      <div class="col-2">
+      <div class="col-5">
         <button class="btn btn-info me-2" style="margin-top: 56px; margin-left: 5px" (click)="load()" [disabled]="isLoading">
           <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
           <span jhiTranslate="appErpApp.comanda.home.refreshListLabel">Atualizar lista</span>
@@ -103,12 +104,12 @@
             </div>
           </th>
 
-          <th scope="col" jhiSortBy="controleComanda.descricao">
+      <!--     <th scope="col" jhiSortBy="controleComanda.descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.turno">Controle Comanda</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
 
           <!--    <th scope="col" jhiSortBy="observacao">
             <div class="d-flex">
@@ -116,12 +117,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th> -->
-          <th scope="col" jhiSortBy="data">
+      <!--     <th scope="col" jhiSortBy="data">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.data">Data</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <!--   <th scope="col" jhiSortBy="numero">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.numero">Numero</span>
@@ -134,6 +135,16 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+
+          <th scope="col" jhiSortBy="situacao.valor">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.comanda.valor">Valor</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+
+
           <!--           <th scope="col" jhiSortBy="controle.id">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.controle">Controle</span>
@@ -149,21 +160,27 @@
             <a [routerLink]="['/comanda', comanda.id, 'view']">{{ comanda.id }}</a>
           </td>
           <td>{{ comanda.descricao }}</td>
-          <td>
+ <!--          <td>
             <div *ngIf="comanda.controleComanda">
               <span [style.background-color]="getBackgroundColor(comanda.controleComanda.cor?.valor)">{{
                 comanda.controleComanda.cor?.descricao
               }}</span>
             </div>
-          </td>
+          </td> -->
 
           <!-- <td>{{ comanda.observacao }}</td> -->
-          <td>{{ comanda.data | formatMediumDate }}</td>
+          <!-- <td>{{ comanda.data | formatMediumDate }}</td> -->
           <!-- <td>{{ comanda.numero }}</td> -->
 
           <td>
             <div *ngIf="comanda.situacao">
               {{ comanda.situacao.descricao }}
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="comanda.valor">
+              {{ comanda.valor | currency : ' '}}
             </div>
           </td>
           <!--           <td>

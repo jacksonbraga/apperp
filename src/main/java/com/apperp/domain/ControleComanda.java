@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.math.BigDecimal;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,6 +37,9 @@ public class ControleComanda implements Serializable {
 
     @Column(name = "data")
     private LocalDate data;
+
+    @Column(name = "valor", precision = 21, scale = 2)
+    private BigDecimal valor;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "controleComanda")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -116,6 +120,21 @@ public class ControleComanda implements Serializable {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public BigDecimal getValor() {
+        return this.valor;
+    }
+
+    public ControleComanda valor(BigDecimal valor) {
+        this.setValor(valor);
+        return this;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+
 
     public Set<Comanda> getComandas() {
         return this.comandas;

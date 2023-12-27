@@ -82,6 +82,9 @@ export class ComandaComponent implements OnInit {
 
   closeResult = '';
 
+  turno: string | null | undefined = '';
+  data: any | null | undefined;
+
   constructor(
     protected comandaService: ComandaService,
     protected controleComandaService: ControleComandaService,
@@ -104,18 +107,6 @@ export class ComandaComponent implements OnInit {
     this.load();
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
-
-    this.filters.filterOptions.forEach(item => {
-      if (item.name === 'controleComandaId.in') {
-        item.values.forEach(valor => {
-          const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
-          if (controlex) {
-            const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
-            this.selectedControles.push(controle);
-          }
-        });
-      }
-    });
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -154,12 +145,21 @@ export class ComandaComponent implements OnInit {
     modalRef.componentInstance.argComanda = comanda.id;
     modalRef.componentInstance.argControle = comanda.controleComanda?.cor?.descricao;
     // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.forEach(item => this.setaSituacao(comanda));
+    //modalRef.closed.forEach(item => this.setaSituacao(comanda));
+
+    modalRef.closed
+      .subscribe({
+        next: (res: number) => {
+          this.setaSituacao(comanda, res);
+        },
+      });
+
   }
 
-  setaSituacao(comanda: IComanda): void {
+  setaSituacao(comanda: IComanda, total: number): void {
     const situacao: ISituacao = { id: 4, descricao: 'LANÇADA' };
     comanda.situacao = situacao;
+    comanda.valor = total;
   }
 
   load(): void {
@@ -242,17 +242,19 @@ export class ComandaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBodyControle(response.body);
     this.listaControles = dataFromBody;
+
     this.filters.filterOptions.forEach(item => {
       if (item.name === 'controleComandaId.in') {
         item.values.forEach(valor => {
-          const controlex: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
-          if (controlex) {
-            const controle: IControleComanda = { id: Number(valor), descricao: controlex.descricao };
-            this.selectedControles.push(controle);
+          const controle: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
+          if (controle) {
+             this.turno = controle.cor?.descricao;
+             this.data  = controle.data;
           }
         });
       }
     });
+
   }
 
   protected fillComponentAttributesFromResponseBody(data: IComanda[] | null): IComanda[] {
