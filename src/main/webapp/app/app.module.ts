@@ -7,7 +7,7 @@ import { TitleStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import dayjs from 'dayjs/esm';
-import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -21,6 +21,7 @@ import MainComponent from './layouts/main/main.component';
 import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { CustomDateParserFormatter } from './config/datepicker-formater';
 
 @NgModule({
   imports: [
@@ -36,8 +37,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   ],
   providers: [
     Title,
-    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
     httpInterceptorProviders,
     { provide: TitleStrategy, useClass: AppPageTitleStrategy },
   ],

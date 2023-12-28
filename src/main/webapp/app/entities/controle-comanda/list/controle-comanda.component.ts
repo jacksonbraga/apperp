@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateAdapter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dayjs from 'dayjs/esm';
 import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
@@ -28,7 +28,7 @@ import { DatePipe } from '@angular/common';
     SortDirective,
     SortByDirective,
     DurationPipe,
-    
+
     ReactiveFormsModule,
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
@@ -52,7 +52,7 @@ export class ControleComandaComponent implements OnInit {
 
   maxDate: Date = new Date();
   ptbr: any;
-  dt: any;
+  //dt: any;
 
   constructor(
     protected controleComandaService: ControleComandaService,
@@ -60,11 +60,11 @@ export class ControleComandaComponent implements OnInit {
     public router: Router,
     private formBuilder: FormBuilder,
     protected modalService: NgbModal,
+    private ngbCalendar: NgbCalendar,
+    private dateAdapter: NgbDateAdapter<string>,
   ) {
     this.formGroup = this.formBuilder.group({
-
-      //myDate:[{year:2018,month:3,day:28}]
-      dataFiltro: [{year:2018,month:3,day:28}],
+      dataFiltro: new FormControl(this.dateAdapter.toModel(this.ngbCalendar.getToday())),
     });
   }
 
@@ -72,7 +72,7 @@ export class ControleComandaComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
-    this.dt = new Date();
+    //this.dt = new Date();
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
   }
 
@@ -166,7 +166,8 @@ export class ControleComandaComponent implements OnInit {
       queryObject[filterOption.name] = filterOption.values;
     });
     if (this.formGroup.get('dataFiltro')!.value) {
-      queryObject['data.equals'] = this.formGroup.get('dataFiltro')!.value;
+      console.log(dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD'));
+      queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
     }
 
     //this.controleComandaService.query({'data.equals':"2023-11-23"}).

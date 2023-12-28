@@ -109,9 +109,10 @@ export class ComandaComponent implements OnInit {
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
 
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'id',
       textField: 'descricao',
+      enableCheckAll: false,
       selectAllText: 'Selecione tudo',
       unSelectAllText: 'Limpar seleção',
       searchPlaceholderText: 'Pesquisar',
@@ -147,17 +148,19 @@ export class ComandaComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     //modalRef.closed.forEach(item => this.setaSituacao(comanda));
 
-    modalRef.closed
-      .subscribe({
-        next: (res: number) => {
-          this.setaSituacao(comanda, res);
-        },
-      });
-
+    modalRef.closed.subscribe({
+      next: (res: number) => {
+        this.setaSituacao(comanda, res);
+      },
+    });
   }
 
   setaSituacao(comanda: IComanda, total: number): void {
-    const situacao: ISituacao = { id: 4, descricao: 'LANÇADA' };
+    let situacao: ISituacao = { id: 1, descricao: 'ABERTA' };
+    if (total > 0) {
+      situacao = { id: 4, descricao: 'LANÇADA' };
+    }
+
     comanda.situacao = situacao;
     comanda.valor = total;
   }
@@ -177,12 +180,11 @@ export class ComandaComponent implements OnInit {
   }
 
   onItemSelectComandas(item: any): void {
-    // this.filters.removeFilter('id.in', item.id);
-    // this.filters.addFilter('id.in', item.id);
+    this.load();
   }
 
   onItemDeSelectComandas(item: any): void {
-    // this.filters.removeFilter('id.in', item.id);
+    this.load();
   }
 
   onSelectAllComandas(items: any): void {}
@@ -248,13 +250,12 @@ export class ComandaComponent implements OnInit {
         item.values.forEach(valor => {
           const controle: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
           if (controle) {
-             this.turno = controle.cor?.descricao;
-             this.data  = controle.data;
+            this.turno = controle.cor?.descricao;
+            this.data = controle.data;
           }
         });
       }
     });
-
   }
 
   protected fillComponentAttributesFromResponseBody(data: IComanda[] | null): IComanda[] {
