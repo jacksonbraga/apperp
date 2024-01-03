@@ -12,20 +12,17 @@
             >Data</label
           >
           <div class="input-group">
-            
             <input
-            id="field_data"
-            data-cy="data"
-            type="text"
-            class="form-control"
-            name="data"
-            ngbDatepicker
-            #dataDp="ngbDatepicker"
-            formControlName="dataFiltro"
-          />
-          <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
-
-
+              id="field_data"
+              data-cy="data"
+              type="text"
+              class="form-control"
+              name="data"
+              ngbDatepicker
+              #dataDp="ngbDatepicker"
+              formControlName="dataFiltro"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
 
             <!-- <input type="date" class="form-control" value="{{ dt | formatMediumDate }}" formControlName="dataFiltro" /> -->
             <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
@@ -115,6 +112,13 @@
             </div>
           </th>
 
+          <th scope="col" jhiSortBy="resumo">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.controleComanda.resumo">Resumo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
           <th scope="col"></th>
         </tr>
       </thead>
@@ -133,6 +137,7 @@
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.faixaFim }}</td>
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.data | formatMediumDate }}</td>
           <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.valor | currency: ' ' }}</td>
+          <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">{{ controleComanda.resumo }}</td>
           <!--      <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)">
             <div *ngIf="controleComanda.cor">
               <a [routerLink]="['/cor', controleComanda.cor.id, 'view']">{{ controleComanda.cor.descricao }}</a>

@@ -41,6 +41,17 @@ public class Comanda implements Serializable {
     @Column(name = "valor", precision = 21, scale = 2)
     private BigDecimal valor;
 
+    @Column(name = "resumo")
+    private String resumo;
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comanda")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "tipoPagamento", "tipoServico", "comandaPai", "comanda" }, allowSetters = true)
@@ -50,8 +61,8 @@ public class Comanda implements Serializable {
     private Situacao situacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "comandas", "cor", "listaComandas" }, allowSetters = true)
-    private ControleComanda controle;
+    @JsonIgnoreProperties(value = { "id", "descricao" }, allowSetters = true)
+    private Comanda controle;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "comandas", "cor", "listaComandas" }, allowSetters = true)
@@ -129,7 +140,6 @@ public class Comanda implements Serializable {
         this.numero = numero;
     }
 
-
     public BigDecimal getValor() {
         return this.valor;
     }
@@ -142,9 +152,6 @@ public class Comanda implements Serializable {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
-
-
-
 
     public Set<ItemComanda> getItens() {
         return this.itens;
@@ -190,15 +197,15 @@ public class Comanda implements Serializable {
         return this;
     }
 
-    public ControleComanda getControle() {
+    public Comanda getControle() {
         return this.controle;
     }
 
-    public void setControle(ControleComanda controleComanda) {
+    public void setControle(Comanda controleComanda) {
         this.controle = controleComanda;
     }
 
-    public Comanda controle(ControleComanda controleComanda) {
+    public Comanda controle(Comanda controleComanda) {
         this.setControle(controleComanda);
         return this;
     }

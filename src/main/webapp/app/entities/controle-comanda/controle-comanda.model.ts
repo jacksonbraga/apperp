@@ -9,6 +9,7 @@ export interface IControleComanda {
   data?: dayjs.Dayjs | null;
   cor?: Pick<ICor, 'id' | 'descricao' | 'valor'> | null;
   valor?: number | null;
+  resumo?: string | null;
 }
 
 export type NewControleComanda = Omit<IControleComanda, 'id'> & { id: null };

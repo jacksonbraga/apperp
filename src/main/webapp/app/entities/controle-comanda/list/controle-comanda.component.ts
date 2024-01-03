@@ -166,7 +166,6 @@ export class ControleComandaComponent implements OnInit {
       queryObject[filterOption.name] = filterOption.values;
     });
     if (this.formGroup.get('dataFiltro')!.value) {
-      console.log(dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD'));
       queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
     }
 

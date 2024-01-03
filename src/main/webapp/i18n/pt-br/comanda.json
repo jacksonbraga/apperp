@@ -5,7 +5,7 @@
         "title": "Comandas",
         "refreshListLabel": "Pesquisar",
         "createLabel": "Criar nova Comanda",
-        "createOrEditLabel": "Criar ou editar Comanda",
+        "createOrEditLabel": "Dados da ",
         "notFound": "Nenhuma Comanda encontrada"
       },
       "created": "Uma nova Comanda foi criada",
@@ -25,10 +25,12 @@
       "itens": "Itens",
       "situacao": "Situação",
       "controleComanda": "Controle de comanda",
-      "listaItens": "Itens",
+      "listaItens": "Itens da Comanda",
       "comanda": "Comanda",
       "turno": "Turno",
-      "valor": "Valor"
+      "valor": "Valor",
+      "resumo": "Resumo",
+      "comandaPagadora": "Comanda Pagadora"
     }
   }
 }

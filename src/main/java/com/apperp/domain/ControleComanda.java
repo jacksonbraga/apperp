@@ -3,9 +3,9 @@ package com.apperp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.math.BigDecimal;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -41,6 +41,17 @@ public class ControleComanda implements Serializable {
     @Column(name = "valor", precision = 21, scale = 2)
     private BigDecimal valor;
 
+    @Column(name = "resumo")
+    private String resumo;
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "controleComanda")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "itens", "situacao", "controle", "controleComanda", "listaItens" }, allowSetters = true)
@@ -49,10 +60,10 @@ public class ControleComanda implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Cor cor;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "controle")
+    /*     @OneToMany(fetch = FetchType.LAZY, mappedBy = "controle")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "itens", "situacao", "controle", "controleComanda", "listaItens" }, allowSetters = true)
-    private Set<Comanda> listaComandas = new HashSet<>();
+    private Set<Comanda> listaComandas = new HashSet<>(); */
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -134,8 +145,6 @@ public class ControleComanda implements Serializable {
         this.valor = valor;
     }
 
-
-
     public Set<Comanda> getComandas() {
         return this.comandas;
     }
@@ -180,11 +189,11 @@ public class ControleComanda implements Serializable {
         return this;
     }
 
-    public Set<Comanda> getListaComandas() {
+    /*     public Set<Comanda> getListaComandas() {
         return this.listaComandas;
     }
-
-    public void setListaComandas(Set<Comanda> comandas) {
+ */
+    /*    public void setListaComandas(Set<Comanda> comandas) {
         if (this.listaComandas != null) {
             this.listaComandas.forEach(i -> i.setControle(null));
         }
@@ -192,24 +201,24 @@ public class ControleComanda implements Serializable {
             comandas.forEach(i -> i.setControle(this));
         }
         this.listaComandas = comandas;
-    }
+    } */
 
-    public ControleComanda listaComandas(Set<Comanda> comandas) {
+    /*     public ControleComanda listaComandas(Set<Comanda> comandas) {
         this.setListaComandas(comandas);
         return this;
-    }
+    } */
 
-    public ControleComanda addListaComandas(Comanda comanda) {
+    /*    public ControleComanda addListaComandas(Comanda comanda) {
         this.listaComandas.add(comanda);
         comanda.setControle(this);
         return this;
-    }
+    } */
 
-    public ControleComanda removeListaComandas(Comanda comanda) {
+    /*    public ControleComanda removeListaComandas(Comanda comanda) {
         this.listaComandas.remove(comanda);
         comanda.setControle(null);
         return this;
-    }
+    } */
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

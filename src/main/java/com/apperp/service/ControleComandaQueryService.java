@@ -117,7 +117,7 @@ public class ControleComandaQueryService extends QueryService<ControleComanda> {
                         buildSpecification(criteria.getCorId(), root -> root.join(ControleComanda_.cor, JoinType.LEFT).get(Cor_.id))
                     );
             }
-            if (criteria.getListaComandasId() != null) {
+            /*    if (criteria.getListaComandasId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
@@ -125,7 +125,7 @@ public class ControleComandaQueryService extends QueryService<ControleComanda> {
                             root -> root.join(ControleComanda_.listaComandas, JoinType.LEFT).get(Comanda_.id)
                         )
                     );
-            }
+            } */
         }
         return specification;
     }

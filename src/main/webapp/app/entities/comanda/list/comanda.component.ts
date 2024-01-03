@@ -25,6 +25,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ItemComandaComponent } from 'app/entities/item-comanda/list/item-comanda.component';
 import { ItemComandaUpdateComponent } from 'app/entities/item-comanda/update/item-comanda-update.component';
 import { ISituacao } from 'app/entities/situacao/situacao.model';
+import { IRespostaItemComanda } from 'app/entities/situacao/resposta-item-comanda.model';
 
 @Component({
   standalone: true,
@@ -149,20 +150,21 @@ export class ComandaComponent implements OnInit {
     //modalRef.closed.forEach(item => this.setaSituacao(comanda));
 
     modalRef.closed.subscribe({
-      next: (res: number) => {
+      next: (res: IRespostaItemComanda) => {
         this.setaSituacao(comanda, res);
       },
     });
   }
 
-  setaSituacao(comanda: IComanda, total: number): void {
+  setaSituacao(comanda: IComanda, resposta: IRespostaItemComanda): void {
     let situacao: ISituacao = { id: 1, descricao: 'ABERTA' };
-    if (total > 0) {
+    if (resposta.total > 0) {
       situacao = { id: 4, descricao: 'LANÇADA' };
     }
 
     comanda.situacao = situacao;
-    comanda.valor = total;
+    comanda.valor = resposta.total;
+    comanda.resumo = resposta.resumo;
   }
 
   load(): void {
@@ -172,11 +174,11 @@ export class ComandaComponent implements OnInit {
       },
     });
 
-    this.loadFromBackendWithRouteInformationsControle().subscribe({
+    /*    this.loadFromBackendWithRouteInformationsControle().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccessControle(res);
       },
-    });
+    }); */
   }
 
   onItemSelectComandas(item: any): void {
@@ -218,12 +220,12 @@ export class ComandaComponent implements OnInit {
     );
   }
 
-  protected loadFromBackendWithRouteInformationsControle(): Observable<EntityArrayResponseType> {
+  /*  protected loadFromBackendWithRouteInformationsControle(): Observable<EntityArrayResponseType> {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
       switchMap(() => this.queryBackendControle(this.page, this.predicate, this.ascending, this.filters.filterOptions)),
     );
-  }
+  } */
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const page = params.get(PAGE_HEADER);
     this.page = +(page ?? 1);
@@ -237,6 +239,10 @@ export class ComandaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.comandas = dataFromBody;
+    this.comandas.forEach(item => {
+      this.turno = item.controleComanda?.cor?.descricao;
+      this.data = item.data;
+    });
     this.listaComandas = this.comandas;
   }
 
@@ -308,7 +314,7 @@ export class ComandaComponent implements OnInit {
     }
   }
 
-  protected queryBackendControle(
+  /*   protected queryBackendControle(
     page?: number,
     predicate?: string,
     ascending?: boolean,
@@ -327,7 +333,7 @@ export class ComandaComponent implements OnInit {
     });
     return this.controleComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
-
+ */
   protected handleNavigation(page = this.page, predicate?: string, ascending?: boolean, filterOptions?: IFilterOption[]): void {
     const queryParamsObj: any = {
       page,

@@ -18,6 +18,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TipoPagamentoService } from 'app/entities/tipo-pagamento/service/tipo-pagamento.service';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { IRespostaItemComanda } from 'app/entities/situacao/resposta-item-comanda.model';
+import { IControleComanda } from 'app/entities/controle-comanda/controle-comanda.model';
 @Component({
   standalone: true,
   selector: 'jhi-item-comanda',
@@ -92,9 +94,13 @@ export class ItemComandaComponent implements OnInit {
 
   save(): void {
     let total = 0;
+    let resumo = '';
     this.itemComandas.forEach(item => {
       const valor = item.valor;
-      if (valor) total += valor;
+      if (valor) {
+        total += valor;
+        resumo += item.tipoPagamento?.descricao + '(' + valor + '), ';
+      }
     });
 
     this.itemComandas.forEach(item => {
@@ -106,7 +112,9 @@ export class ItemComandaComponent implements OnInit {
     });
 
     this.subscribeToSaveResponse(this.itemComandaService.updateLista(this.itemComandas));
-    this.activeModal.close(total);
+    const controle: IControleComanda = { id: 29532 };
+    const resposta: IRespostaItemComanda = { total, resumo };
+    this.activeModal.close(resposta);
   }
 
   atualizaValor(): void {

@@ -2,8 +2,7 @@
   <h2 id="page-heading" data-cy="ComandaHeading">
     <span class="p-2" style="font-weight: bold">Comandas: {{ this.turno }} {{ this.data | formatMediumDate }} </span>
     <div class="d-flex justify-content-start">
-
-<!--       <div class="col-3 p-2">
+      <!--       <div class="col-3 p-2">
         <label
           class="form-label"
           style="font-size: medium; font-weight: bold"
@@ -43,14 +42,14 @@
         </ng-multiselect-dropdown>
       </div>
 
-      <div class="col-5">
+      <div class="col-1">
         <button class="btn btn-info me-2" style="margin-top: 56px; margin-left: 5px" (click)="load()" [disabled]="isLoading">
           <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
           <span jhiTranslate="appErpApp.comanda.home.refreshListLabel">Atualizar lista</span>
         </button>
       </div>
 
-      <div class="col-3" style="justify-content: flex-end; display: flex">
+      <div class="col-1">
         <button
           style="margin-top: 56px; margin-left: 5px; height: 38px"
           type="submit"
@@ -61,7 +60,8 @@
           <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
         </button>
       </div>
-      <div class="col-3">
+
+      <!--   <div class="col-3">
         <button
           style="margin-top: 56px; margin-left: 5px"
           id="jh-create-entity"
@@ -72,7 +72,7 @@
           <fa-icon icon="plus"></fa-icon>
           <span jhiTranslate="appErpApp.comanda.home.createLabel">Criar nova Comanda</span>
         </button>
-      </div>
+      </div> -->
     </div>
   </h2>
 
@@ -104,7 +104,7 @@
             </div>
           </th>
 
-      <!--     <th scope="col" jhiSortBy="controleComanda.descricao">
+          <!--     <th scope="col" jhiSortBy="controleComanda.descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.turno">Controle Comanda</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -117,7 +117,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th> -->
-      <!--     <th scope="col" jhiSortBy="data">
+          <!--     <th scope="col" jhiSortBy="data">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.comanda.data">Data</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -143,7 +143,19 @@
             </div>
           </th>
 
+          <th scope="col" jhiSortBy="situacao.resumo">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.comanda.resumo">Resumo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
 
+          <th scope="col" jhiSortBy="situacao.comandaPagadora">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.comanda.comandaPagadora">Resumo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
 
           <!--           <th scope="col" jhiSortBy="controle.id">
             <div class="d-flex">
@@ -151,7 +163,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th> -->
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
         </tr>
       </thead>
       <tbody>
@@ -160,7 +172,7 @@
             <a [routerLink]="['/comanda', comanda.id, 'view']">{{ comanda.id }}</a>
           </td>
           <td>{{ comanda.descricao }}</td>
- <!--          <td>
+          <!--          <td>
             <div *ngIf="comanda.controleComanda">
               <span [style.background-color]="getBackgroundColor(comanda.controleComanda.cor?.valor)">{{
                 comanda.controleComanda.cor?.descricao
@@ -180,9 +192,22 @@
 
           <td>
             <div *ngIf="comanda.valor">
-              {{ comanda.valor | currency : ' '}}
+              {{ comanda.valor | currency: ' ' }}
             </div>
           </td>
+
+          <td>
+            <div *ngIf="comanda.resumo">
+              {{ comanda.resumo }}
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="comanda.controle?.descricao">
+              {{ comanda.controle?.descricao }}
+            </div>
+          </td>
+
           <!--           <td>
             <div *ngIf="comanda.controle">
               <a [routerLink]="['/controle-comanda', comanda.controle.id, 'view']">{{ comanda.controle.id }}</a>

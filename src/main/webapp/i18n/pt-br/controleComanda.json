@@ -24,7 +24,8 @@
       "data": "Data",
       "comandas": "Comandas",
       "cor": "Turno",
-      "valor": "Valor"
+      "valor": "Valor",
+      "resumo": "Resumo"
     }
   }
 }

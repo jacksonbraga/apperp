@@ -1,8 +1,8 @@
 package com.apperp.service.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -23,11 +23,21 @@ public class ComandaDTO implements Serializable {
 
     private SituacaoDTO situacao;
 
-    private ControleComandaDTO controle;
+    private ComandaDTO controle;
 
     private ControleComandaDTO controleComanda;
 
     private BigDecimal valor;
+
+    private String resumo;
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
 
     public Long getId() {
         return id;
@@ -76,7 +86,7 @@ public class ComandaDTO implements Serializable {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
-    
+
     public SituacaoDTO getSituacao() {
         return situacao;
     }
@@ -85,11 +95,11 @@ public class ComandaDTO implements Serializable {
         this.situacao = situacao;
     }
 
-    public ControleComandaDTO getControle() {
+    public ComandaDTO getControle() {
         return controle;
     }
 
-    public void setControle(ControleComandaDTO controle) {
+    public void setControle(ComandaDTO controle) {
         this.controle = controle;
     }
 

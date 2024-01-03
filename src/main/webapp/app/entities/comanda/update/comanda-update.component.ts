@@ -28,6 +28,7 @@ export class ComandaUpdateComponent implements OnInit {
 
   situacaosSharedCollection: ISituacao[] = [];
   controleComandasSharedCollection: IControleComanda[] = [];
+  comandasSharedCollection: IComanda[] = [];
 
   editForm: ComandaFormGroup = this.comandaFormService.createComandaFormGroup();
 
@@ -128,5 +129,18 @@ export class ComandaUpdateComponent implements OnInit {
         ),
       )
       .subscribe((controleComandas: IControleComanda[]) => (this.controleComandasSharedCollection = controleComandas));
+
+    const queryObject: any = {
+      size: 1000,
+    };
+
+    queryObject['controleComandaId.in'] = this.comanda?.controleComanda?.id;
+    //  queryObject['id.notEquals'] = this.comanda?.id;
+
+    this.comandaService
+      .query(queryObject)
+      .pipe(map((res: HttpResponse<IComanda[]>) => res.body ?? []))
+      .pipe(map((comandas: IComanda[]) => this.comandaService.addComandaToCollectionIfMissing<IComanda>(comandas, this.comanda)))
+      .subscribe((comandas: IComanda[]) => (this.comandasSharedCollection = comandas.filter(item => item.id !== this.comanda?.id)));
   }
 }

@@ -1,12 +1,37 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="page-heading" data-cy="ItemComandaHeading">
+        <span style="font-size: 26px; font-weight: bold"
+          ><span style="font-size: 26px; font-weight: bold" jhiTranslate="appErpApp.comanda.home.createOrEditLabel">Item Comandas</span>
+          {{ comanda?.descricao }} do Turno: {{ comanda?.controleComanda?.cor?.descricao }}</span
+        >
+      </h2>
+
+      <!-- 
       <h2 id="jhi-comanda-heading" data-cy="ComandaCreateUpdateHeading" jhiTranslate="appErpApp.comanda.home.createOrEditLabel">
         Criar ou editar Comanda
-      </h2>
+      </h2> -->
 
       <div>
         <jhi-alert-error></jhi-alert-error>
+
+        <!--  <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.comanda.controleComanda" for="field_controleComanda">Controle Comanda</label>
+          <select
+            class="form-control"
+            id="field_controleComanda"
+            data-cy="controleComanda"
+            name="controleComanda"
+            formControlName="controleComanda"
+            [compareWith]="compareControleComanda"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="controleComandaOption" *ngFor="let controleComandaOption of controleComandasSharedCollection">
+              {{ controleComandaOption.descricao }}
+            </option>
+          </select>
+        </div> -->
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
@@ -15,7 +40,16 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.comanda.descricao" for="field_descricao">Descricao</label>
-          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+          <input
+            style="background-color: #e9ecef"
+            type="text"
+            class="form-control"
+            name="descricao"
+            id="field_descricao"
+            data-cy="descricao"
+            [readonly]="true"
+            formControlName="descricao"
+          />
         </div>
 
         <div class="mb-3">
@@ -36,21 +70,21 @@
             <input
               id="field_data"
               data-cy="data"
-              type="date"
+              type="text"
               class="form-control"
               name="data"
               ngbDatepicker
               #dataDp="ngbDatepicker"
               formControlName="data"
             />
-            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
           </div>
         </div>
 
-        <div class="mb-3">
+        <!--        <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.comanda.numero" for="field_numero">Numero</label>
           <input type="number" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.comanda.situacao" for="field_situacao">Situacao</label>
@@ -69,8 +103,8 @@
           </select>
         </div>
 
-        <!--         <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.comanda.controle" for="field_controle">Controle</label>
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.comanda.comandaPagadora" for="field_controle">Controle</label>
           <select
             class="form-control"
             id="field_controle"
@@ -80,25 +114,8 @@
             [compareWith]="compareControleComanda"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="controleComandaOption" *ngFor="let controleComandaOption of controleComandasSharedCollection">
-              {{ controleComandaOption.id }}
-            </option>
-          </select>
-        </div>
- -->
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.comanda.controleComanda" for="field_controleComanda">Controle Comanda</label>
-          <select
-            class="form-control"
-            id="field_controleComanda"
-            data-cy="controleComanda"
-            name="controleComanda"
-            formControlName="controleComanda"
-            [compareWith]="compareControleComanda"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="controleComandaOption" *ngFor="let controleComandaOption of controleComandasSharedCollection">
-              {{ controleComandaOption.descricao }}
+            <option [ngValue]="comandaOption" *ngFor="let comandaOption of comandasSharedCollection">
+              {{ comandaOption.descricao }} {{ comandaOption.controleComanda?.cor?.descricao }}
             </option>
           </select>
         </div>
