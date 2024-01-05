@@ -5,6 +5,7 @@ import com.apperp.service.ControleComandaQueryService;
 import com.apperp.service.ControleComandaService;
 import com.apperp.service.criteria.ControleComandaCriteria;
 import com.apperp.service.dto.ControleComandaDTO;
+import com.apperp.service.dto.PreviaFechamentoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -203,5 +204,18 @@ public class ControleComandaResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /controle-comandas/previa-fechamento:id} : get the "id" controleComanda.
+     *
+     * @param id the id of the controleComandaDTO to previa-fechamento.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the previaFechamentoDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/previa-fechamento/{id}")
+    public ResponseEntity<PreviaFechamentoDTO> getPreviaFechamento(@PathVariable Long id) {
+        log.debug("REST request to get PreviaFechamento : {}", id);
+        Optional<PreviaFechamentoDTO> previaFechamentoDTO = controleComandaService.previaFechamento(id);
+        return ResponseUtil.wrapOrNotFound(previaFechamentoDTO);
     }
 }

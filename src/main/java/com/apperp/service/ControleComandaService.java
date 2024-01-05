@@ -1,6 +1,7 @@
 package com.apperp.service;
 
 import com.apperp.service.dto.ControleComandaDTO;
+import com.apperp.service.dto.PreviaFechamentoDTO;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,4 +64,6 @@ public interface ControleComandaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<PreviaFechamentoDTO> previaFechamento(Long id);
 }

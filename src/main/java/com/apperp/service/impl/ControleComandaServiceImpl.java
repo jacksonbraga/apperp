@@ -13,6 +13,7 @@ import com.apperp.repository.TipoPagamentoRepository;
 import com.apperp.repository.TipoServicoRepository;
 import com.apperp.service.ControleComandaService;
 import com.apperp.service.dto.ControleComandaDTO;
+import com.apperp.service.dto.PreviaFechamentoDTO;
 import com.apperp.service.mapper.ControleComandaMapper;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -230,5 +231,13 @@ public class ControleComandaServiceImpl implements ControleComandaService {
     public void delete(Long id) {
         log.debug("Request to delete ControleComanda : {}", id);
         controleComandaRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<PreviaFechamentoDTO> previaFechamento(Long id) {
+        PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+        previaFechamentoDTO.setDescricao("TESTE JACKSON");
+
+        return Optional.of(previaFechamentoDTO);
     }
 }

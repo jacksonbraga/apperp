@@ -25,7 +25,11 @@
       "comandas": "Comandas",
       "cor": "Turno",
       "valor": "Valor",
-      "resumo": "Resumo"
+      "resumo": "Situação das Comandas",
+      "qtde": "Qtde de Comandas",
+      "fechamento": "Fechar",
+      "previa": "Prévia do Fechamento",
+      "previaQuestion": "Tem certeza de que deseja fechar o movimento desse Controle Comanda ?"
     }
   }
 }

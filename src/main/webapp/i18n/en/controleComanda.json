@@ -24,7 +24,8 @@
       "data": "Data",
       "comandas": "Comandas",
       "cor": "Cor",
-      "listaComandas": "Lista Comandas"
+      "listaComandas": "Lista Comandas",
+      "qtde": "Qtde de Comandas"
     }
   }
 }

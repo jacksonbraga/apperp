@@ -10,6 +10,7 @@ export interface IControleComanda {
   cor?: Pick<ICor, 'id' | 'descricao' | 'valor'> | null;
   valor?: number | null;
   resumo?: string | null;
+  qtdeComandas?: number | null;
 }
 
 export type NewControleComanda = Omit<IControleComanda, 'id'> & { id: null };

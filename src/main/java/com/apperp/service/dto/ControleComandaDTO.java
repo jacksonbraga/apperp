@@ -27,6 +27,16 @@ public class ControleComandaDTO implements Serializable {
 
     private String resumo;
 
+    private Long qtdeComandas;
+
+    public Long getQtdeComandas() {
+        return qtdeComandas;
+    }
+
+    public void setQtdeComandas(Long qtdeComandas) {
+        this.qtdeComandas = qtdeComandas;
+    }
+
     public String getResumo() {
         return resumo;
     }

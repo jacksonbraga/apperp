@@ -111,7 +111,8 @@
       "open": "Abrir",
       "save": "Salvar",
       "view": "Visualizar",
-      "show": "{{otherEntity}}"
+      "show": "{{otherEntity}}",
+      "confirm": "Confirmar"
     },
     "detail": {
       "field": "Campo",

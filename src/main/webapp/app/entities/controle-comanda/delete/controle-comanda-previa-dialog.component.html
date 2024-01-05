@@ -1,0 +1,67 @@
+<form *ngIf="controleComanda" name="previaForm" (ngSubmit)="confirmPrevia(controleComanda.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="controleComandaPreviaDialogHeading" jhiTranslate="appErpApp.controleComanda.previa">
+      Previa do Fechamento
+    </h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="table-responsive table-entities" id="entities" *ngIf="previaFechamento && previaFechamento.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="d-flex">
+                <span>Tipo</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">
+                <span>Descrição</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let previa of previaFechamento" data-cy="entityTable">
+            <!-- <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)"> -->
+            <td>
+              <div *ngIf="previa.tipo">
+                {{ previa.tipo }}
+              </div>
+            </td>
+
+            <td>
+              <div *ngIf="previa.descricao">
+                {{ previa.descricao }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p
+      id="jhi-previa-controleComanda-heading"
+      jhiTranslate="appErpApp.controleComanda.previaQuestion"
+      [translateValues]="{ id: controleComanda.id }"
+    >
+      Tem certeza de que deseja fechar o movimento desse Controle Comanda {{ controleComanda.id }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+    </button>
+
+    <button id="jhi-confirm-delete-controleComanda" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.confirm">Confirmar</span>
+    </button>
+  </div>
+</form>

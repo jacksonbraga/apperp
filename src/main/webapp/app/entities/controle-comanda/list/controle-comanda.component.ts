@@ -16,6 +16,7 @@ import { IControleComanda } from '../controle-comanda.model';
 import { EntityArrayResponseType, ControleComandaService } from '../service/controle-comanda.service';
 import { ControleComandaDeleteDialogComponent } from '../delete/controle-comanda-delete-dialog.component';
 import { DatePipe } from '@angular/common';
+import { ControleComandaPreviaDialogComponent } from '../delete/controle-comanda-previa-dialog.component';
 
 @Component({
   standalone: true,
@@ -205,5 +206,23 @@ export class ControleComandaComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  protected previaFechamento(controle: IControleComanda): void {
+    const previaFechamento = 'TESTE JACKSON FRONTEND';
+
+    const modalRef = this.modalService.open(ControleComandaPreviaDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.controleComanda = controle;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed
+      .pipe(
+        filter(reason => reason === ITEM_DELETED_EVENT),
+        switchMap(() => this.loadFromBackendWithRouteInformations()),
+      )
+      .subscribe({
+        next: (res: EntityArrayResponseType) => {
+          this.onResponseSuccess(res);
+        },
+      });
   }
 }
