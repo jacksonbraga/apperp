@@ -15,10 +15,18 @@ import com.apperp.service.ControleComandaService;
 import com.apperp.service.dto.ControleComandaDTO;
 import com.apperp.service.dto.PreviaFechamentoDTO;
 import com.apperp.service.mapper.ControleComandaMapper;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -234,10 +242,153 @@ public class ControleComandaServiceImpl implements ControleComandaService {
     }
 
     @Override
-    public Optional<PreviaFechamentoDTO> previaFechamento(Long id) {
-        PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
-        previaFechamentoDTO.setDescricao("TESTE JACKSON");
+    public List<PreviaFechamentoDTO> previaFechamento(Long id) {
+        String formato = "#,##0.00";
+        DecimalFormat d = new DecimalFormat(formato);
 
-        return Optional.of(previaFechamentoDTO);
+        List<PreviaFechamentoDTO> lista = new ArrayList<>();
+
+        List<Comanda> listaComandas = this.comandaRepository.findAllByControleComandaId(id);
+
+        for (Comanda comanda : listaComandas) {
+            List<ItemComanda> itens = this.itemComandaRepository.findAllByComandaId(comanda.getId());
+            for (ItemComanda item : itens) {
+                if (item.getTipoPagamento().getId().equals(19L) && item.getValor() != null) {
+                    if (comanda.getControle() == null) {
+                        PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+                        previaFechamentoDTO.setDescricao(
+                            "A COMANDA " +
+                            comanda.getDescricao() +
+                            " POSSUI O VALOR: " +
+                            d.format(item.getValor() != null ? item.getValor() : 0) +
+                            " PARA SER RECEBIDO EM OUTRA COMANDA, PORÉM NÃO FOI INFORMADA A COMANDA PAGADORA."
+                        );
+                        previaFechamentoDTO.setValor(d.format(item.getValor() != null ? item.getValor() : 0));
+                        previaFechamentoDTO.setTipo("ERRO");
+                        lista.add(previaFechamentoDTO);
+                    }
+                }
+            }
+        }
+
+        listaComandas
+            .stream()
+            .filter(x -> x.getValor() != null && x.getControle() != null)
+            .collect(
+                Collectors.groupingBy(
+                    comanda -> comanda.getControle(),
+                    Collectors.reducing(
+                        BigDecimal.ZERO,
+                        comanda -> comanda.getValor() != null ? comanda.getValor() : BigDecimal.ZERO,
+                        BigDecimal::add
+                    )
+                )
+            )
+            .forEach((comandaAssociada, total) -> {
+                if (!comandaAssociada.getValor().equals(total)) {
+                    PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+                    previaFechamentoDTO.setDescricao(
+                        "O VALOR DA COMANDA " +
+                        comandaAssociada.getDescricao() +
+                        ": " +
+                        d.format(comandaAssociada.getValor()) +
+                        " NÃO REFLETE A SOMA DAS COMANDAS ASSOCIADAS: " +
+                        d.format(total)
+                    );
+                    previaFechamentoDTO.setValor(d.format(comandaAssociada.getValor()));
+                    previaFechamentoDTO.setTipo("ERRO");
+                    lista.add(previaFechamentoDTO);
+                }
+            });
+
+        Long maiorLancada = listaComandas
+            .stream()
+            .filter(comanda -> comanda.getSituacao().getId().equals(4L))
+            .mapToLong(Comanda::getId)
+            .max()
+            .orElse(0L);
+
+        Long menorAberta = listaComandas
+            .stream()
+            .filter(comanda -> comanda.getSituacao().getId().equals(1L))
+            .mapToLong(Comanda::getId)
+            .min()
+            .orElse(0L);
+
+        if (menorAberta != 0L && menorAberta < maiorLancada) {
+            PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+            previaFechamentoDTO.setDescricao("EXISTEM COMANDAS NÃO LANÇADAS");
+            previaFechamentoDTO.setValor(String.valueOf(menorAberta));
+            previaFechamentoDTO.setTipo("ERRO");
+            lista.add(previaFechamentoDTO);
+        }
+
+        BigDecimal valorTotal = listaComandas
+            .stream()
+            .filter(x -> x.getValor() != null)
+            .map(Comanda::getValor)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (valorTotal != null) {
+            PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+            previaFechamentoDTO.setDescricao("VALOR TOTAL");
+            previaFechamentoDTO.setValor(d.format(valorTotal));
+            previaFechamentoDTO.setTipo("INFO");
+            lista.add(previaFechamentoDTO);
+        }
+
+        listaComandas
+            .stream()
+            .collect(Collectors.groupingBy(comanda -> comanda.getSituacao(), Collectors.counting()))
+            .forEach((situacao, count) -> {
+                PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+                previaFechamentoDTO.setDescricao(situacao.getDescricao());
+                previaFechamentoDTO.setValor(String.valueOf(count));
+                previaFechamentoDTO.setTipo("INFO");
+                lista.add(previaFechamentoDTO);
+            });
+
+        listaComandas
+            .stream()
+            .collect(Collectors.groupingBy(comanda -> comanda.getSituacao(), Collectors.counting()))
+            .forEach((situacao, count) -> {
+                if (situacao.getId().equals(1L)) {
+                    PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
+                    previaFechamentoDTO.setDescricao(String.valueOf(count) + " COMANDAS SERÃO CONSIDERADAS NÃO UTILIZADAS");
+                    previaFechamentoDTO.setValor(String.valueOf(count));
+                    previaFechamentoDTO.setTipo("ALERTA");
+                    lista.add(previaFechamentoDTO);
+                }
+            });
+
+        return lista;
+    }
+
+    @Override
+    public void atualizaPreviaFechamento(Long id) {
+        List<Comanda> listaComandas = this.comandaRepository.findAllByControleComandaId(id);
+
+        Long maiorLancada = listaComandas
+            .stream()
+            .filter(comanda -> comanda.getSituacao().getId().equals(4L))
+            .mapToLong(comanda -> comanda.getId())
+            .max()
+            .orElse(0L);
+
+        for (Comanda comanda : listaComandas) {
+            Situacao situacao = new Situacao();
+            if (comanda.getSituacao().getId() == 1L && comanda.getId() < maiorLancada) {
+                situacao.setId(7L);
+                comanda.setSituacao(situacao);
+            } else if (comanda.getSituacao().getId() == 1L && comanda.getId() >= maiorLancada) {
+                situacao.setId(6L);
+                comanda.setSituacao(situacao);
+            } else if (comanda.getSituacao().getId() == 4L) {
+                situacao.setId(2L);
+                comanda.setSituacao(situacao);
+            }
+
+            this.comandaRepository.save(comanda);
+        }
     }
 }

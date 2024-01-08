@@ -24,21 +24,33 @@
                 <span>Descrição</span>
               </div>
             </th>
+
+            <th scope="col">
+              <div class="d-flex">
+                <span>Valor</span>
+              </div>
+            </th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let previa of previaFechamento" data-cy="entityTable">
             <!-- <td [style.background-color]="getBackgroundColor(controleComanda.cor?.valor)"> -->
-            <td>
+            <td [style.color]="getBackgroundColor(previa.tipo)" [style.font-weight]="getFont(previa.tipo)">
               <div *ngIf="previa.tipo">
                 {{ previa.tipo }}
               </div>
             </td>
 
-            <td>
+            <td [style.color]="getBackgroundColor(previa.tipo)" [style.font-weight]="getFont(previa.tipo)">
               <div *ngIf="previa.descricao">
                 {{ previa.descricao }}
+              </div>
+            </td>
+
+            <td [style.color]="getBackgroundColor(previa.tipo)" [style.font-weight]="getFont(previa.tipo)">
+              <div *ngIf="previa.valor">
+                {{ previa.valor }}
               </div>
             </td>
           </tr>
@@ -47,9 +59,10 @@
     </div>
 
     <p
+      style="font-weight: bold"
       id="jhi-previa-controleComanda-heading"
       jhiTranslate="appErpApp.controleComanda.previaQuestion"
-      [translateValues]="{ id: controleComanda.id }"
+      [translateValues]="{ turno: controleComanda.cor?.descricao, data: controleComanda.data | formatMediumDate }"
     >
       Tem certeza de que deseja fechar o movimento desse Controle Comanda {{ controleComanda.id }}?
     </p>

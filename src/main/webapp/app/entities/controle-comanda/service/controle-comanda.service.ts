@@ -11,6 +11,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IControleComanda, NewControleComanda } from '../controle-comanda.model';
+import { IControleComandaPrevia } from '../controle-comanda-previa.model';
 
 export type PartialUpdateControleComanda = Partial<IControleComanda> & Pick<IControleComanda, 'id'>;
 
@@ -132,5 +133,13 @@ export class ControleComandaService {
     return res.clone({
       body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
     });
+  }
+
+  previa(id?: number): Observable<IControleComandaPrevia[]> {
+    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/previa-fechamento/' + id);
+  }
+
+  atualizaPrevia(id?: number): Observable<IControleComandaPrevia[]> {
+    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/atualiza-previa-fechamento/' + id);
   }
 }

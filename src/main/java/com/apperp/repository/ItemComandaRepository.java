@@ -2,6 +2,7 @@ package com.apperp.repository;
 
 import com.apperp.domain.ItemComanda;
 import com.apperp.service.dto.IRelatorio;
+import com.apperp.service.dto.IRelatorioComanda;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -112,4 +113,25 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         nativeQuery = true
     )
     List<IRelatorio> listaRelatorioPorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
+
+    @Query(
+        value = "select \"Comandas\" as grupoComanda,\r\n" + //
+        "\"Turnos\"  as grupo,\r\n" + //
+        "       cor.descricao as turno,\r\n" + //
+        "       s.descricao as situacao,\r\n" + //
+        "       day(cc.data) as dia,\r\n" + //
+        "\t   month(cc.data) as mes,\r\n" + //
+        "\t   year(cc.data) as ano,\r\n" + //
+        "       count(distinct c.id) as qtde\r\n" + //
+        " from comanda c \r\n" + //
+        " inner join controle_comanda cc on cc.id = c.controle_comanda_id \r\n" + //
+        " inner join cor\tcor on cor.id = cc.cor_id \r\n" + //
+        " inner join situacao s on s.id = c.situacao_id \r\n" + //
+        " where cc.data between :dataInicio and :dataFim\t\r\n" + //
+        " group by cor.descricao,s.descricao,day(cc.data), month(cc.data),year(cc.data)",
+        nativeQuery = true
+    )
+    List<IRelatorioComanda> listaRelatorioComandaPorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
+
+    List<ItemComanda> findAllByComandaId(Long id);
 }

@@ -69,6 +69,12 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'appErpApp.relatorio.home.title' },
         loadChildren: () => import('./relatorio/relatorio.routes'),
       },
+      {
+        path: 'relatorio-comanda',
+        data: { pageTitle: 'appErpApp.relatorioComanda.home.title' },
+        loadChildren: () => import('./relatorio-comanda/relatorio-comanda.routes'),
+      },
+
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

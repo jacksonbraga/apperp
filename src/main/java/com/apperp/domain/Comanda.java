@@ -38,7 +38,7 @@ public class Comanda implements Serializable {
     @Column(name = "numero")
     private Integer numero;
 
-    @Column(name = "valor", precision = 21, scale = 2)
+    @Column(name = "valor", precision = 21, scale = 2, updatable = false)
     private BigDecimal valor;
 
     @Column(name = "resumo")

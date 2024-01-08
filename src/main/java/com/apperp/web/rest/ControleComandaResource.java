@@ -213,9 +213,16 @@ public class ControleComandaResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the previaFechamentoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/previa-fechamento/{id}")
-    public ResponseEntity<PreviaFechamentoDTO> getPreviaFechamento(@PathVariable Long id) {
+    public ResponseEntity<List<PreviaFechamentoDTO>> getPreviaFechamento(@PathVariable Long id) {
         log.debug("REST request to get PreviaFechamento : {}", id);
-        Optional<PreviaFechamentoDTO> previaFechamentoDTO = controleComandaService.previaFechamento(id);
-        return ResponseUtil.wrapOrNotFound(previaFechamentoDTO);
+        List<PreviaFechamentoDTO> lista = controleComandaService.previaFechamento(id);
+        return ResponseEntity.ok().body(lista);
+    }
+
+    @GetMapping("/atualiza-previa-fechamento/{id}")
+    public void atualizaPreviaFechamento(@PathVariable Long id) {
+        log.debug("REST request to get PreviaFechamento : {}", id);
+        controleComandaService.atualizaPreviaFechamento(id);
+        //return ResponseEntity.ok().body(lista);
     }
 }

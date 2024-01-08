@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import SharedModule from 'app/shared/shared.module';
-import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 import { IControleComanda } from '../controle-comanda.model';
-import { ControleComandaService } from '../service/controle-comanda.service';
 import { IControleComandaPrevia } from '../controle-comanda-previa.model';
+import { FormatMediumDatePipe } from 'app/shared/date';
+import { ControleComandaService } from '../service/controle-comanda.service';
 
 @Component({
   standalone: true,
   templateUrl: './controle-comanda-previa-dialog.component.html',
-  imports: [SharedModule, FormsModule],
+  imports: [SharedModule, FormsModule, FormatMediumDatePipe],
 })
-export class ControleComandaPreviaDialogComponent {
+export class ControleComandaPreviaDialogComponent implements OnInit {
   controleComanda?: IControleComanda;
   previaFechamento: IControleComandaPrevia[] = [];
 
-  mensagem: string = 'TESTE JACKSON FRONTENDA';
-
   constructor(
-    protected controleComandaService: ControleComandaService,
     protected activeModal: NgbActiveModal,
-  ) {
-    const previa: IControleComandaPrevia = { descricao: 'TESTE' };
+    protected controleComandaService: ControleComandaService,
+  ) {}
 
-    this.previaFechamento.push(previa);
+  ngOnInit(): void {
+    this.controleComandaService.previa(this.controleComanda?.id).subscribe(res => {
+      this.previaFechamento = res;
+    });
   }
 
   cancel(): void {
@@ -33,8 +33,32 @@ export class ControleComandaPreviaDialogComponent {
   }
 
   confirmPrevia(id: number): void {
-    this.controleComandaService.delete(id).subscribe(() => {
-      this.activeModal.close(ITEM_DELETED_EVENT);
+    this.controleComandaService.atualizaPrevia(this.controleComanda?.id).subscribe(res => {
+      this.activeModal.close();
     });
+  }
+
+  protected getBackgroundColor(tipo: string | undefined | null): string {
+    if (!tipo) {
+      return '';
+    } else if (tipo === 'ERRO') {
+      return '#ff0000';
+    } else if (tipo === 'ALERTA') {
+      return '#0000ff';
+    } else {
+      return '';
+    }
+  }
+
+  protected getFont(tipo: string | undefined | null): string {
+    if (!tipo) {
+      return '';
+    } else if (tipo === 'ERRO') {
+      return 'bold';
+    } else if (tipo === 'ALERTA') {
+      return 'bold';
+    } else {
+      return '';
+    }
   }
 }

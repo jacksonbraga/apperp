@@ -6,6 +6,7 @@ import com.apperp.repository.ItemComandaRepository;
 import com.apperp.repository.TipoPagamentoRepository;
 import com.apperp.service.criteria.ItemComandaCriteria;
 import com.apperp.service.dto.IRelatorio;
+import com.apperp.service.dto.IRelatorioComanda;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.mapper.ItemComandaMapper;
 import jakarta.persistence.criteria.JoinType;
@@ -69,6 +70,11 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
     @Transactional(readOnly = true)
     public List<IRelatorio> listaRelatorioPorDia(String dataInicio, String dataFim) {
         return itemComandaRepository.listaRelatorioPorDia(dataInicio, dataFim);
+    }
+
+    @Transactional(readOnly = true)
+    public List<IRelatorioComanda> listaRelatorioComandaPorDia(String dataInicio, String dataFim) {
+        return itemComandaRepository.listaRelatorioComandaPorDia(dataInicio, dataFim);
     }
 
     /**

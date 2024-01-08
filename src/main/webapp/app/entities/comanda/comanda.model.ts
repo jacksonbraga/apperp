@@ -9,8 +9,8 @@ export interface IComanda {
   data?: dayjs.Dayjs | null;
   numero?: number | null;
   situacao?: Pick<ISituacao, 'id' | 'descricao'> | null;
-  controle?: Pick<IControleComanda, 'id' | 'descricao' | 'cor' | 'data'> | null;
-  controleComanda?: Pick<IControleComanda, 'id' | 'descricao' | 'cor' | 'data'> | null;
+  controle?: Pick<IComanda, 'id' | 'descricao' | 'data' | 'valor'> | null;
+  controleComanda?: Pick<IControleComanda, 'id' | 'descricao' | 'cor' | 'data' | 'valor'> | null;
   valor?: number | null;
   resumo?: string | null;
 }

@@ -41,4 +41,8 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>, JpaSpec
     Optional<Comanda> findOneWithToOneRelationships(@Param("id") Long id);
 
     List<Comanda> findByNumeroAndControleComandaId(Long i, Long id);
+
+    List<Comanda> findAllByControleId(Long id);
+
+    List<Comanda> findAllByControleComandaId(Long id);
 }

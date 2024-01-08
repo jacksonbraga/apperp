@@ -1,0 +1,26 @@
+{
+  "appErpApp": {
+    "relatorioComanda": {
+      "dataInicio": "Início",
+      "dataTermino": "Término",
+      "home": {
+        "title": "Relatório",
+        "refreshListLabel": "Pesquisar",
+        "createLabel": "Criar novo Relatório",
+        "createOrEditLabel": "Criar ou editar Relatório",
+        "notFound": "Nenhum Relatório encontrado"
+      },
+      "created": "Um novo Relatório foi criado",
+      "updated": "Um Relatório foi atualizado",
+      "deleted": "Um Relatório foi excluído",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir essa Relatório ?"
+      },
+      "detail": {
+        "title": "Relatório"
+      },
+      "id": "ID",
+      "descricao": "Descrição"
+    }
+  }
+}

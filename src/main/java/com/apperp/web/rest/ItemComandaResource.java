@@ -7,6 +7,7 @@ import com.apperp.service.ItemComandaService;
 import com.apperp.service.criteria.ItemComandaCriteria;
 import com.apperp.service.dto.ComandaDTO;
 import com.apperp.service.dto.IRelatorio;
+import com.apperp.service.dto.IRelatorioComanda;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.dto.SituacaoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
@@ -193,6 +194,14 @@ public class ItemComandaResource {
     @GetMapping("/relatorio/{dataInicio}/{dataFim}")
     public ResponseEntity<List<IRelatorio>> listaRelatorioPorDia(@PathVariable String dataInicio, @PathVariable String dataFim) {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioPorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-comanda/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioComanda>> listaRelatorioComandaPorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioComandaPorDia(dataInicio, dataFim));
     }
 
     /**

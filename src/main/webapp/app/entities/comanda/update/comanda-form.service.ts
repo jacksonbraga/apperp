@@ -23,6 +23,7 @@ type ComandaFormGroupContent = {
   data: FormControl<IComanda['data']>;
   numero: FormControl<IComanda['numero']>;
   situacao: FormControl<IComanda['situacao']>;
+  resumo: FormControl<IComanda['resumo']>;
   controle: FormControl<IComanda['controle']>;
   controleComanda: FormControl<IComanda['controleComanda']>;
 };
@@ -48,6 +49,7 @@ export class ComandaFormService {
       observacao: new FormControl(comandaRawValue.observacao),
       data: new FormControl(comandaRawValue.data),
       numero: new FormControl(comandaRawValue.numero),
+      resumo: new FormControl(comandaRawValue.resumo),
       situacao: new FormControl(comandaRawValue.situacao),
       controle: new FormControl(comandaRawValue.controle),
       controleComanda: new FormControl(comandaRawValue.controleComanda),

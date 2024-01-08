@@ -29,7 +29,7 @@
       "qtde": "Qtde de Comandas",
       "fechamento": "Fechar",
       "previa": "Prévia do Fechamento",
-      "previaQuestion": "Tem certeza de que deseja fechar o movimento desse Controle Comanda ?"
+      "previaQuestion": "Deseja fechar o movimento desse Controle de Comanda - {{ turno }} de {{ data }} ?"
     }
   }
 }

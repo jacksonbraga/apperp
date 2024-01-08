@@ -73,7 +73,6 @@ export class ControleComandaComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
-    //this.dt = new Date();
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
   }
 
@@ -170,7 +169,6 @@ export class ControleComandaComponent implements OnInit {
       queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
     }
 
-    //this.controleComandaService.query({'data.equals':"2023-11-23"}).
     return this.controleComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
@@ -209,19 +207,17 @@ export class ControleComandaComponent implements OnInit {
   }
 
   protected previaFechamento(controle: IControleComanda): void {
-    const previaFechamento = 'TESTE JACKSON FRONTEND';
-
     const modalRef = this.modalService.open(ControleComandaPreviaDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.controleComanda = controle;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed
-      .pipe(
-        filter(reason => reason === ITEM_DELETED_EVENT),
-        switchMap(() => this.loadFromBackendWithRouteInformations()),
-      )
+      //.pipe(
+      //   filter(reason => reason === ITEM_DELETED_EVENT),
+      //   switchMap(() => this.loadFromBackendWithRouteInformations()),
+      // )
       .subscribe({
         next: (res: EntityArrayResponseType) => {
-          this.onResponseSuccess(res);
+          this.loadComFiltro();
         },
       });
   }

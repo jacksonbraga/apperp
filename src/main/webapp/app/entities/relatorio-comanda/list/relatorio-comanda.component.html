@@ -1,0 +1,58 @@
+<div>
+  <h2 id="page-heading" data-cy="RelatorioHeading">
+    <span style="font-weight: bold" hiTranslate="appErpApp.relatorioComandaComanda.home.title">Relatório das Comandas (Ano, mês, dia)</span>
+    <form [formGroup]="formGroup">
+      <div class="d-flex justify-content-start">
+        <div class="col-2 p-2">
+          <label
+            class="form-label"
+            style="font-size: medium; font-weight: bold"
+            jhiTranslate="appErpApp.relatorioComanda.dataInicio"
+            for="field_data"
+            >Data</label
+          >
+          <div class="input-group">
+            <input type="date" class="form-control" value="{{ dt | date: 'yyyy-MM-dd' }}" formControlName="dataInicio" />
+            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
+          </div>
+        </div>
+
+        <div class="col-2 p-2">
+          <label
+            class="form-label"
+            style="font-size: medium; font-weight: bold"
+            jhiTranslate="appErpApp.relatorioComanda.dataTermino"
+            for="field_data"
+            >Data</label
+          >
+          <div class="input-group">
+            <input type="date" class="form-control" value="{{ dt | date: 'yyyy-MM-dd' }}" formControlName="dataFim" />
+            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
+          </div>
+        </div>
+
+        <div class="col-2 p-2">
+          <button style="margin-top: 42px" class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+            <span jhiTranslate="appErpApp.relatorioComanda.home.refreshListLabel">Atualizar lista</span>
+          </button>
+        </div>
+        <!--       <button id="jh-create-entity" data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-relatorio" [routerLink]="['/relatorio/new']">
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="appErpApp.relatorioComanda.home.createLabel">Criar novo Relatorio</span>
+      </button> -->
+      </div>
+    </form>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="relatorios?.length === 0">
+    <span jhiTranslate="appErpApp.relatorioComanda.home.notFound">Nenhum Relatorio encontrado</span>
+  </div>
+
+  <div id="wdr-relatorio-comanda"></div>
+</div>
