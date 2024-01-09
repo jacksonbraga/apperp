@@ -295,7 +295,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                         " NÃO REFLETE A SOMA DAS COMANDAS ASSOCIADAS: " +
                         d.format(total)
                     );
-                    previaFechamentoDTO.setValor(d.format(comandaAssociada.getValor()));
+                    previaFechamentoDTO.setValor(d.format(comandaAssociada.getValor() != null ? comandaAssociada.getValor() : 0));
                     previaFechamentoDTO.setTipo("ERRO");
                     lista.add(previaFechamentoDTO);
                 }
