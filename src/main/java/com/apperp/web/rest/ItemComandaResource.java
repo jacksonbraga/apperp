@@ -122,8 +122,8 @@ public class ItemComandaResource {
             situacao.setId(item.getSituacao());
 
             Optional<ComandaDTO> comanda = comandaService.findOne(item.getComanda().getId());
-            if (comanda.isEmpty()) {
-                var comandaSituacao = comanda.orElseThrow();
+            if (!comanda.isEmpty()) {
+                var comandaSituacao = comanda.get();
                 if (comandaSituacao != null) {
                     comandaSituacao.setSituacao(situacao);
                     comandaService.update(comandaSituacao);
