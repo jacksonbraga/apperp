@@ -214,7 +214,7 @@ public class ControleComandaResource {
      */
     @GetMapping("/previa-fechamento/{id}")
     public ResponseEntity<List<PreviaFechamentoDTO>> getPreviaFechamento(@PathVariable Long id) {
-        log.debug("REST request to get PreviaFechamento : {}", id);
+        log.info("REST request to get PreviaFechamento : {}", id);
         List<PreviaFechamentoDTO> lista = controleComandaService.previaFechamento(id);
         return ResponseEntity.ok().body(lista);
     }

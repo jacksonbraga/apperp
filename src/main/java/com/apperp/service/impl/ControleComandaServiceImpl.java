@@ -245,11 +245,11 @@ public class ControleComandaServiceImpl implements ControleComandaService {
     public List<PreviaFechamentoDTO> previaFechamento(Long id) {
         String formato = "#,##0.00";
         DecimalFormat d = new DecimalFormat(formato);
-
+        log.info("123 REST request to get PreviaFechamento : {}", id);
         List<PreviaFechamentoDTO> lista = new ArrayList<>();
-
+        log.info("1 REST request to get PreviaFechamento : {}", id);
         List<Comanda> listaComandas = this.comandaRepository.findAllByControleComandaId(id);
-
+        log.info("2 REST request to get PreviaFechamento : {}", id);
         for (Comanda comanda : listaComandas) {
             List<ItemComanda> itens = this.itemComandaRepository.findAllByComandaId(comanda.getId());
             for (ItemComanda item : itens) {
@@ -270,7 +270,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 }
             }
         }
-
+        log.info("3 REST request to get PreviaFechamento : {}", id);
         listaComandas
             .stream()
             .filter(x -> x.getValor() != null && x.getControle() != null)
@@ -300,7 +300,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     lista.add(previaFechamentoDTO);
                 }
             });
-
+        log.info("4 REST request to get PreviaFechamento : {}", id);
         Long maiorLancada = listaComandas
             .stream()
             .filter(comanda -> comanda.getSituacao().getId().equals(4L))
@@ -314,7 +314,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
             .mapToLong(Comanda::getId)
             .min()
             .orElse(0L);
-
+        log.info("5 REST request to get PreviaFechamento : {}", id);
         if (menorAberta != 0L && menorAberta < maiorLancada) {
             PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
             previaFechamentoDTO.setDescricao("EXISTEM COMANDAS NÃO LANÇADAS");
@@ -322,13 +322,13 @@ public class ControleComandaServiceImpl implements ControleComandaService {
             previaFechamentoDTO.setTipo("ERRO");
             lista.add(previaFechamentoDTO);
         }
-
+        log.info("6 REST request to get PreviaFechamento : {}", id);
         BigDecimal valorTotal = listaComandas
             .stream()
             .filter(x -> x.getValor() != null)
             .map(Comanda::getValor)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        log.info("7 REST request to get PreviaFechamento : {}", id);
         if (valorTotal != null) {
             PreviaFechamentoDTO previaFechamentoDTO = new PreviaFechamentoDTO();
             previaFechamentoDTO.setDescricao("VALOR TOTAL");
@@ -347,7 +347,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 previaFechamentoDTO.setTipo("INFO");
                 lista.add(previaFechamentoDTO);
             });
-
+        log.info("8 REST request to get PreviaFechamento : {}", id);
         listaComandas
             .stream()
             .collect(Collectors.groupingBy(comanda -> comanda.getSituacao(), Collectors.counting()))
@@ -360,7 +360,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     lista.add(previaFechamentoDTO);
                 }
             });
-
+        log.info("9 REST request to get PreviaFechamento : {}", id);
         return lista;
     }
 

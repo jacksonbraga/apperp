@@ -85,6 +85,14 @@ export class ControleComandaService {
     return o1 && o2 ? this.getControleComandaIdentifier(o1) === this.getControleComandaIdentifier(o2) : o1 === o2;
   }
 
+  previa(id?: number): Observable<IControleComandaPrevia[]> {
+    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/previa-fechamento/' + id);
+  }
+
+  atualizaPrevia(id?: number): Observable<IControleComandaPrevia[]> {
+    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/atualiza-previa-fechamento/' + id);
+  }
+
   addControleComandaToCollectionIfMissing<Type extends Pick<IControleComanda, 'id'>>(
     controleComandaCollection: Type[],
     ...controleComandasToCheck: (Type | null | undefined)[]
@@ -133,13 +141,5 @@ export class ControleComandaService {
     return res.clone({
       body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
     });
-  }
-
-  previa(id?: number): Observable<IControleComandaPrevia[]> {
-    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/previa-fechamento/' + id);
-  }
-
-  atualizaPrevia(id?: number): Observable<IControleComandaPrevia[]> {
-    return this.http.get<IControleComandaPrevia[]>(this.resourceUrl + '/atualiza-previa-fechamento/' + id);
   }
 }
