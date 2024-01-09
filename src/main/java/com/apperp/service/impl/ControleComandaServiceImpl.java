@@ -106,12 +106,14 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 itemComandaRepository.save(item);
             }
             for (TipoPagamento tipo : pagamentos) {
-                ItemComanda item = new ItemComanda();
-                item.setComanda(comanda);
-                item.setData(LocalDate.now());
-                item.setTipoPagamento(tipo);
-                item.setTipo("P");
-                itemComandaRepository.save(item);
+                if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
+                    ItemComanda item = new ItemComanda();
+                    item.setComanda(comanda);
+                    item.setData(LocalDate.now());
+                    item.setTipoPagamento(tipo);
+                    item.setTipo("P");
+                    itemComandaRepository.save(item);
+                }
             }
         }
     }
@@ -151,12 +153,14 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     itemComandaRepository.save(item);
                 }
                 for (TipoPagamento tipo : pagamentos) {
-                    ItemComanda item = new ItemComanda();
-                    item.setComanda(comanda);
-                    item.setData(LocalDate.now());
-                    item.setTipoPagamento(tipo);
-                    item.setTipo("P");
-                    itemComandaRepository.save(item);
+                    if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
+                        ItemComanda item = new ItemComanda();
+                        item.setComanda(comanda);
+                        item.setData(LocalDate.now());
+                        item.setTipoPagamento(tipo);
+                        item.setTipo("P");
+                        itemComandaRepository.save(item);
+                    }
                 }
             } else {
                 for (Comanda comanda : listaComandas) {
@@ -184,16 +188,24 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     for (TipoPagamento tipo : pagamentos) {
                         List<ItemComanda> itens = itemComandaRepository.findByComandaIdAndTipoPagamentoId(comanda.getId(), tipo.getId());
                         if (itens.isEmpty()) {
-                            ItemComanda item = new ItemComanda();
-                            item.setComanda(comanda);
-                            item.setData(LocalDate.now());
-                            item.setTipoPagamento(tipo);
-                            item.setTipo("P");
-                            itemComandaRepository.save(item);
+                            if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
+                                ItemComanda item = new ItemComanda();
+                                item.setComanda(comanda);
+                                item.setData(LocalDate.now());
+                                item.setTipoPagamento(tipo);
+                                item.setTipo("P");
+                                itemComandaRepository.save(item);
+                            }
                         } else {
                             for (ItemComanda item : itens) {
-                                item.setData(LocalDate.now());
-                                itemComandaRepository.save(item);
+                                if (item.getTipoPagamento().getDescricao().indexOf("INATIVO") >= 0) {
+                                    if (item.getValor() == null) {
+                                        itemComandaRepository.deleteById(item.getId());
+                                    }
+                                } else {
+                                    item.setData(LocalDate.now());
+                                    itemComandaRepository.save(item);
+                                }
                             }
                         }
                     }

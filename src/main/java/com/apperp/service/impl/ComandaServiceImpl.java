@@ -83,12 +83,14 @@ public class ComandaServiceImpl implements ComandaService {
         List<TipoPagamento> pagamentos = tipoPagamentoRepository.findAll();
 
         for (TipoPagamento tipoPagamento : pagamentos) {
-            ItemComanda item = new ItemComanda();
-            item.setComanda(comanda);
-            item.setData(LocalDate.now());
-            item.setTipoPagamento(tipoPagamento);
-            item.setTipo("P");
-            itemComandaRepository.save(item);
+            if (tipoPagamento.getDescricao().indexOf("INATIVO") <= -1) {
+                ItemComanda item = new ItemComanda();
+                item.setComanda(comanda);
+                item.setData(LocalDate.now());
+                item.setTipoPagamento(tipoPagamento);
+                item.setTipo("P");
+                itemComandaRepository.save(item);
+            }
         }
     }
 
@@ -130,17 +132,25 @@ public class ComandaServiceImpl implements ComandaService {
         for (TipoPagamento tipo : pagamentos) {
             List<ItemComanda> itens = itemComandaRepository.findByComandaIdAndTipoPagamentoIdAndTipo(comanda.getId(), tipo.getId(), "P");
             if (itens.isEmpty()) {
-                ItemComanda item = new ItemComanda();
-                item.setComanda(comanda);
-                item.setData(LocalDate.now());
-                item.setTipoPagamento(tipo);
-                item.setTipo("P");
-                itemComandaRepository.save(item);
-            } else {
-                for (ItemComanda item : itens) {
+                if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
+                    ItemComanda item = new ItemComanda();
+                    item.setComanda(comanda);
                     item.setData(LocalDate.now());
+                    item.setTipoPagamento(tipo);
                     item.setTipo("P");
                     itemComandaRepository.save(item);
+                }
+            } else {
+                for (ItemComanda item : itens) {
+                    if (item.getTipoPagamento().getDescricao().indexOf("INATIVO") >= 0) {
+                        if (item.getValor() == null) {
+                            itemComandaRepository.deleteById(item.getId());
+                        }
+                    } else {
+                        item.setData(LocalDate.now());
+                        item.setTipo("P");
+                        itemComandaRepository.save(item);
+                    }
                 }
             }
         }
