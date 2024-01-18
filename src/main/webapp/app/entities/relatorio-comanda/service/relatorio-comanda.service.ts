@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IRelatorioComanda } from '../relatorio-comanda.model';
+import { IRelatorioControle } from '../relatorio-controle.model';
 
 export type EntityResponseType = HttpResponse<IRelatorioComanda>;
 export type EntityArrayResponseType = HttpResponse<IRelatorioComanda[]>;
@@ -21,6 +22,24 @@ export class RelatorioComandaService {
     const options = createRequestOption(req);
 
     return this.http.get<IRelatorioComanda[]>(`${this.resourceUrl}/relatorio-comanda/` + dataInicio + '/' + dataFim, {
+      params: options,
+      observe: 'response',
+    });
+  }
+
+  queryControle(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioControle[]>(`${this.resourceUrl}/relatorio-controle/` + dataInicio + '/' + dataFim, {
+      params: options,
+      observe: 'response',
+    });
+  }
+
+  queryCaixa(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioComanda[]>(`${this.resourceUrl}/relatorio-caixa/` + dataInicio + '/' + dataFim, {
       params: options,
       observe: 'response',
     });

@@ -1,0 +1,273 @@
+<div>
+  <h2 id="page-heading" data-cy="ComandaHeading">
+    <span class="p-2" style="font-weight: bold">Comandas: {{ this.turno }} {{ this.data | formatMediumDate }} </span>
+    <div class="d-flex justify-content-start">
+      <div class="col-2 p-2">
+        <label class="form-label" style="font-size: medium; font-weight: bold" jhiTranslate="appErpApp.comanda.comanda" for="comanda_data"
+          >Comanda</label
+        >
+        <ng-multiselect-dropdown
+          [placeholder]="'Selecione...'"
+          class="form-control"
+          [settings]="dropdownSettings"
+          [data]="listaComandas"
+          [(ngModel)]="selectedComandas"
+          (onSelect)="onItemSelectComandas($event)"
+          (onDeSelect)="onItemDeSelectComandas($event)"
+          (onSelectAll)="onSelectAllComandas($event)"
+          (onDeSelectAll)="onDeSelectAllComandas($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-1">
+        <button class="btn btn-info me-2" style="margin-top: 56px; margin-left: 5px" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="appErpApp.comanda.home.refreshListLabel">Atualizar lista</span>
+        </button>
+      </div>
+
+      <div class="col-1">
+        <button
+          style="margin-top: 56px; margin-left: 5px; height: 38px"
+          type="submit"
+          (click)="previousState()"
+          class="btn btn-info"
+          data-cy="entityDetailsBackButton"
+        >
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+      </div>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <!-- <jhi-alert></jhi-alert> -->
+
+  <div class="card">
+    <div class="card-header" style="font-size: large; font-weight: bold">Digitação dos valores das comandas.</div>
+    <div class="card-body">
+      <form [formGroup]="formGroup">
+        <div class="d-flex justify-content-start">
+          <div class="col-2 p-2">
+            <label class="form-label" for="field_numero">Número da comanda</label>
+            <input
+              #inputNumero
+              (keydown.enter)="pesquisaComanda($event)"
+              formControlName="numero"
+              tabIndex="0"
+              type="number"
+              (focus)="reseta()"
+              placeholder="Digite o no. da comanda"
+              class="form-control"
+              name="numero"
+              id="field_numero"
+              data-cy="numero"
+            />
+          </div>
+          <div class="col-2 p-2">
+            <label class="form-label" for="field_cartao">Cartão</label>
+            <input
+              #inputCartao
+              currencyMask
+              [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+              formControlName="cartao"
+              tabIndex="1"
+              type="text"
+              class="form-control"
+              name="cartao"
+              id="field_cartao"
+              data-cy="cartao"
+            />
+          </div>
+          <div class="col-2 p-2">
+            <label class="form-label" for="field_pix">Pix</label>
+            <input
+              formControlName="pix"
+              currencyMask
+              [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+              tabIndex="2"
+              type="text"
+              class="form-control"
+              name="pix"
+              id="field_pix"
+              data-cy="pix"
+            />
+          </div>
+          <div class="col-2 p-2">
+            <label class="form-label" for="field_dinheiro">Dinheiro</label>
+            <input
+              formControlName="dinheiro"
+              currencyMask
+              [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+              tabIndex="3"
+              type="text"
+              class="form-control"
+              name="dinheiro"
+              id="field_dinheiro"
+              data-cy="dinheiro"
+            />
+          </div>
+          <div class="col-2 p-2">
+            <label class="form-label" for="field_transferido">Transferido</label>
+            <input
+              formControlName="transferido"
+              currencyMask
+              [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+              tabIndex="4"
+              type="text"
+              class="form-control"
+              name="transferido"
+              id="field_transferido"
+              data-cy="transferido"
+            />
+          </div>
+
+          <div class="col-2 p-2" style="margin-top: 34px">
+            <button
+              tabIndex="5"
+              (keydown.enter)="atualizaComanda()"
+              (click)="atualizaComanda()"
+              type="button"
+              class="btn btn-success btn-sm"
+              data-cy="filterOtherEntityButton"
+            >
+              <fa-icon icon="check"></fa-icon>
+              <span class="d-none d-md-inline">Ok</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- <jhi-filter [filters]="filters"></jhi-filter> -->
+
+  <div class="alert alert-warning" id="no-result" *ngIf="comandas?.length === 0">
+    <span jhiTranslate="appErpApp.comanda.home.notFound">Nenhum Comanda encontrado</span>
+  </div>
+
+  <br />
+
+  <div class="card">
+    <div class="card-header" style="font-size: large; font-weight: bold">Comandas atualizadas com os valores digitados</div>
+    <div class="card-body">
+      <div class="table-responsive table-entities" id="entities" *ngIf="comandas && comandas.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+              <th scope="col" jhiSortBy="id">
+                <div class="d-flex">
+                  <span jhiTranslate="global.field.id">Código</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="descricao">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.descricao">Descricao</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="situacao.descricao">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.situacao">Situacao</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="cartao">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.cartao">cartao</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="pix">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.pix">pix</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="dinheiro">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.dinheiro">dinheiro</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+
+              <th scope="col" jhiSortBy="transferido">
+                <div class="d-flex">
+                  <span jhiTranslate="appErpApp.comanda.transferido">transferido</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comanda of comandas; trackBy: trackId" data-cy="entityTable">
+              <td>
+                {{ comanda.id }}
+                <!-- <a [routerLink]="['/comanda', comanda.id, 'view']">{{ comanda.id }}</a> -->
+              </td>
+              <td>{{ comanda.descricao }}</td>
+              <td>
+                <div *ngIf="comanda.situacao">
+                  {{ comanda.situacao.descricao }}
+                </div>
+              </td>
+
+              <td>
+                <div *ngIf="comanda.cartao">
+                  {{ comanda.cartao | currency: ' ' }}
+                </div>
+              </td>
+
+              <td>
+                <div *ngIf="comanda.pix">
+                  {{ comanda.pix | currency: ' ' }}
+                </div>
+              </td>
+
+              <td>
+                <div *ngIf="comanda.dinheiro">
+                  {{ comanda.dinheiro | currency: ' ' }}
+                </div>
+              </td>
+
+              <td>
+                <div *ngIf="comanda.transferido">
+                  {{ comanda.transferido | currency: ' ' }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="comandas && comandas.length > 0">
+        <div class="d-flex justify-content-center">
+          <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            tabIndex="-5"
+            [collectionSize]="totalItems"
+            [page]="page"
+            [pageSize]="itemsPerPage"
+            [maxSize]="5"
+            [rotate]="true"
+            [boundaryLinks]="true"
+            (pageChange)="navigateToPage($event)"
+          ></ngb-pagination>
+        </div>
+
+        <!-- <button class="btn btn-primary" (click)="delete2()">Open modal</button> -->
+      </div>
+    </div>
+  </div>
+</div>

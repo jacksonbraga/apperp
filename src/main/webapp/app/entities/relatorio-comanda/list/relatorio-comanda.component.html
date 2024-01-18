@@ -1,58 +1,100 @@
 <div>
   <h2 id="page-heading" data-cy="RelatorioHeading">
-    <span style="font-weight: bold" hiTranslate="appErpApp.relatorioComandaComanda.home.title">Relatório das Comandas (Ano, mês, dia)</span>
-    <form [formGroup]="formGroup">
-      <div class="d-flex justify-content-start">
-        <div class="col-2 p-2">
-          <label
-            class="form-label"
-            style="font-size: medium; font-weight: bold"
-            jhiTranslate="appErpApp.relatorioComanda.dataInicio"
-            for="field_data"
-            >Data</label
-          >
-          <div class="input-group">
-            <input type="date" class="form-control" value="{{ dt | date: 'yyyy-MM-dd' }}" formControlName="dataInicio" />
-            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
-          </div>
-        </div>
+    <span style="font-weight: bold" hiTranslate="appErpApp.relatorioComandaComanda.home.title">Relatório Diário</span>
+    <div class="d-flex justify-content-start">
+      <div class="col-2 p-2">
+        <label
+          class="form-label"
+          style="font-size: medium; font-weight: bold"
+          jhiTranslate="appErpApp.relatorioComanda.ano"
+          for="field_data"
+          >Data</label
+        >
 
-        <div class="col-2 p-2">
-          <label
-            class="form-label"
-            style="font-size: medium; font-weight: bold"
-            jhiTranslate="appErpApp.relatorioComanda.dataTermino"
-            for="field_data"
-            >Data</label
-          >
-          <div class="input-group">
-            <input type="date" class="form-control" value="{{ dt | date: 'yyyy-MM-dd' }}" formControlName="dataFim" />
-            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
-          </div>
-        </div>
+        <ng-multiselect-dropdown
+          [placeholder]="'Selecione o ano...'"
+          class="form-control"
+          [settings]="dropdownSettingsAno"
+          [data]="listaAnos"
+          [(ngModel)]="selectedAno"
+          (onSelect)="onItemSelectAno($event)"
+          (onDeSelect)="onItemDeSelectAno($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
 
-        <div class="col-2 p-2">
-          <button style="margin-top: 42px" class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-            <span jhiTranslate="appErpApp.relatorioComanda.home.refreshListLabel">Atualizar lista</span>
-          </button>
-        </div>
-        <!--       <button id="jh-create-entity" data-cy="entityCreateButton"
+      <div class="col-2 p-2">
+        <label
+          class="form-label"
+          style="font-size: medium; font-weight: bold"
+          jhiTranslate="appErpApp.relatorioComanda.mes"
+          for="field_data"
+          >Data</label
+        >
+
+        <ng-multiselect-dropdown
+          [placeholder]="'Selecione o mês...'"
+          class="form-control"
+          [settings]="dropdownSettings"
+          [data]="listaMeses"
+          [(ngModel)]="selectedMes"
+          (onSelect)="onItemSelectMes($event)"
+          (onDeSelect)="onItemDeSelectMes($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-2 p-2">
+        <button style="margin-top: 42px" class="btn btn-info me-2" (click)="load(1)">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="appErpApp.relatorioComanda.home.refreshListLabel">Atualizar lista</span>
+        </button>
+      </div>
+      <!--       <button id="jh-create-entity" data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-relatorio" [routerLink]="['/relatorio/new']">
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="appErpApp.relatorioComanda.home.createLabel">Criar novo Relatorio</span>
       </button> -->
-      </div>
-    </form>
+    </div>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
 
-  <jhi-alert></jhi-alert>
+  <!-- <jhi-alert></jhi-alert> -->
 
-  <div class="alert alert-warning" id="no-result" *ngIf="relatorios?.length === 0">
+  <!-- <div class="alert alert-warning" id="no-result" *ngIf="relatorios?.length === 0">
     <span jhiTranslate="appErpApp.relatorioComanda.home.notFound">Nenhum Relatorio encontrado</span>
-  </div>
+  </div> -->
 
-  <div id="wdr-relatorio-comanda"></div>
+  <!-- <div class="d-flex justify-content-start" *ngIf="isLoading">
+    <div class="col-2 p-2">
+      <div class="spinner-border"></div>
+    </div>
+  </div> -->
+
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" (shown)="navChanged1($event)">
+    <li *ngFor="let item of numSequence(31); let i = index" [ngbNavItem]="i + 1" [disabled]="i + 1 > this.ultimoDia">
+      <button ngbNavLink>{{ i + 1 }}</button>
+
+      <ng-template ngbNavContent *ngIf="active == i + 1">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div id="wdr-relatorio-comanda-1-{{ i + 1 }}"></div>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-12">
+              <div id="wdr-relatorio-comanda-3-{{ i + 1 }}"></div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+  <pre>Active: {{ active }}</pre>
 </div>

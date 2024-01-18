@@ -104,6 +104,31 @@ public class ComandaResource {
             .body(result);
     }
 
+    @PutMapping("/atualiza-digitacao/{id}")
+    public ResponseEntity<ComandaDTO> updateComandaDigitalizacao(
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody ComandaDTO comandaDTO
+    ) throws URISyntaxException {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        log.debug("REST request to update Comanda : {}, {}", id, comandaDTO);
+        if (comandaDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, comandaDTO.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!comandaRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        ComandaDTO result = comandaService.updateDigitacao(comandaDTO);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, comandaDTO.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code PATCH  /comandas/:id} : Partial updates given fields of an existing comanda, field will ignore if it is null
      *

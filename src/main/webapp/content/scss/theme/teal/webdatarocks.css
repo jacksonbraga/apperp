@@ -4095,7 +4095,7 @@
   pointer-events: none;
 }
 #wdr-pivot-view .wdr-grid-layout .wdr-filter-header i.wdr-filter-icon:before {
-  content: '\e915';
+  content: '';
   color: #fff;
 }
 #wdr-pivot-view .wdr-grid-layout .wdr-filter-header.wdr-filtered i.wdr-filtered-icon {

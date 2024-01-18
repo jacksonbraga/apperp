@@ -10,6 +10,11 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./comanda/comanda.routes'),
       },
       {
+        path: 'caixa',
+        data: { pageTitle: 'appErpApp.comanda.home.title' },
+        loadChildren: () => import('./caixa/caixa.routes'),
+      },
+      {
         path: 'item-comanda',
         data: { pageTitle: 'appErpApp.itemComanda.home.title' },
         loadChildren: () => import('./item-comanda/item-comanda.routes'),
@@ -30,6 +35,17 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./tipo-pagamento/tipo-pagamento.routes'),
       },
       {
+        path: 'tipo-caixa',
+        data: { pageTitle: 'appErpApp.tipoPagamento.home.title' },
+        loadChildren: () => import('./tipo-caixa/tipo-caixa.routes'),
+      },
+      {
+        path: 'tipo-origem',
+        data: { pageTitle: 'appErpApp.tipoPagamento.home.title' },
+        loadChildren: () => import('./tipo-origem/tipo-origem.routes'),
+      },
+
+      {
         path: 'tipo-servico',
         data: { pageTitle: 'appErpApp.tipoServico.home.title' },
         loadChildren: () => import('./tipo-servico/tipo-servico.routes'),
@@ -43,6 +59,16 @@ import { RouterModule } from '@angular/router';
         path: 'situacao',
         data: { pageTitle: 'appErpApp.situacao.home.title' },
         loadChildren: () => import('./situacao/situacao.routes'),
+      },
+      {
+        path: 'grupo-caixa',
+        data: { pageTitle: 'appErpApp.grupoDespesa.home.title' },
+        loadChildren: () => import('./grupo-caixa/grupo-caixa.routes'),
+      },
+      {
+        path: 'grupo-origem',
+        data: { pageTitle: 'appErpApp.grupoDespesa.home.title' },
+        loadChildren: () => import('./grupo-origem/grupo-origem.routes'),
       },
       {
         path: 'grupo-despesa',

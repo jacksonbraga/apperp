@@ -15,7 +15,6 @@ import { FilterComponent, FilterOptions, IFilterOptions, IFilterOption } from 'a
 import { IControleComanda } from '../controle-comanda.model';
 import { EntityArrayResponseType, ControleComandaService } from '../service/controle-comanda.service';
 import { ControleComandaDeleteDialogComponent } from '../delete/controle-comanda-delete-dialog.component';
-import { DatePipe } from '@angular/common';
 import { ControleComandaPreviaDialogComponent } from '../delete/controle-comanda-previa-dialog.component';
 
 @Component({
@@ -165,8 +164,10 @@ export class ControleComandaComponent implements OnInit {
     filterOptions?.forEach(filterOption => {
       queryObject[filterOption.name] = filterOption.values;
     });
+
     if (this.formGroup.get('dataFiltro')!.value) {
       queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
+      //   queryObject['data.greaterThan'] = '2023-12-01';
     }
 
     return this.controleComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));

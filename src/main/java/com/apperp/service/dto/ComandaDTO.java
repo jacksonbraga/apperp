@@ -27,6 +27,46 @@ public class ComandaDTO implements Serializable {
 
     private ControleComandaDTO controleComanda;
 
+    private BigDecimal cartao;
+
+    private BigDecimal pix;
+
+    private BigDecimal dinheiro;
+
+    private BigDecimal transferido;
+
+    public BigDecimal getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(BigDecimal cartao) {
+        this.cartao = cartao;
+    }
+
+    public BigDecimal getPix() {
+        return pix;
+    }
+
+    public void setPix(BigDecimal pix) {
+        this.pix = pix;
+    }
+
+    public BigDecimal getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(BigDecimal dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+
+    public BigDecimal getTransferido() {
+        return transferido;
+    }
+
+    public void setTransferido(BigDecimal transferido) {
+        this.transferido = transferido;
+    }
+
     private BigDecimal valor;
 
     private String resumo;

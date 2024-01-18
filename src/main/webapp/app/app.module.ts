@@ -33,6 +33,7 @@ import { CustomDateParserFormatter } from './config/datepicker-formater';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     MainModule,
+
     TranslationModule,
   ],
   providers: [

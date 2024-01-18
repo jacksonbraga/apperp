@@ -41,6 +41,50 @@ public class Comanda implements Serializable {
     @Column(name = "valor", precision = 21, scale = 2, updatable = false)
     private BigDecimal valor;
 
+    @Column(name = "cartao", precision = 21, scale = 2)
+    private BigDecimal cartao;
+
+    public BigDecimal getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(BigDecimal cartao) {
+        this.cartao = cartao;
+    }
+
+    public BigDecimal getPix() {
+        return pix;
+    }
+
+    public void setPix(BigDecimal pix) {
+        this.pix = pix;
+    }
+
+    public BigDecimal getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(BigDecimal dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+
+    public BigDecimal getTransferido() {
+        return transferido;
+    }
+
+    public void setTransferido(BigDecimal transferido) {
+        this.transferido = transferido;
+    }
+
+    @Column(name = "pix", precision = 21, scale = 2)
+    private BigDecimal pix;
+
+    @Column(name = "dinheiro", precision = 21, scale = 2)
+    private BigDecimal dinheiro;
+
+    @Column(name = "transferido", precision = 21, scale = 2)
+    private BigDecimal transferido;
+
     @Column(name = "resumo")
     private String resumo;
 

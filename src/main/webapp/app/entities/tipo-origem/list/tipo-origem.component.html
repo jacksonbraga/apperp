@@ -1,0 +1,105 @@
+<div>
+  <h2 id="page-heading" data-cy="TipoOrigemHeading">
+    <span jhiTranslate="apperpApp.tipoOrigem.home.title">Tipo Origems</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="apperpApp.tipoOrigem.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tipo-origem"
+        [routerLink]="['/tipo-origem/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="apperpApp.tipoOrigem.home.createLabel">Criar novo Tipo Origem</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tipoOrigems?.length === 0">
+    <span jhiTranslate="apperpApp.tipoOrigem.home.notFound">Nenhum Tipo Origem encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="tipoOrigems && tipoOrigems.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.tipoOrigem.descricao">Descricao</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="grupoOrigem.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.tipoOrigem.grupoOrigem">Grupo Origem</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipoOrigem of tipoOrigems; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'view']">{{ tipoOrigem.id }}</a>
+          </td>
+          <td>{{ tipoOrigem.descricao }}</td>
+          <td>
+            <span *ngFor="let grupoOrigem of tipoOrigem.grupoOrigems; let last = last">
+              <a class="form-control-static" [routerLink]="['/grupo-origem', grupoOrigem.id, 'view']">{{ grupoOrigem.descricao }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <!-- <button
+                type="submit"
+                [routerLink]="['/caixa']"
+                [queryParams]="{ 'filter[tipoOrigemId.in]': tipoOrigem.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('apperpApp.tipoOrigem.caixa' | translate) }"
+                  >Mostrar Caixa</span
+                >
+              </button> -->
+              <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(tipoOrigem)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

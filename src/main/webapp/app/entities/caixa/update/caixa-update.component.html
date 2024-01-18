@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-caixa-heading" data-cy="CaixaCreateUpdateHeading" jhiTranslate="apperpApp.caixa.home.createOrEditLabel">
+        Criar ou editar Caixa
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.descricao" for="field_descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.observacao" for="field_observacao">Observacao</label>
+          <input
+            type="text"
+            class="form-control"
+            name="observacao"
+            id="field_observacao"
+            data-cy="observacao"
+            formControlName="observacao"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.valor" for="field_valor">Valor</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            formControlName="valor"
+            type="text"
+            class="form-control"
+            name="valor"
+            id="field_valor"
+            data-cy="valor"
+          />
+
+          <!-- <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" /> -->
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.data" for="field_data">Data</label>
+          <div class="d-flex">
+            <input
+              id="field_data"
+              data-cy="data"
+              type="text"
+              class="form-control"
+              name="data"
+              ngbDatepicker
+              #dataDp="ngbDatepicker"
+              formControlName="data"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label jhiTranslate="apperpApp.caixa.tipoCaixa" for="field_tipoCaixas">Tipo Caixa</label>
+          <select
+            class="form-control"
+            id="field_tipoCaixas"
+            data-cy="tipoCaixa"
+            multiple
+            name="tipoCaixas"
+            formControlName="tipoCaixas"
+            [compareWith]="compareTipoCaixa"
+          >
+            <option [ngValue]="tipoCaixaOption" *ngFor="let tipoCaixaOption of tipoCaixasSharedCollection">
+              {{ tipoCaixaOption.descricao }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label jhiTranslate="apperpApp.caixa.tipoOrigem" for="field_tipoOrigems">Tipo Origem</label>
+          <select
+            class="form-control"
+            id="field_tipoOrigems"
+            data-cy="tipoOrigem"
+            multiple
+            name="tipoOrigems"
+            formControlName="tipoOrigems"
+            [compareWith]="compareTipoOrigem"
+          >
+            <option [ngValue]="tipoOrigemOption" *ngFor="let tipoOrigemOption of tipoOrigemsSharedCollection">
+              {{ tipoOrigemOption.descricao }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

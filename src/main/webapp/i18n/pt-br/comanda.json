@@ -28,6 +28,10 @@
       "listaItens": "Itens da Comanda",
       "comanda": "Comanda",
       "turno": "Turno",
+      "cartao": "Cartão",
+      "pix": "Pix",
+      "dinheiro": "Dinheiro",
+      "transferido": "Transferido",
       "valor": "Valor",
       "resumo": "Resumo dos recebimentos",
       "comandaPagadora": "Comanda Pagadora"

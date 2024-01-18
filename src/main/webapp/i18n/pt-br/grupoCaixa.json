@@ -1,0 +1,25 @@
+{
+  "apperpApp": {
+    "grupoCaixa": {
+      "home": {
+        "title": "Grupo Caixas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Grupo Caixa",
+        "createOrEditLabel": "Criar ou editar Grupo Caixa",
+        "notFound": "Nenhum Grupo Caixa encontrado"
+      },
+      "created": "Um novo Grupo Caixa foi criado com o identificador {{ param }}",
+      "updated": "Um Grupo Caixa foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Grupo Caixa foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Grupo Caixa {{ id }}?"
+      },
+      "detail": {
+        "title": "Grupo Caixa"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "tipoCaixa": "Tipo Caixa"
+    }
+  }
+}

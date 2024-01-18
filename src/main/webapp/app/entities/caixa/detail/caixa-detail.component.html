@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="caixa">
+      <h2 data-cy="caixaDetailsHeading"><span jhiTranslate="apperpApp.caixa.detail.title">Caixa</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ caixa.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.descricao">Descricao</span></dt>
+        <dd>
+          <span>{{ caixa.descricao }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.observacao">Observacao</span></dt>
+        <dd>
+          <span>{{ caixa.observacao }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.valor">Valor</span></dt>
+        <dd>
+          <span>{{ caixa.valor }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.data">Data</span></dt>
+        <dd>
+          <span>{{ caixa.data | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.tipoCaixa">Tipo Caixa</span></dt>
+        <dd>
+          <span *ngFor="let tipoCaixa of caixa.tipoCaixas; let last = last">
+            <a [routerLink]="['/tipo-caixa', tipoCaixa.id, 'view']">{{ tipoCaixa.descricao }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.caixa.tipoOrigem">Tipo Origem</span></dt>
+        <dd>
+          <span *ngFor="let tipoOrigem of caixa.tipoOrigems; let last = last">
+            <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'view']">{{ tipoOrigem.descricao }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/caixa', caixa.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

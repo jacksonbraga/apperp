@@ -1,0 +1,100 @@
+
+entity Comanda {
+	descricao String 
+    observacao String
+    data ZonedDateTime
+    numero Integer
+}
+
+entity ItemComanda {
+	descricao String 
+    observacao String
+    data ZonedDateTime
+    numero Integer
+    qtde Integer
+    valor BigDecimal
+}
+
+entity Despesa {
+	descricao String 
+    observacao String
+    parcela Integer 
+    totalParcela Integer
+    valor BigDecimal
+    data ZonedDateTime
+    dataVencimento ZonedDateTime
+}
+
+entity Cor {
+	descricao String 
+}
+
+entity TipoPagamento {
+	descricao String 
+}
+
+entity TipoServico {
+	descricao String 
+}
+
+entity TipoDespesa {
+	descricao String 
+}
+
+entity Situacao {
+	descricao String 
+}
+
+entity GrupoDespesa {
+	descricao String 
+}
+
+entity GrupoPagamento {
+	descricao String 
+}
+
+entity GrupoServico {
+	descricao String 
+}
+
+entity ControleComanda {
+	descricao String 
+    faixaInicio Long
+    faixaFim Long
+    data ZonedDateTime
+}
+
+relationship OneToOne {
+	ControleComanda{cor(descricao)} to Cor
+    Comanda{situacao(descricao)} to Situacao
+    Despesa{tipoDespesa(descricao)} to TipoDespesa
+    TipoDespesa{grupoDespesa(descricao)} to GrupoDespesa
+    TipoPagamento{grupoPagamento(descricao)} to GrupoPagamento
+    TipoServico{grupoServico(descricao)} to GrupoServico
+	ItemComanda{tipoPagamento(descricao)} to TipoPagamento{tipoPagamento}
+	ItemComanda{tipoServico(descricao)} to TipoServico{tipoServico}    
+}
+
+relationship OneToMany {
+     ControleComanda{comandas(descricao)} to Comanda{controleComanda(descricao)}
+     Comanda{itens(descricao)} to ItemComanda{comanda(descricao)}
+}
+
+relationship ManyToOne {
+  Comanda{controle} to ControleComanda{listaComandas}
+  ItemComanda{comandaPai} to Comanda{listaItens}
+}
+
+// Set pagination options
+paginate Comanda, ControleComanda with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+filter Comanda, ControleComanda, Despesa, TipoPagamento, 
+       TipoServico, TipoDespesa, Situacao, GrupoDespesa,
+       GrupoPagamento, GrupoServico, Cor
+

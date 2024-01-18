@@ -13,6 +13,10 @@ export interface IComanda {
   controleComanda?: Pick<IControleComanda, 'id' | 'descricao' | 'cor' | 'data' | 'valor'> | null;
   valor?: number | null;
   resumo?: string | null;
+  cartao?: number | null;
+  pix?: number | null;
+  dinheiro?: number | null;
+  transferido?: number | null;
 }
 
 export type NewComanda = Omit<IComanda, 'id'> & { id: null };

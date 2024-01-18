@@ -13,19 +13,36 @@ import { IDespesa } from '../despesa.model';
 import { DespesaService } from '../service/despesa.service';
 import { DespesaFormService, DespesaFormGroup } from './despesa-form.service';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
+import { Dayjs } from 'dayjs';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   standalone: true,
   selector: 'jhi-despesa-update',
   templateUrl: './despesa-update.component.html',
   styleUrls: ['./despesa-update.component.css'],
-  imports: [SharedModule, FormsModule, ReactiveFormsModule, InputNumberModule],
+  imports: [
+    NgxCurrencyDirective,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputNumberModule,
+    DurationPipe,
+    FormatMediumDatetimePipe,
+    FormatMediumDatePipe,
+  ],
 })
 export class DespesaUpdateComponent implements OnInit {
   isSaving = false;
   despesa: IDespesa | null = null;
-
+  mensagem = '';
   tipoDespesasSharedCollection: ITipoDespesa[] = [];
+
+  numeroParcelas: number | null | undefined = 0;
+  valorParcela: number | null | undefined = 0;
+  dataVencimento: Dayjs | null | undefined = null;
 
   editForm: DespesaFormGroup = this.despesaFormService.createDespesaFormGroup();
 
@@ -34,6 +51,7 @@ export class DespesaUpdateComponent implements OnInit {
     protected despesaFormService: DespesaFormService,
     protected tipoDespesaService: TipoDespesaService,
     protected activatedRoute: ActivatedRoute,
+    protected modalService: NgbModal,
   ) {}
 
   compareTipoDespesa = (o1: ITipoDespesa | null, o2: ITipoDespesa | null): boolean => this.tipoDespesaService.compareTipoDespesa(o1, o2);
@@ -53,13 +71,33 @@ export class DespesaUpdateComponent implements OnInit {
     window.history.back();
   }
 
-  save(): void {
+  save(content: any): void {
     this.isSaving = true;
     const despesa = this.despesaFormService.getDespesa(this.editForm);
     if (despesa.id !== null) {
       this.subscribeToSaveResponse(this.despesaService.update(despesa));
     } else {
-      this.subscribeToSaveResponse(this.despesaService.create(despesa));
+      const parcela = despesa.parcela;
+      const totalParcela = despesa.totalParcela;
+      if (parcela && totalParcela) {
+        if (parcela < totalParcela) {
+          this.numeroParcelas = totalParcela - parcela + 1;
+          this.valorParcela = despesa.valor;
+          this.dataVencimento = despesa.dataVencimento;
+          console.log(this.valorParcela);
+          console.log(this.dataVencimento);
+          this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+            result => {
+              this.subscribeToSaveResponse(this.despesaService.create(despesa));
+            },
+            reason => {},
+          );
+        } else {
+          this.subscribeToSaveResponse(this.despesaService.create(despesa));
+        }
+      } else {
+        this.subscribeToSaveResponse(this.despesaService.create(despesa));
+      }
     }
   }
 

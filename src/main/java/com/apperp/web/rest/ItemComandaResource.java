@@ -7,7 +7,10 @@ import com.apperp.service.ItemComandaService;
 import com.apperp.service.criteria.ItemComandaCriteria;
 import com.apperp.service.dto.ComandaDTO;
 import com.apperp.service.dto.IRelatorio;
+import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
+import com.apperp.service.dto.IRelatorioControle;
+import com.apperp.service.dto.IRelatorioControle2;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.dto.SituacaoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
@@ -234,5 +237,18 @@ public class ItemComandaResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/relatorio-controle/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioControle2>> listaRelatorioControlePorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControlePorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-caixa/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioCaixa>> listaRelatorioCaixaPorDia(@PathVariable String dataInicio, @PathVariable String dataFim) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioCaixaPorDia(dataInicio, dataFim));
     }
 }

@@ -5,6 +5,7 @@ import com.apperp.repository.DespesaRepository;
 import com.apperp.service.DespesaService;
 import com.apperp.service.dto.DespesaDTO;
 import com.apperp.service.mapper.DespesaMapper;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,32 @@ public class DespesaServiceImpl implements DespesaService {
         log.debug("Request to save Despesa : {}", despesaDTO);
         Despesa despesa = despesaMapper.toEntity(despesaDTO);
         despesa = despesaRepository.save(despesa);
+        if (despesa.getParcela() != null && despesa.getTotalParcela() != null) {
+            if (despesa.getParcela() < despesa.getTotalParcela()) {
+                this.criaParcelas(despesa);
+            }
+        }
         return despesaMapper.toDto(despesa);
+    }
+
+    private void criaParcelas(Despesa despesa) {
+        Integer parcela = despesa.getParcela() + 1;
+        Integer totalParcela = despesa.getTotalParcela();
+        for (Integer i = parcela; i <= totalParcela; i++) {
+            Despesa novaParcela = new Despesa();
+            novaParcela.setData(despesa.getData());
+
+            novaParcela.setDescricao(despesa.getDescricao());
+            novaParcela.setObservacao(despesa.getObservacao());
+            novaParcela.setTipoDespesa(despesa.getTipoDespesa());
+            novaParcela.setTotalParcela(despesa.getTotalParcela());
+            novaParcela.setValor(despesa.getValor());
+
+            novaParcela.setParcela(i);
+            novaParcela.setDataVencimento(despesa.getDataVencimento().plusDays(30));
+
+            despesa = despesaRepository.save(novaParcela);
+        }
     }
 
     @Override

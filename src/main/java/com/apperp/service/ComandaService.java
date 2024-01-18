@@ -25,6 +25,7 @@ public interface ComandaService {
      */
     ComandaDTO update(ComandaDTO comandaDTO);
 
+    ComandaDTO updateDigitacao(ComandaDTO comandaDTO);
     /**
      * Partially updates a comanda.
      *

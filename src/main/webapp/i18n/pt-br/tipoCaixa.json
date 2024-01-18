@@ -1,0 +1,26 @@
+{
+  "apperpApp": {
+    "tipoCaixa": {
+      "home": {
+        "title": "Tipo Caixas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tipo Caixa",
+        "createOrEditLabel": "Criar ou editar Tipo Caixa",
+        "notFound": "Nenhum Tipo Caixa encontrado"
+      },
+      "created": "Um novo Tipo Caixa foi criado com o identificador {{ param }}",
+      "updated": "Um Tipo Caixa foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tipo Caixa foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tipo Caixa {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Caixa"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "grupoCaixa": "Grupo Caixa",
+      "caixa": "Caixa"
+    }
+  }
+}

@@ -1521,7 +1521,7 @@
   background: #fff;
 }
 #wdr-pivot-view .wdr-credits {
-  display: block;
+  display: none !important;
   height: 14px;
   position: absolute;
   right: 0;
@@ -4095,7 +4095,7 @@
   pointer-events: none;
 }
 #wdr-pivot-view .wdr-grid-layout .wdr-filter-header i.wdr-filter-icon:before {
-  content: '\e915';
+  content: '';
   color: #999;
 }
 #wdr-pivot-view .wdr-grid-layout .wdr-filter-header.wdr-filtered i.wdr-filtered-icon {
@@ -5865,6 +5865,7 @@
   bottom: 0;
   width: 5px;
 }
+
 /* ===== theme colors ===== */
 /* ===== not used in webdatarocks-base.less directly; used in this file to define bg, border and other colors ===== */
 /* ===== basic grey colors, common for all themes ===== */

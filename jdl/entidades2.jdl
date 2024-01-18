@@ -1,0 +1,41 @@
+
+entity Caixa {
+	descricao String 
+    observacao String
+    valor BigDecimal
+    data ZonedDateTime
+}
+
+entity TipoCaixa {
+	descricao String 
+}
+
+entity TipoOrigem {
+	descricao String 
+}
+
+entity GrupoCaixa {
+	descricao String 
+}
+
+entity GrupoOrigem {
+	descricao String 
+}
+
+relationship OneToOne {
+	Caixa{tipoCaixa(descricao)} to TipoCaixa
+    Caixa{tipoOrigem(descricao)} to TipoOrigem
+    TipoCaixa{grupoCaixa(descricao)} to GrupoCaixa
+    TipoOrigem{grupoOrigem(descricao)} to GrupoOrigem
+}
+
+// Set pagination options
+paginate Caixa with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+filter Caixa

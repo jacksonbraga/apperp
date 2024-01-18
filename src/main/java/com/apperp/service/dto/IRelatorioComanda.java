@@ -1,19 +1,14 @@
 package com.apperp.service.dto;
 
 public interface IRelatorioComanda {
-    String getGrupoComanda();
-
-    String getGrupo();
-
     String getTurno();
-
-    String getSituacao();
-
-    String getDia();
-
-    String getMes();
-
-    String getAno();
-
-    String getQtde();
+    String getInicio();
+    String getFim();
+    String getAbertas();
+    String getLancadas();
+    String getFechadas();
+    String getDesviadas();
+    String getNaoUsadas();
+    String getEmAnalise();
+    String getValor();
 }

@@ -2,6 +2,8 @@
   "appErpApp": {
     "relatorio": {
       "dataInicio": "Início",
+      "ano": "Ano",
+      "mes": "Mês",
       "dataTermino": "Término",
       "home": {
         "title": "Relatório",

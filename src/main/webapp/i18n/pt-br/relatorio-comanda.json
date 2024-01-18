@@ -3,6 +3,8 @@
     "relatorioComanda": {
       "dataInicio": "Início",
       "dataTermino": "Término",
+      "ano": "Ano",
+      "mes": "Mês",
       "home": {
         "title": "Relatório",
         "refreshListLabel": "Pesquisar",

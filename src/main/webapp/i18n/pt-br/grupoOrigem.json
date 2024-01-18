@@ -1,0 +1,25 @@
+{
+  "apperpApp": {
+    "grupoOrigem": {
+      "home": {
+        "title": "Grupo Origems",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Grupo Origem",
+        "createOrEditLabel": "Criar ou editar Grupo Origem",
+        "notFound": "Nenhum Grupo Origem encontrado"
+      },
+      "created": "Um novo Grupo Origem foi criado com o identificador {{ param }}",
+      "updated": "Um Grupo Origem foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Grupo Origem foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Grupo Origem {{ id }}?"
+      },
+      "detail": {
+        "title": "Grupo Origem"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "tipoOrigem": "Tipo Origem"
+    }
+  }
+}

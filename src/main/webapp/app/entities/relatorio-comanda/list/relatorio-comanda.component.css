@@ -9,3 +9,21 @@
 #wdr-tab-save {
   display: none !important;
 }
+
+/* not selected */
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  color: navy;
+  font-size: large;
+  font-weight: bold !important;
+  padding-right: 15px !important;
+}
+/* hover */
+::ng-deep .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+  border-bottom: 3px solid #dbdbdb !important;
+  color: navy;
+}
+/* selected */
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-bottom: 3px solid #dbdbdb !important;
+  color: navy;
+}

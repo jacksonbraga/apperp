@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <form name="editForm" role="form" novalidate [formGroup]="editForm">
       <h2 id="jhi-despesa-heading" data-cy="DespesaCreateUpdateHeading" jhiTranslate="appErpApp.despesa.home.createOrEditLabel">
         Criar ou editar Despesa
       </h2>
@@ -49,7 +49,18 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.despesa.valor" for="field_valor">Valor</label>
-          <p-inputNumber
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            formControlName="valor"
+            type="text"
+            class="form-control"
+            name="valor"
+            id="field_valor"
+            data-cy="valor"
+          />
+
+          <!-- <p-inputNumber
             [inputStyle]="{ 'text-align': 'right', width: '100%', border: 'none' }"
             inputId="locale-user"
             [minFractionDigits]="2"
@@ -58,7 +69,7 @@
             id="field_valor"
             data-cy="valor"
             formControlName="valor"
-          ></p-inputNumber>
+          ></p-inputNumber> -->
         </div>
 
         <div class="mb-3">
@@ -67,14 +78,14 @@
             <input
               id="field_data"
               data-cy="data"
-              type="date"
+              type="text"
               class="form-control"
               name="data"
               ngbDatepicker
               #dataDp="ngbDatepicker"
               formControlName="data"
             />
-            <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
           </div>
         </div>
 
@@ -84,16 +95,16 @@
             <input
               id="field_dataVencimento"
               data-cy="dataVencimento"
-              type="date"
+              type="text"
               class="form-control"
               name="dataVencimento"
               ngbDatepicker
               #dataVencimentoDp="ngbDatepicker"
               formControlName="dataVencimento"
             />
-            <!-- <button type="button" class="btn btn-secondary" (click)="dataVencimentoDp.toggle()">
+            <button type="button" class="btn btn-secondary" (click)="dataVencimentoDp.toggle()">
               <fa-icon icon="calendar-alt"></fa-icon>
-            </button> -->
+            </button>
           </div>
         </div>
 
@@ -121,8 +132,9 @@
         </button>
 
         <button
-          type="submit"
+          type="button"
           id="save-entity"
+          (click)="save(content)"
           data-cy="entityCreateSaveButton"
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
@@ -132,4 +144,21 @@
       </div>
     </form>
   </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Nova Despesa</h4>
+    </div>
+
+    <div class="modal-body">
+      <p>
+        Atenção, você informou para criar {{ this.numeroParcelas }} parcelas, no valor de {{ this.valorParcela }} a partir de
+        {{ this.dataVencimento?.format('DD/MM/YYYY') }}
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancela</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Confirma</button>
+    </div>
+  </ng-template>
 </div>

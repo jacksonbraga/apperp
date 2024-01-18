@@ -1,0 +1,26 @@
+{
+  "apperpApp": {
+    "tipoOrigem": {
+      "home": {
+        "title": "Tipo Origems",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tipo Origem",
+        "createOrEditLabel": "Criar ou editar Tipo Origem",
+        "notFound": "Nenhum Tipo Origem encontrado"
+      },
+      "created": "Um novo Tipo Origem foi criado com o identificador {{ param }}",
+      "updated": "Um Tipo Origem foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tipo Origem foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tipo Origem {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Origem"
+      },
+      "id": "ID",
+      "descricao": "Descricao",
+      "grupoOrigem": "Grupo Origem",
+      "caixa": "Caixa"
+    }
+  }
+}

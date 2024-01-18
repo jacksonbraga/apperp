@@ -6,11 +6,20 @@ import { ComandaComponent } from './list/comanda.component';
 import { ComandaDetailComponent } from './detail/comanda-detail.component';
 import { ComandaUpdateComponent } from './update/comanda-update.component';
 import ComandaResolve from './route/comanda-routing-resolve.service';
+import { ComandaDigitacaoComponent } from './digitacao/comanda-digitacao.component';
 
 const comandaRoute: Routes = [
   {
     path: '',
     component: ComandaComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'digitacao',
+    component: ComandaDigitacaoComponent,
     data: {
       defaultSort: 'id,' + ASC,
     },

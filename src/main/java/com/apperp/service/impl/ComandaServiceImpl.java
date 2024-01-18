@@ -103,6 +103,44 @@ public class ComandaServiceImpl implements ComandaService {
         return comandaMapper.toDto(comanda);
     }
 
+    @Override
+    public ComandaDTO updateDigitacao(ComandaDTO comandaDTO) {
+        log.debug("Request to update Comanda : {}", comandaDTO);
+        Comanda comanda = comandaMapper.toEntity(comandaDTO);
+        comanda = comandaRepository.save(comanda);
+        this.updateItensComandasDigitacao(comanda);
+        return comandaMapper.toDto(comanda);
+    }
+
+    private void updateItensComandasDigitacao(Comanda comanda) {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        List<ItemComanda> itens = itemComandaRepository.findByComandaId(comanda.getId());
+        if (!itens.isEmpty()) {
+            for (ItemComanda item : itens) {
+                if (item.getTipoPagamento().getId().equals(1L) && comanda.getCartao() != null) {
+                    System.out.println("CARTAOOO " + comanda.getCartao());
+                    item.setValor(comanda.getCartao());
+                    itemComandaRepository.save(item);
+                }
+                if (item.getTipoPagamento().getId().equals(2L) && comanda.getPix() != null) {
+                    System.out.println("PIX " + comanda.getCartao());
+                    item.setValor(comanda.getPix());
+                    itemComandaRepository.save(item);
+                }
+                if (item.getTipoPagamento().getId().equals(3L) && comanda.getDinheiro() != null) {
+                    System.out.println("DINHEIRO " + comanda.getCartao());
+                    item.setValor(comanda.getDinheiro());
+                    itemComandaRepository.save(item);
+                }
+                if (item.getTipoPagamento().getId().equals(19L) && comanda.getTransferido() != null) {
+                    System.out.println("TRANSFERIDO " + comanda.getCartao());
+                    item.setValor(comanda.getTransferido());
+                    itemComandaRepository.save(item);
+                }
+            }
+        }
+    }
+
     private void updateItensComandas(Comanda comanda) {
         Situacao situacao = new Situacao();
         situacao.setId(1L);

@@ -2,7 +2,10 @@ package com.apperp.repository;
 
 import com.apperp.domain.ItemComanda;
 import com.apperp.service.dto.IRelatorio;
+import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
+import com.apperp.service.dto.IRelatorioControle;
+import com.apperp.service.dto.IRelatorioControle2;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -115,23 +118,99 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
     List<IRelatorio> listaRelatorioPorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
 
     @Query(
-        value = "select \"Comandas\" as grupoComanda,\r\n" + //
-        "\"Turnos\"  as grupo,\r\n" + //
-        "       cor.descricao as turno,\r\n" + //
-        "       s.descricao as situacao,\r\n" + //
-        "       day(cc.data) as dia,\r\n" + //
-        "\t   month(cc.data) as mes,\r\n" + //
-        "\t   year(cc.data) as ano,\r\n" + //
-        "       count(distinct c.id) as qtde\r\n" + //
+        value = "select cor.descricao as turno,\r\n" + //
+        "       cc.faixa_inicio as inicio,\r\n" + //
+        "       cc.faixa_fim as fim,\r\n" + //
+        "       sum(IF(s.id = 1, 1, 0)) as 'abertas',\r\n" + //
+        "       sum(IF(s.id = 2, 1, 0)) as 'fechadas',\r\n" + //
+        "       sum(IF(s.id = 3, 1, 0)) as 'desviadas',\r\n" + //
+        "       sum(IF(s.id = 4, 1, 0)) as 'lancadas',\r\n" + //
+        "       sum(IF(s.id = 6, 1, 0)) as 'naoUsadas',\r\n" + //
+        "       sum(IF(s.id = 7, 1, 0)) as 'emAnalise',\r\n" + //
+        "       sum(c.valor) as valor\r\n" + //
         " from comanda c \r\n" + //
         " inner join controle_comanda cc on cc.id = c.controle_comanda_id \r\n" + //
         " inner join cor\tcor on cor.id = cc.cor_id \r\n" + //
         " inner join situacao s on s.id = c.situacao_id \r\n" + //
         " where cc.data between :dataInicio and :dataFim\t\r\n" + //
-        " group by cor.descricao,s.descricao,day(cc.data), month(cc.data),year(cc.data)",
+        " group by cor.descricao,cc.faixa_inicio,cc.faixa_fim",
         nativeQuery = true
     )
     List<IRelatorioComanda> listaRelatorioComandaPorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
 
+    @Query(
+        value = "select\r\n" + //
+        "\tcor.descricao as turno,\r\n" + //
+        "\tcc.faixa_inicio as inicio,\r\n" + //
+        "\tcc.Faixa_fIm as fim,\r\n" + //
+        "\t(cc.faixa_fim - cc.faixa_inicio) + 1 as qtde,\r\n" + //
+        "\tsum(c.valor) as valor\r\n" + //
+        "from\r\n" + //
+        "\tcomanda c\r\n" + //
+        "inner join controle_comanda cc on\r\n" + //
+        "\tcc.id = c.controle_comanda_id\r\n" + //
+        "inner join cor cor on\r\n" + //
+        "\tcor.id = cc.cor_id\r\n" + //
+        "inner join situacao s on\r\n" + //
+        "\ts.id = c.situacao_id\r\n" + //
+        "where\r\n" + //
+        "\tcc.data between :dataInicio and :dataFim\r\n" + //
+        "group by\r\n" + //
+        "\tcor.descricao,\r\n" + //
+        "\tcc.faixa_inicio,\r\n" + //
+        "\tcc.Faixa_fim\r\n" + //
+        "\t order by 1,2",
+        nativeQuery = true
+    )
+    List<IRelatorioControle2> listaRelatorioControlePorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
+
+    @Query(
+        value = "select\r\n" + //
+        "\t\"Comandas\" as grupoComanda,\r\n" + //
+        "\tgp.descricao as grupo,\r\n" + //
+        "\tcc.id as id,\r\n" + //
+        "\tcor.descricao as turno,\r\n" + //
+        "\ttp.descricao  as tipo,\r\n" + //
+        "\tday(cc.data) as dia,\r\n" + //
+        "\tmonth(cc.data) as mes,\r\n" + //
+        "\tyear(cc.data) as ano,\r\n" + //
+        "\tsum(ic.valor) as valor,\r\n" + //
+        "\tcount(distinct c.id) as qtde,\r\n" + //
+        "\t0 as valorCaixa,\r\n" + //
+        "\t0 as taxaCobrada,\r\n" + //
+        "\t0 as valorCobrado\r\n" + //
+        "from\r\n" + //
+        "\tcomanda c\r\n" + //
+        "inner join controle_comanda cc on\r\n" + //
+        "\tcc.id = c.controle_comanda_id\r\n" + //
+        "\r\n" + //
+        "inner join item_comanda ic on\r\n" + //
+        "\tic.comanda_id = c.id\t\r\n" + //
+        "inner join tipo_pagamento tp on \r\n" + //
+        "    ic.tipo_pagamento_id = tp.id \r\n" + //
+        "inner join grupo_pagamento gp on \r\n" + //
+        "   tp.grupo_pagamento_id = gp.id\r\n" + //
+        "    \r\n" + //
+        "\t\r\n" + //
+        "inner join cor cor on\r\n" + //
+        "\tcor.id = cc.cor_id\r\n" + //
+        "inner join situacao s on\r\n" + //
+        "\ts.id = c.situacao_id\r\n" + //
+        "where\r\n" + //
+        "\tcc.data between :dataInicio and :dataFim\r\n" + //
+        "group by\r\n" + //
+        "\tcc.id,\r\n" + //
+        "\tgp.descricao,\r\n" + //
+        "\tcor.descricao,\r\n" + //
+        "\ttp.descricao,\r\n" + //
+        "\tday(cc.data),\r\n" + //
+        "\tmonth(cc.data),\r\n" + //
+        "\tyear(cc.data) order by 4,2 asc",
+        nativeQuery = true
+    )
+    List<IRelatorioCaixa> listaRelatorioCaixaPorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
+
     List<ItemComanda> findAllByComandaId(Long id);
+
+    List<ItemComanda> findByComandaId(Long id);
 }

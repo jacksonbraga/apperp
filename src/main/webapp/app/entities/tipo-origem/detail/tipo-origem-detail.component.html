@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="tipoOrigem">
+      <h2 data-cy="tipoOrigemDetailsHeading"><span jhiTranslate="apperpApp.tipoOrigem.detail.title">Tipo Origem</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ tipoOrigem.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.tipoOrigem.descricao">Descricao</span></dt>
+        <dd>
+          <span>{{ tipoOrigem.descricao }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.tipoOrigem.grupoOrigem">Grupo Origem</span></dt>
+        <dd>
+          <span *ngFor="let grupoOrigem of tipoOrigem.grupoOrigems; let last = last">
+            <a [routerLink]="['/grupo-origem', grupoOrigem.id, 'view']">{{ grupoOrigem.descricao }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/tipo-origem', tipoOrigem.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

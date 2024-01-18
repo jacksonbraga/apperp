@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="grupoOrigem">
+      <h2 data-cy="grupoOrigemDetailsHeading"><span jhiTranslate="apperpApp.grupoOrigem.detail.title">Grupo Origem</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ grupoOrigem.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="apperpApp.grupoOrigem.descricao">Descricao</span></dt>
+        <dd>
+          <span>{{ grupoOrigem.descricao }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/grupo-origem', grupoOrigem.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

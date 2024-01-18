@@ -153,6 +153,22 @@
             </div>
           </td> -->
           <td class="text-end">
+            <button
+              type="submit"
+              [routerLink]="['/comanda/digitacao']"
+              [queryParams]="{ 'filter[controleComandaId.in]': controleComanda.id }"
+              class="btn btn-success btn-sm"
+              data-cy="filterOtherEntityButton"
+            >
+              <fa-icon icon="navicon"></fa-icon>
+              <span
+                class="d-none d-md-inline"
+                jhiTranslate="entity.action.show"
+                [translateValues]="{ otherEntity: ('appErpApp.controleComanda.digitacao' | translate) }"
+                >Mostrar Comanda</span
+              >
+            </button>
+
             <div class="btn-group">
               <button
                 type="submit"
@@ -169,6 +185,7 @@
                   >Mostrar Comanda</span
                 >
               </button>
+
               <!--               <button
             type="submit"
             [routerLink]="['/comanda']"
