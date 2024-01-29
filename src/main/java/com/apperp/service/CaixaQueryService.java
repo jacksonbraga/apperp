@@ -105,10 +105,7 @@ public class CaixaQueryService extends QueryService<Caixa> {
             if (criteria.getTipoCaixaId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(
-                            criteria.getTipoCaixaId(),
-                            root -> root.join(Caixa_.tipoCaixas, JoinType.LEFT).get(TipoCaixa_.id)
-                        )
+                        buildSpecification(criteria.getTipoCaixaId(), root -> root.join(Caixa_.tipoCaixa, JoinType.LEFT).get(TipoCaixa_.id))
                     );
             }
             if (criteria.getTipoOrigemId() != null) {
@@ -116,7 +113,7 @@ public class CaixaQueryService extends QueryService<Caixa> {
                     specification.and(
                         buildSpecification(
                             criteria.getTipoOrigemId(),
-                            root -> root.join(Caixa_.tipoOrigems, JoinType.LEFT).get(TipoOrigem_.id)
+                            root -> root.join(Caixa_.tipoOrigem, JoinType.LEFT).get(TipoOrigem_.id)
                         )
                     );
             }

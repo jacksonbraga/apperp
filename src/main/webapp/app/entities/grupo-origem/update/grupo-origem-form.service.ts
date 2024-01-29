@@ -14,12 +14,11 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type GrupoOrigemFormGroupInput = IGrupoOrigem | PartialWithRequiredKeyOf<NewGrupoOrigem>;
 
-type GrupoOrigemFormDefaults = Pick<NewGrupoOrigem, 'id' | 'tipoOrigems'>;
+type GrupoOrigemFormDefaults = Pick<NewGrupoOrigem, 'id'>;
 
 type GrupoOrigemFormGroupContent = {
   id: FormControl<IGrupoOrigem['id'] | NewGrupoOrigem['id']>;
   descricao: FormControl<IGrupoOrigem['descricao']>;
-  tipoOrigems: FormControl<IGrupoOrigem['tipoOrigems']>;
 };
 
 export type GrupoOrigemFormGroup = FormGroup<GrupoOrigemFormGroupContent>;
@@ -40,7 +39,6 @@ export class GrupoOrigemFormService {
         },
       ),
       descricao: new FormControl(grupoOrigemRawValue.descricao),
-      tipoOrigems: new FormControl(grupoOrigemRawValue.tipoOrigems ?? []),
     });
   }
 
@@ -61,7 +59,6 @@ export class GrupoOrigemFormService {
   private getFormDefaults(): GrupoOrigemFormDefaults {
     return {
       id: null,
-      tipoOrigems: [],
     };
   }
 }

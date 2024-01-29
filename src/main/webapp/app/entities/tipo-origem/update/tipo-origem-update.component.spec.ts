@@ -48,37 +48,33 @@ describe('TipoOrigem Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call GrupoOrigem query and add missing value', () => {
+    it('Should call grupoOrigem query and add missing value', () => {
       const tipoOrigem: ITipoOrigem = { id: 456 };
-      const grupoOrigems: IGrupoOrigem[] = [{ id: 28033 }];
-      tipoOrigem.grupoOrigems = grupoOrigems;
+      const grupoOrigem: IGrupoOrigem = { id: 28033 };
+      tipoOrigem.grupoOrigem = grupoOrigem;
 
       const grupoOrigemCollection: IGrupoOrigem[] = [{ id: 28253 }];
       jest.spyOn(grupoOrigemService, 'query').mockReturnValue(of(new HttpResponse({ body: grupoOrigemCollection })));
-      const additionalGrupoOrigems = [...grupoOrigems];
-      const expectedCollection: IGrupoOrigem[] = [...additionalGrupoOrigems, ...grupoOrigemCollection];
+      const expectedCollection: IGrupoOrigem[] = [grupoOrigem, ...grupoOrigemCollection];
       jest.spyOn(grupoOrigemService, 'addGrupoOrigemToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ tipoOrigem });
       comp.ngOnInit();
 
       expect(grupoOrigemService.query).toHaveBeenCalled();
-      expect(grupoOrigemService.addGrupoOrigemToCollectionIfMissing).toHaveBeenCalledWith(
-        grupoOrigemCollection,
-        ...additionalGrupoOrigems.map(expect.objectContaining),
-      );
-      expect(comp.grupoOrigemsSharedCollection).toEqual(expectedCollection);
+      expect(grupoOrigemService.addGrupoOrigemToCollectionIfMissing).toHaveBeenCalledWith(grupoOrigemCollection, grupoOrigem);
+      expect(comp.grupoOrigemsCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const tipoOrigem: ITipoOrigem = { id: 456 };
       const grupoOrigem: IGrupoOrigem = { id: 16785 };
-      tipoOrigem.grupoOrigems = [grupoOrigem];
+      tipoOrigem.grupoOrigem = grupoOrigem;
 
       activatedRoute.data = of({ tipoOrigem });
       comp.ngOnInit();
 
-      expect(comp.grupoOrigemsSharedCollection).toContain(grupoOrigem);
+      expect(comp.grupoOrigemsCollection).toContain(grupoOrigem);
       expect(comp.tipoOrigem).toEqual(tipoOrigem);
     });
   });

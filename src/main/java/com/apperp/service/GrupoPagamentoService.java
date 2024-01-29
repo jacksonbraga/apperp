@@ -40,6 +40,13 @@ public interface GrupoPagamentoService {
     List<GrupoPagamentoDTO> findAll();
 
     /**
+     * Get all the GrupoPagamentoDTO where TipoCaixa is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    //List<GrupoPagamentoDTO> findAllWhereTipoCaixaIsNull();
+
+    /**
      * Get the "id" grupoPagamento.
      *
      * @param id the id of the entity.

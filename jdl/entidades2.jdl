@@ -3,7 +3,7 @@ entity Caixa {
 	descricao String 
     observacao String
     valor BigDecimal
-    data ZonedDateTime
+    data LocalDate
 }
 
 entity TipoCaixa {
@@ -14,7 +14,7 @@ entity TipoOrigem {
 	descricao String 
 }
 
-entity GrupoCaixa {
+entity GrupoPagamento {
 	descricao String 
 }
 
@@ -25,7 +25,7 @@ entity GrupoOrigem {
 relationship OneToOne {
 	Caixa{tipoCaixa(descricao)} to TipoCaixa
     Caixa{tipoOrigem(descricao)} to TipoOrigem
-    TipoCaixa{grupoCaixa(descricao)} to GrupoCaixa
+    TipoCaixa{grupoPagamento(descricao)} to GrupoPagamento
     TipoOrigem{grupoOrigem(descricao)} to GrupoOrigem
 }
 

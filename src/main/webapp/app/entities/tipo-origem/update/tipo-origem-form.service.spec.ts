@@ -21,8 +21,7 @@ describe('TipoOrigem Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descricao: expect.any(Object),
-            grupoOrigems: expect.any(Object),
-            caixas: expect.any(Object),
+            grupoOrigem: expect.any(Object),
           }),
         );
       });
@@ -34,8 +33,7 @@ describe('TipoOrigem Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descricao: expect.any(Object),
-            grupoOrigems: expect.any(Object),
-            caixas: expect.any(Object),
+            grupoOrigem: expect.any(Object),
           }),
         );
       });

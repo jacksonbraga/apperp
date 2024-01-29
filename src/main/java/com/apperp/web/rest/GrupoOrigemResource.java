@@ -133,10 +133,15 @@ public class GrupoOrigemResource {
     /**
      * {@code GET  /grupo-origems} : get all the grupoOrigems.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of grupoOrigems in body.
      */
     @GetMapping("")
-    public List<GrupoOrigemDTO> getAllGrupoOrigems() {
+    public List<GrupoOrigemDTO> getAllGrupoOrigems(@RequestParam(required = false) String filter) {
+        if ("tipoorigem-is-null".equals(filter)) {
+            log.debug("REST request to get all GrupoOrigems where tipoOrigem is null");
+            return grupoOrigemService.findAllWhereTipoOrigemIsNull();
+        }
         log.debug("REST request to get all GrupoOrigems");
         return grupoOrigemService.findAll();
     }

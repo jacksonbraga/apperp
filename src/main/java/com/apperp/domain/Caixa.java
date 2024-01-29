@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -38,25 +36,15 @@ public class Caixa implements Serializable {
     @Column(name = "data")
     private LocalDate data;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "rel_caixa__tipo_caixa",
-        joinColumns = @JoinColumn(name = "caixa_id"),
-        inverseJoinColumns = @JoinColumn(name = "tipo_caixa_id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "grupoCaixas", "caixas" }, allowSetters = true)
-    private Set<TipoCaixa> tipoCaixas = new HashSet<>();
+    @JsonIgnoreProperties(value = { "grupoPagamento", "caixa" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(unique = false)
+    private TipoCaixa tipoCaixa;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "rel_caixa__tipo_origem",
-        joinColumns = @JoinColumn(name = "caixa_id"),
-        inverseJoinColumns = @JoinColumn(name = "tipo_origem_id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "grupoOrigems", "caixas" }, allowSetters = true)
-    private Set<TipoOrigem> tipoOrigems = new HashSet<>();
+    @JsonIgnoreProperties(value = { "grupoOrigem", "caixa" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(unique = false)
+    private TipoOrigem tipoOrigem;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -125,49 +113,29 @@ public class Caixa implements Serializable {
         this.data = data;
     }
 
-    public Set<TipoCaixa> getTipoCaixas() {
-        return this.tipoCaixas;
+    public TipoCaixa getTipoCaixa() {
+        return this.tipoCaixa;
     }
 
-    public void setTipoCaixas(Set<TipoCaixa> tipoCaixas) {
-        this.tipoCaixas = tipoCaixas;
+    public void setTipoCaixa(TipoCaixa tipoCaixa) {
+        this.tipoCaixa = tipoCaixa;
     }
 
-    public Caixa tipoCaixas(Set<TipoCaixa> tipoCaixas) {
-        this.setTipoCaixas(tipoCaixas);
+    public Caixa tipoCaixa(TipoCaixa tipoCaixa) {
+        this.setTipoCaixa(tipoCaixa);
         return this;
     }
 
-    public Caixa addTipoCaixa(TipoCaixa tipoCaixa) {
-        this.tipoCaixas.add(tipoCaixa);
-        return this;
+    public TipoOrigem getTipoOrigem() {
+        return this.tipoOrigem;
     }
 
-    public Caixa removeTipoCaixa(TipoCaixa tipoCaixa) {
-        this.tipoCaixas.remove(tipoCaixa);
-        return this;
+    public void setTipoOrigem(TipoOrigem tipoOrigem) {
+        this.tipoOrigem = tipoOrigem;
     }
 
-    public Set<TipoOrigem> getTipoOrigems() {
-        return this.tipoOrigems;
-    }
-
-    public void setTipoOrigems(Set<TipoOrigem> tipoOrigems) {
-        this.tipoOrigems = tipoOrigems;
-    }
-
-    public Caixa tipoOrigems(Set<TipoOrigem> tipoOrigems) {
-        this.setTipoOrigems(tipoOrigems);
-        return this;
-    }
-
-    public Caixa addTipoOrigem(TipoOrigem tipoOrigem) {
-        this.tipoOrigems.add(tipoOrigem);
-        return this;
-    }
-
-    public Caixa removeTipoOrigem(TipoOrigem tipoOrigem) {
-        this.tipoOrigems.remove(tipoOrigem);
+    public Caixa tipoOrigem(TipoOrigem tipoOrigem) {
+        this.setTipoOrigem(tipoOrigem);
         return this;
     }
 

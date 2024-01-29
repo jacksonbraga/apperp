@@ -1,23 +1,48 @@
 <div>
   <h2 id="page-heading" data-cy="CaixaHeading">
     <span jhiTranslate="apperpApp.caixa.home.title">Caixas</span>
+    <form [formGroup]="formGroup">
+      <div class="d-flex justify-content-start">
+        <div class="col-2">
+          <label
+            class="form-label"
+            style="font-size: medium; font-weight: bold"
+            jhiTranslate="appErpApp.controleComanda.data"
+            for="field_data"
+            >Data</label
+          >
+          <div class="input-group">
+            <input
+              id="field_data"
+              data-cy="data"
+              type="text"
+              class="form-control"
+              name="data"
+              ngbDatepicker
+              #dataDp="ngbDatepicker"
+              formControlName="dataFiltro"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="apperpApp.caixa.home.refreshListLabel">Atualizar lista</span>
+        </button>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="apperpApp.caixa.home.refreshListLabel">Atualizar lista</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-caixa"
-        [routerLink]="['/caixa/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="apperpApp.caixa.home.createLabel">Criar novo Caixa</span>
-      </button>
-    </div>
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-caixa"
+          [routerLink]="['/caixa/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="apperpApp.caixa.home.createLabel">Criar novo Caixa</span>
+        </button>
+      </div>
+    </form>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -64,6 +89,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="tipoCaixa.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.caixa.tipoCaixa">Tipo Caixa</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="tipoOrigem.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.caixa.tipoOrigem">Tipo Origem</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -76,6 +113,16 @@
           <td>{{ caixa.observacao }}</td>
           <td>{{ caixa.valor | currency: ' ' }}</td>
           <td>{{ caixa.data | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="caixa.tipoCaixa">
+              <a [routerLink]="['/tipo-caixa', caixa.tipoCaixa.id, 'view']">{{ caixa.tipoCaixa.descricao }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="caixa.tipoOrigem">
+              <a [routerLink]="['/tipo-origem', caixa.tipoOrigem.id, 'view']">{{ caixa.tipoOrigem.descricao }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <a [routerLink]="['/caixa', caixa.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

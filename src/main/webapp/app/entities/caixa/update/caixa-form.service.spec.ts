@@ -24,8 +24,8 @@ describe('Caixa Form Service', () => {
             observacao: expect.any(Object),
             valor: expect.any(Object),
             data: expect.any(Object),
-            tipoCaixas: expect.any(Object),
-            tipoOrigems: expect.any(Object),
+            tipoCaixa: expect.any(Object),
+            tipoOrigem: expect.any(Object),
           }),
         );
       });
@@ -40,8 +40,8 @@ describe('Caixa Form Service', () => {
             observacao: expect.any(Object),
             valor: expect.any(Object),
             data: expect.any(Object),
-            tipoCaixas: expect.any(Object),
-            tipoOrigems: expect.any(Object),
+            tipoCaixa: expect.any(Object),
+            tipoOrigem: expect.any(Object),
           }),
         );
       });

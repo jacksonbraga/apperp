@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,20 @@ public class GrupoOrigemServiceImpl implements GrupoOrigemService {
     public List<GrupoOrigemDTO> findAll() {
         log.debug("Request to get all GrupoOrigems");
         return grupoOrigemRepository.findAll().stream().map(grupoOrigemMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     *  Get all the grupoOrigems where TipoOrigem is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<GrupoOrigemDTO> findAllWhereTipoOrigemIsNull() {
+        log.debug("Request to get all grupoOrigems where TipoOrigem is null");
+        return StreamSupport
+            .stream(grupoOrigemRepository.findAll().spliterator(), false)
+            //.filter(grupoOrigem -> grupoOrigem.getTipoOrigem() == null)
+            .map(grupoOrigemMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

@@ -1,11 +1,9 @@
 package com.apperp.service.mapper;
 
-import com.apperp.domain.GrupoCaixa;
+import com.apperp.domain.GrupoPagamento;
 import com.apperp.domain.TipoCaixa;
-import com.apperp.service.dto.GrupoCaixaDTO;
+import com.apperp.service.dto.GrupoPagamentoDTO;
 import com.apperp.service.dto.TipoCaixaDTO;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.mapstruct.*;
 
 /**
@@ -13,20 +11,12 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface TipoCaixaMapper extends EntityMapper<TipoCaixaDTO, TipoCaixa> {
-    @Mapping(target = "grupoCaixas", source = "grupoCaixas", qualifiedByName = "grupoCaixaDescricaoSet")
+    @Mapping(target = "grupoPagamento", source = "grupoPagamento", qualifiedByName = "grupoPagamentoDescricao")
     TipoCaixaDTO toDto(TipoCaixa s);
 
-    @Mapping(target = "removeGrupoCaixa", ignore = true)
-    TipoCaixa toEntity(TipoCaixaDTO tipoCaixaDTO);
-
-    @Named("grupoCaixaDescricao")
+    @Named("grupoPagamentoDescricao")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "descricao", source = "descricao")
-    GrupoCaixaDTO toDtoGrupoCaixaDescricao(GrupoCaixa grupoCaixa);
-
-    @Named("grupoCaixaDescricaoSet")
-    default Set<GrupoCaixaDTO> toDtoGrupoCaixaDescricaoSet(Set<GrupoCaixa> grupoCaixa) {
-        return grupoCaixa.stream().map(this::toDtoGrupoCaixaDescricao).collect(Collectors.toSet());
-    }
+    GrupoPagamentoDTO toDtoGrupoPagamentoDescricao(GrupoPagamento grupoPagamento);
 }

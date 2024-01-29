@@ -1,9 +1,7 @@
 package com.apperp.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A DTO for the {@link com.apperp.domain.TipoOrigem} entity.
@@ -15,7 +13,7 @@ public class TipoOrigemDTO implements Serializable {
 
     private String descricao;
 
-    private Set<GrupoOrigemDTO> grupoOrigems = new HashSet<>();
+    private GrupoOrigemDTO grupoOrigem;
 
     public Long getId() {
         return id;
@@ -33,12 +31,12 @@ public class TipoOrigemDTO implements Serializable {
         this.descricao = descricao;
     }
 
-    public Set<GrupoOrigemDTO> getGrupoOrigems() {
-        return grupoOrigems;
+    public GrupoOrigemDTO getGrupoOrigem() {
+        return grupoOrigem;
     }
 
-    public void setGrupoOrigems(Set<GrupoOrigemDTO> grupoOrigems) {
-        this.grupoOrigems = grupoOrigems;
+    public void setGrupoOrigem(GrupoOrigemDTO grupoOrigem) {
+        this.grupoOrigem = grupoOrigem;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class TipoOrigemDTO implements Serializable {
         return "TipoOrigemDTO{" +
             "id=" + getId() +
             ", descricao='" + getDescricao() + "'" +
-            ", grupoOrigems=" + getGrupoOrigems() +
+            ", grupoOrigem=" + getGrupoOrigem() +
             "}";
     }
 }

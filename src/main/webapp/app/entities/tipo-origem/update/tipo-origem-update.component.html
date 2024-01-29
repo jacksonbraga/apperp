@@ -19,17 +19,17 @@
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="apperpApp.tipoOrigem.grupoOrigem" for="field_grupoOrigems">Grupo Origem</label>
+          <label class="form-label" jhiTranslate="apperpApp.tipoOrigem.grupoOrigem" for="field_grupoOrigem">Grupo Origem</label>
           <select
             class="form-control"
-            id="field_grupoOrigems"
+            id="field_grupoOrigem"
             data-cy="grupoOrigem"
-            multiple
-            name="grupoOrigems"
-            formControlName="grupoOrigems"
+            name="grupoOrigem"
+            formControlName="grupoOrigem"
             [compareWith]="compareGrupoOrigem"
           >
-            <option [ngValue]="grupoOrigemOption" *ngFor="let grupoOrigemOption of grupoOrigemsSharedCollection">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="grupoOrigemOption" *ngFor="let grupoOrigemOption of grupoOrigemsCollection">
               {{ grupoOrigemOption.descricao }}
             </option>
           </select>

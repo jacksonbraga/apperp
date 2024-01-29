@@ -21,8 +21,7 @@ describe('TipoCaixa Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descricao: expect.any(Object),
-            grupoCaixas: expect.any(Object),
-            caixas: expect.any(Object),
+            grupoPagamento: expect.any(Object),
           }),
         );
       });
@@ -34,8 +33,7 @@ describe('TipoCaixa Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descricao: expect.any(Object),
-            grupoCaixas: expect.any(Object),
-            caixas: expect.any(Object),
+            grupoPagamento: expect.any(Object),
           }),
         );
       });

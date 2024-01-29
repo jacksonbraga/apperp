@@ -6,6 +6,7 @@ import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITipoCaixa } from 'app/entities/tipo-caixa/tipo-caixa.model';
 import { TipoCaixaService } from 'app/entities/tipo-caixa/service/tipo-caixa.service';
 import { ITipoOrigem } from 'app/entities/tipo-origem/tipo-origem.model';
@@ -13,20 +14,19 @@ import { TipoOrigemService } from 'app/entities/tipo-origem/service/tipo-origem.
 import { CaixaService } from '../service/caixa.service';
 import { ICaixa } from '../caixa.model';
 import { CaixaFormService, CaixaFormGroup } from './caixa-form.service';
-import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   standalone: true,
   selector: 'jhi-caixa-update',
   templateUrl: './caixa-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule, NgxCurrencyDirective],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class CaixaUpdateComponent implements OnInit {
   isSaving = false;
   caixa: ICaixa | null = null;
 
-  tipoCaixasSharedCollection: ITipoCaixa[] = [];
-  tipoOrigemsSharedCollection: ITipoOrigem[] = [];
+  tipoCaixasCollection: ITipoCaixa[] = [];
+  tipoOrigemsCollection: ITipoOrigem[] = [];
 
   editForm: CaixaFormGroup = this.caixaFormService.createCaixaFormGroup();
 
@@ -90,35 +90,35 @@ export class CaixaUpdateComponent implements OnInit {
     this.caixa = caixa;
     this.caixaFormService.resetForm(this.editForm, caixa);
 
-    this.tipoCaixasSharedCollection = this.tipoCaixaService.addTipoCaixaToCollectionIfMissing<ITipoCaixa>(
-      this.tipoCaixasSharedCollection,
-      ...(caixa.tipoCaixas ?? []),
+    this.tipoCaixasCollection = this.tipoCaixaService.addTipoCaixaToCollectionIfMissing<ITipoCaixa>(
+      this.tipoCaixasCollection,
+      caixa.tipoCaixa,
     );
-    this.tipoOrigemsSharedCollection = this.tipoOrigemService.addTipoOrigemToCollectionIfMissing<ITipoOrigem>(
-      this.tipoOrigemsSharedCollection,
-      ...(caixa.tipoOrigems ?? []),
+    this.tipoOrigemsCollection = this.tipoOrigemService.addTipoOrigemToCollectionIfMissing<ITipoOrigem>(
+      this.tipoOrigemsCollection,
+      caixa.tipoOrigem,
     );
   }
 
   protected loadRelationshipsOptions(): void {
     this.tipoCaixaService
-      .query()
+      .query({ filter: 'caixa-is-null' })
       .pipe(map((res: HttpResponse<ITipoCaixa[]>) => res.body ?? []))
       .pipe(
         map((tipoCaixas: ITipoCaixa[]) =>
-          this.tipoCaixaService.addTipoCaixaToCollectionIfMissing<ITipoCaixa>(tipoCaixas, ...(this.caixa?.tipoCaixas ?? [])),
+          this.tipoCaixaService.addTipoCaixaToCollectionIfMissing<ITipoCaixa>(tipoCaixas, this.caixa?.tipoCaixa),
         ),
       )
-      .subscribe((tipoCaixas: ITipoCaixa[]) => (this.tipoCaixasSharedCollection = tipoCaixas));
+      .subscribe((tipoCaixas: ITipoCaixa[]) => (this.tipoCaixasCollection = tipoCaixas));
 
     this.tipoOrigemService
-      .query()
+      .query({ filter: 'caixa-is-null' })
       .pipe(map((res: HttpResponse<ITipoOrigem[]>) => res.body ?? []))
       .pipe(
         map((tipoOrigems: ITipoOrigem[]) =>
-          this.tipoOrigemService.addTipoOrigemToCollectionIfMissing<ITipoOrigem>(tipoOrigems, ...(this.caixa?.tipoOrigems ?? [])),
+          this.tipoOrigemService.addTipoOrigemToCollectionIfMissing<ITipoOrigem>(tipoOrigems, this.caixa?.tipoOrigem),
         ),
       )
-      .subscribe((tipoOrigems: ITipoOrigem[]) => (this.tipoOrigemsSharedCollection = tipoOrigems));
+      .subscribe((tipoOrigems: ITipoOrigem[]) => (this.tipoOrigemsCollection = tipoOrigems));
   }
 }

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -74,6 +75,20 @@ public class TipoOrigemServiceImpl implements TipoOrigemService {
 
     public Page<TipoOrigemDTO> findAllWithEagerRelationships(Pageable pageable) {
         return tipoOrigemRepository.findAllWithEagerRelationships(pageable).map(tipoOrigemMapper::toDto);
+    }
+
+    /**
+     *  Get all the tipoOrigems where Caixa is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<TipoOrigemDTO> findAllWhereCaixaIsNull() {
+        log.debug("Request to get all tipoOrigems where Caixa is null");
+        return StreamSupport
+            .stream(tipoOrigemRepository.findAll().spliterator(), false)
+            //.filter(tipoOrigem -> tipoOrigem.getCaixa() == null)
+            .map(tipoOrigemMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

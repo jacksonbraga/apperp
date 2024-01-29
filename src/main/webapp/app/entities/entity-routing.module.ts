@@ -61,11 +61,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./situacao/situacao.routes'),
       },
       {
-        path: 'grupo-caixa',
-        data: { pageTitle: 'appErpApp.grupoDespesa.home.title' },
-        loadChildren: () => import('./grupo-caixa/grupo-caixa.routes'),
-      },
-      {
         path: 'grupo-origem',
         data: { pageTitle: 'appErpApp.grupoDespesa.home.title' },
         loadChildren: () => import('./grupo-origem/grupo-origem.routes'),

@@ -40,6 +40,13 @@ public interface GrupoOrigemService {
     List<GrupoOrigemDTO> findAll();
 
     /**
+     * Get all the GrupoOrigemDTO where TipoOrigem is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<GrupoOrigemDTO> findAllWhereTipoOrigemIsNull();
+
+    /**
      * Get the "id" grupoOrigem.
      *
      * @param id the id of the entity.

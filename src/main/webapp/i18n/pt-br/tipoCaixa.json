@@ -1,6 +1,8 @@
 {
   "apperpApp": {
     "tipoCaixa": {
+      "grupoPagamento": "Grupo de Pagamento",
+      "tipoOrigem": "Origem",
       "home": {
         "title": "Tipo Caixas",
         "refreshListLabel": "Atualizar lista",
@@ -19,7 +21,6 @@
       },
       "id": "ID",
       "descricao": "Descricao",
-      "grupoCaixa": "Grupo Caixa",
       "caixa": "Caixa"
     }
   }

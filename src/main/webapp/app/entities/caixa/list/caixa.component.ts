@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateAdapter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
-import { DurationPipe, FormatMediumDatePipe } from 'app/shared/date';
+import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { ItemCountComponent } from 'app/shared/pagination';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { FilterComponent, FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter';
 import { ICaixa } from '../caixa.model';
-
+import dayjs from 'dayjs/esm';
 import { EntityArrayResponseType, CaixaService } from '../service/caixa.service';
 import { CaixaDeleteDialogComponent } from '../delete/caixa-delete-dialog.component';
 
@@ -22,12 +22,14 @@ import { CaixaDeleteDialogComponent } from '../delete/caixa-delete-dialog.compon
   selector: 'jhi-caixa',
   templateUrl: './caixa.component.html',
   imports: [
+    ReactiveFormsModule,
     RouterModule,
     FormsModule,
     SharedModule,
     SortDirective,
     SortByDirective,
     DurationPipe,
+    FormatMediumDatetimePipe,
     FormatMediumDatePipe,
     FilterComponent,
     ItemCountComponent,
@@ -45,12 +47,21 @@ export class CaixaComponent implements OnInit {
   totalItems = 0;
   page = 1;
 
+  formGroup!: FormGroup;
+
   constructor(
     protected caixaService: CaixaService,
     protected activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     public router: Router,
     protected modalService: NgbModal,
-  ) {}
+    private ngbCalendar: NgbCalendar,
+    private dateAdapter: NgbDateAdapter<string>,
+  ) {
+    this.formGroup = this.formBuilder.group({
+      dataFiltro: new FormControl(this.dateAdapter.toModel(this.ngbCalendar.getToday())),
+    });
+  }
 
   trackId = (_index: number, item: ICaixa): number => this.caixaService.getCaixaIdentifier(item);
 
@@ -139,6 +150,11 @@ export class CaixaComponent implements OnInit {
     filterOptions?.forEach(filterOption => {
       queryObject[filterOption.name] = filterOption.values;
     });
+
+    if (this.formGroup.get('dataFiltro')!.value) {
+      queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
+    }
+
     return this.caixaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 

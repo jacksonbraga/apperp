@@ -50,27 +50,10 @@
           <span jhiTranslate="appErpApp.relatorioComanda.home.refreshListLabel">Atualizar lista</span>
         </button>
       </div>
-      <!--       <button id="jh-create-entity" data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-relatorio" [routerLink]="['/relatorio/new']">
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="appErpApp.relatorioComanda.home.createLabel">Criar novo Relatorio</span>
-      </button> -->
     </div>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
-
-  <!-- <jhi-alert></jhi-alert> -->
-
-  <!-- <div class="alert alert-warning" id="no-result" *ngIf="relatorios?.length === 0">
-    <span jhiTranslate="appErpApp.relatorioComanda.home.notFound">Nenhum Relatorio encontrado</span>
-  </div> -->
-
-  <!-- <div class="d-flex justify-content-start" *ngIf="isLoading">
-    <div class="col-2 p-2">
-      <div class="spinner-border"></div>
-    </div>
-  </div> -->
 
   <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" (shown)="navChanged1($event)">
     <li *ngFor="let item of numSequence(31); let i = index" [ngbNavItem]="i + 1" [disabled]="i + 1 > this.ultimoDia">
@@ -80,13 +63,118 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <div id="wdr-relatorio-comanda-1-{{ i + 1 }}"></div>
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Controle das Comandas</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-1-{{ i + 1 }}"></div>
+                </div>
+              </div>
             </div>
           </div>
-          <hr />
+          <br />
+          <div class="row">
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Valores Recebidos</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-2-{{ i + 1 }}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">
+                  Conferência: Valores Recebidos X Valores lançados das Comandas
+                </div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-3-{{ i + 1 }}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12" *ngIf="active == 99">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Vendas diárias</div>
+                <div class="card-body">
+                  <!-- <div id="wdr-relatorio-comanda-4-{{ i + 1 }}"></div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="99">
+      <button ngbNavLink>Acumulado</button>
+
+      <ng-template ngbNavContent *ngIf="active == 99">
+        <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <div id="wdr-relatorio-comanda-3-{{ i + 1 }}"></div>
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Controle das Comandas</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-1-99"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Valores Recebidos</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-2-99"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">
+                  Conferência: Valores Recebidos X Valores lançados das Comandas
+                </div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-3-99"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Vendas diárias - Valores Recebidos</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-4-99"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Vendas diárias - Valores Lançados</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-5-99"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Ticket Médio</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-6-99"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -96,5 +184,5 @@
 
   <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
-  <pre>Active: {{ active }}</pre>
+  <!-- <pre>Active: {{ active }}</pre> -->
 </div>

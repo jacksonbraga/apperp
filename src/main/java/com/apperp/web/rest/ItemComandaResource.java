@@ -10,7 +10,9 @@ import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
 import com.apperp.service.dto.IRelatorioControle;
-import com.apperp.service.dto.IRelatorioControle2;
+import com.apperp.service.dto.IRelatorioControle4;
+import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
+import com.apperp.service.dto.IRelatorioControleValoresRecebidosResumo;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.dto.SituacaoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
@@ -202,7 +204,7 @@ public class ItemComandaResource {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioPorDia(dataInicio, dataFim));
     }
 
-    @GetMapping("/relatorio-comanda/{dataInicio}/{dataFim}")
+    @GetMapping("/relatorio-controle-comanda/{dataInicio}/{dataFim}")
     public ResponseEntity<List<IRelatorioComanda>> listaRelatorioComandaPorDia(
         @PathVariable String dataInicio,
         @PathVariable String dataFim
@@ -239,16 +241,32 @@ public class ItemComandaResource {
             .build();
     }
 
-    @GetMapping("/relatorio-controle/{dataInicio}/{dataFim}")
-    public ResponseEntity<List<IRelatorioControle2>> listaRelatorioControlePorDia(
+    @GetMapping("/relatorio-controle-valores-recebidos/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioControleValoresRecebidos>> listaRelatorioControlePorDia(
         @PathVariable String dataInicio,
         @PathVariable String dataFim
     ) {
-        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControlePorDia(dataInicio, dataFim));
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControleValoresRecebidosPorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-controle-valores-recebidos-resumo/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioControleValoresRecebidosResumo>> listaRelatorioControleValoresRecebidosResumoPorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControleValoresRecebidosResumoPorDia(dataInicio, dataFim));
     }
 
     @GetMapping("/relatorio-caixa/{dataInicio}/{dataFim}")
     public ResponseEntity<List<IRelatorioCaixa>> listaRelatorioCaixaPorDia(@PathVariable String dataInicio, @PathVariable String dataFim) {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioCaixaPorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-controle4/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioControle4>> listaRelatorioControle4PorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControle4PorDia(dataInicio, dataFim));
     }
 }

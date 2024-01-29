@@ -134,10 +134,18 @@ public class TipoOrigemResource {
      * {@code GET  /tipo-origems} : get all the tipoOrigems.
      *
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tipoOrigems in body.
      */
     @GetMapping("")
-    public List<TipoOrigemDTO> getAllTipoOrigems(@RequestParam(required = false, defaultValue = "true") boolean eagerload) {
+    public List<TipoOrigemDTO> getAllTipoOrigems(
+        @RequestParam(required = false) String filter,
+        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+    ) {
+        if ("caixa-is-null".equals(filter)) {
+            log.debug("REST request to get all TipoOrigems where caixa is null");
+            return tipoOrigemService.findAllWhereCaixaIsNull();
+        }
         log.debug("REST request to get all TipoOrigems");
         return tipoOrigemService.findAll();
     }

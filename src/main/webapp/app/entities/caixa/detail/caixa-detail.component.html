@@ -28,21 +28,19 @@
         </dd>
         <dt><span jhiTranslate="apperpApp.caixa.data">Data</span></dt>
         <dd>
-          <span>{{ caixa.data | formatMediumDatetime }}</span>
+          <span>{{ caixa.data | formatMediumDate }}</span>
         </dd>
         <dt><span jhiTranslate="apperpApp.caixa.tipoCaixa">Tipo Caixa</span></dt>
         <dd>
-          <span *ngFor="let tipoCaixa of caixa.tipoCaixas; let last = last">
-            <a [routerLink]="['/tipo-caixa', tipoCaixa.id, 'view']">{{ tipoCaixa.descricao }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="caixa.tipoCaixa">
+            <a [routerLink]="['/tipo-caixa', caixa.tipoCaixa.id, 'view']">{{ caixa.tipoCaixa.descricao }}</a>
+          </div>
         </dd>
         <dt><span jhiTranslate="apperpApp.caixa.tipoOrigem">Tipo Origem</span></dt>
         <dd>
-          <span *ngFor="let tipoOrigem of caixa.tipoOrigems; let last = last">
-            <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'view']">{{ tipoOrigem.descricao }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="caixa.tipoOrigem">
+            <a [routerLink]="['/tipo-origem', caixa.tipoOrigem.id, 'view']">{{ caixa.tipoOrigem.descricao }}</a>
+          </div>
         </dd>
       </dl>
 

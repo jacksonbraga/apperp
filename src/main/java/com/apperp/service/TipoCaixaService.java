@@ -42,6 +42,13 @@ public interface TipoCaixaService {
     List<TipoCaixaDTO> findAll();
 
     /**
+     * Get all the TipoCaixaDTO where Caixa is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<TipoCaixaDTO> findAllWhereCaixaIsNull();
+
+    /**
      * Get all the tipoCaixas with eager load of many-to-many relationships.
      *
      * @param pageable the pagination information.

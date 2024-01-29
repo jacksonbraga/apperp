@@ -18,12 +18,11 @@
         <dd>
           <span>{{ tipoCaixa.descricao }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.tipoCaixa.grupoCaixa">Grupo Caixa</span></dt>
+        <dt><span jhiTranslate="apperpApp.tipoCaixa.grupoPagamento">Grupo Pagamento</span></dt>
         <dd>
-          <span *ngFor="let grupoCaixa of tipoCaixa.grupoCaixas; let last = last">
-            <a [routerLink]="['/grupo-caixa', grupoCaixa.id, 'view']">{{ grupoCaixa.descricao }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="tipoCaixa.grupoPagamento">
+            <a [routerLink]="['/grupo-pagamento', tipoCaixa.grupoPagamento.id, 'view']">{{ tipoCaixa.grupoPagamento.descricao }}</a>
+          </div>
         </dd>
       </dl>
 

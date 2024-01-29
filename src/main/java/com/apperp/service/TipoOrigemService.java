@@ -42,6 +42,13 @@ public interface TipoOrigemService {
     List<TipoOrigemDTO> findAll();
 
     /**
+     * Get all the TipoOrigemDTO where Caixa is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<TipoOrigemDTO> findAllWhereCaixaIsNull();
+
+    /**
      * Get all the tipoOrigems with eager load of many-to-many relationships.
      *
      * @param pageable the pagination information.

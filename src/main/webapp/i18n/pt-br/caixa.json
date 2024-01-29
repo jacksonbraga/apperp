@@ -3,7 +3,7 @@
     "caixa": {
       "home": {
         "title": "Caixas",
-        "refreshListLabel": "Atualizar lista",
+        "refreshListLabel": "Pesquisar",
         "createLabel": "Criar novo Caixa",
         "createOrEditLabel": "Criar ou editar Caixa",
         "notFound": "Nenhum Caixa encontrado"

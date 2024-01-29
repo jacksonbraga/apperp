@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { ICaixa } from '../caixa.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../caixa.test-samples';
 
@@ -8,7 +9,7 @@ import { CaixaService, RestCaixa } from './caixa.service';
 
 const requireRestSample: RestCaixa = {
   ...sampleWithRequiredData,
-  data: sampleWithRequiredData.data?.toJSON(),
+  data: sampleWithRequiredData.data?.format(DATE_FORMAT),
 };
 
 describe('Caixa Service', () => {

@@ -17,7 +17,7 @@ export const sampleWithFullData: ICaixa = {
   descricao: 'hasty sill',
   observacao: 'rash seldom',
   valor: 10469.44,
-  data: dayjs('2024-01-17T03:03'),
+  data: dayjs('2024-01-18'),
 };
 
 export const sampleWithNewData: NewCaixa = {

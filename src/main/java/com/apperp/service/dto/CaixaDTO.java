@@ -3,9 +3,7 @@ package com.apperp.service.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A DTO for the {@link com.apperp.domain.Caixa} entity.
@@ -23,9 +21,9 @@ public class CaixaDTO implements Serializable {
 
     private LocalDate data;
 
-    private Set<TipoCaixaDTO> tipoCaixas = new HashSet<>();
+    private TipoCaixaDTO tipoCaixa;
 
-    private Set<TipoOrigemDTO> tipoOrigems = new HashSet<>();
+    private TipoOrigemDTO tipoOrigem;
 
     public Long getId() {
         return id;
@@ -67,20 +65,20 @@ public class CaixaDTO implements Serializable {
         this.data = data;
     }
 
-    public Set<TipoCaixaDTO> getTipoCaixas() {
-        return tipoCaixas;
+    public TipoCaixaDTO getTipoCaixa() {
+        return tipoCaixa;
     }
 
-    public void setTipoCaixas(Set<TipoCaixaDTO> tipoCaixas) {
-        this.tipoCaixas = tipoCaixas;
+    public void setTipoCaixa(TipoCaixaDTO tipoCaixa) {
+        this.tipoCaixa = tipoCaixa;
     }
 
-    public Set<TipoOrigemDTO> getTipoOrigems() {
-        return tipoOrigems;
+    public TipoOrigemDTO getTipoOrigem() {
+        return tipoOrigem;
     }
 
-    public void setTipoOrigems(Set<TipoOrigemDTO> tipoOrigems) {
-        this.tipoOrigems = tipoOrigems;
+    public void setTipoOrigem(TipoOrigemDTO tipoOrigem) {
+        this.tipoOrigem = tipoOrigem;
     }
 
     @Override
@@ -113,8 +111,8 @@ public class CaixaDTO implements Serializable {
             ", observacao='" + getObservacao() + "'" +
             ", valor=" + getValor() +
             ", data='" + getData() + "'" +
-            ", tipoCaixas=" + getTipoCaixas() +
-            ", tipoOrigems=" + getTipoOrigems() +
+            ", tipoCaixa=" + getTipoCaixa() +
+            ", tipoOrigem=" + getTipoOrigem() +
             "}";
     }
 }

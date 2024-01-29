@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IGrupoCaixa } from 'app/entities/grupo-caixa/grupo-caixa.model';
-import { GrupoCaixaService } from 'app/entities/grupo-caixa/service/grupo-caixa.service';
+import { IGrupoPagamento } from 'app/entities/grupo-pagamento/grupo-pagamento.model';
+import { GrupoPagamentoService } from 'app/entities/grupo-pagamento/service/grupo-pagamento.service';
 import { ITipoCaixa } from '../tipo-caixa.model';
 import { TipoCaixaService } from '../service/tipo-caixa.service';
 import { TipoCaixaFormService, TipoCaixaFormGroup } from './tipo-caixa-form.service';
@@ -23,18 +23,19 @@ export class TipoCaixaUpdateComponent implements OnInit {
   isSaving = false;
   tipoCaixa: ITipoCaixa | null = null;
 
-  grupoCaixasSharedCollection: IGrupoCaixa[] = [];
+  grupoPagamentosCollection: IGrupoPagamento[] = [];
 
   editForm: TipoCaixaFormGroup = this.tipoCaixaFormService.createTipoCaixaFormGroup();
 
   constructor(
     protected tipoCaixaService: TipoCaixaService,
     protected tipoCaixaFormService: TipoCaixaFormService,
-    protected grupoCaixaService: GrupoCaixaService,
+    protected grupoPagamentoService: GrupoPagamentoService,
     protected activatedRoute: ActivatedRoute,
   ) {}
 
-  compareGrupoCaixa = (o1: IGrupoCaixa | null, o2: IGrupoCaixa | null): boolean => this.grupoCaixaService.compareGrupoCaixa(o1, o2);
+  compareGrupoPagamento = (o1: IGrupoPagamento | null, o2: IGrupoPagamento | null): boolean =>
+    this.grupoPagamentoService.compareGrupoPagamento(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ tipoCaixa }) => {
@@ -84,21 +85,24 @@ export class TipoCaixaUpdateComponent implements OnInit {
     this.tipoCaixa = tipoCaixa;
     this.tipoCaixaFormService.resetForm(this.editForm, tipoCaixa);
 
-    this.grupoCaixasSharedCollection = this.grupoCaixaService.addGrupoCaixaToCollectionIfMissing<IGrupoCaixa>(
-      this.grupoCaixasSharedCollection,
-      ...(tipoCaixa.grupoCaixas ?? []),
+    this.grupoPagamentosCollection = this.grupoPagamentoService.addGrupoPagamentoToCollectionIfMissing<IGrupoPagamento>(
+      this.grupoPagamentosCollection,
+      tipoCaixa.grupoPagamento,
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.grupoCaixaService
-      .query()
-      .pipe(map((res: HttpResponse<IGrupoCaixa[]>) => res.body ?? []))
+    this.grupoPagamentoService
+      .query({ filter: 'tipocaixa-is-null' })
+      .pipe(map((res: HttpResponse<IGrupoPagamento[]>) => res.body ?? []))
       .pipe(
-        map((grupoCaixas: IGrupoCaixa[]) =>
-          this.grupoCaixaService.addGrupoCaixaToCollectionIfMissing<IGrupoCaixa>(grupoCaixas, ...(this.tipoCaixa?.grupoCaixas ?? [])),
+        map((grupoPagamentos: IGrupoPagamento[]) =>
+          this.grupoPagamentoService.addGrupoPagamentoToCollectionIfMissing<IGrupoPagamento>(
+            grupoPagamentos,
+            this.tipoCaixa?.grupoPagamento,
+          ),
         ),
       )
-      .subscribe((grupoCaixas: IGrupoCaixa[]) => (this.grupoCaixasSharedCollection = grupoCaixas));
+      .subscribe((grupoPagamentos: IGrupoPagamento[]) => (this.grupoPagamentosCollection = grupoPagamentos));
   }
 }

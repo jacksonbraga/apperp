@@ -52,62 +52,54 @@ describe('Caixa Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call TipoCaixa query and add missing value', () => {
+    it('Should call tipoCaixa query and add missing value', () => {
       const caixa: ICaixa = { id: 456 };
-      const tipoCaixas: ITipoCaixa[] = [{ id: 4597 }];
-      caixa.tipoCaixas = tipoCaixas;
+      const tipoCaixa: ITipoCaixa = { id: 4597 };
+      caixa.tipoCaixa = tipoCaixa;
 
       const tipoCaixaCollection: ITipoCaixa[] = [{ id: 3974 }];
       jest.spyOn(tipoCaixaService, 'query').mockReturnValue(of(new HttpResponse({ body: tipoCaixaCollection })));
-      const additionalTipoCaixas = [...tipoCaixas];
-      const expectedCollection: ITipoCaixa[] = [...additionalTipoCaixas, ...tipoCaixaCollection];
+      const expectedCollection: ITipoCaixa[] = [tipoCaixa, ...tipoCaixaCollection];
       jest.spyOn(tipoCaixaService, 'addTipoCaixaToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ caixa });
       comp.ngOnInit();
 
       expect(tipoCaixaService.query).toHaveBeenCalled();
-      expect(tipoCaixaService.addTipoCaixaToCollectionIfMissing).toHaveBeenCalledWith(
-        tipoCaixaCollection,
-        ...additionalTipoCaixas.map(expect.objectContaining),
-      );
-      expect(comp.tipoCaixasSharedCollection).toEqual(expectedCollection);
+      expect(tipoCaixaService.addTipoCaixaToCollectionIfMissing).toHaveBeenCalledWith(tipoCaixaCollection, tipoCaixa);
+      expect(comp.tipoCaixasCollection).toEqual(expectedCollection);
     });
 
-    it('Should call TipoOrigem query and add missing value', () => {
+    it('Should call tipoOrigem query and add missing value', () => {
       const caixa: ICaixa = { id: 456 };
-      const tipoOrigems: ITipoOrigem[] = [{ id: 8453 }];
-      caixa.tipoOrigems = tipoOrigems;
+      const tipoOrigem: ITipoOrigem = { id: 8453 };
+      caixa.tipoOrigem = tipoOrigem;
 
       const tipoOrigemCollection: ITipoOrigem[] = [{ id: 8592 }];
       jest.spyOn(tipoOrigemService, 'query').mockReturnValue(of(new HttpResponse({ body: tipoOrigemCollection })));
-      const additionalTipoOrigems = [...tipoOrigems];
-      const expectedCollection: ITipoOrigem[] = [...additionalTipoOrigems, ...tipoOrigemCollection];
+      const expectedCollection: ITipoOrigem[] = [tipoOrigem, ...tipoOrigemCollection];
       jest.spyOn(tipoOrigemService, 'addTipoOrigemToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ caixa });
       comp.ngOnInit();
 
       expect(tipoOrigemService.query).toHaveBeenCalled();
-      expect(tipoOrigemService.addTipoOrigemToCollectionIfMissing).toHaveBeenCalledWith(
-        tipoOrigemCollection,
-        ...additionalTipoOrigems.map(expect.objectContaining),
-      );
-      expect(comp.tipoOrigemsSharedCollection).toEqual(expectedCollection);
+      expect(tipoOrigemService.addTipoOrigemToCollectionIfMissing).toHaveBeenCalledWith(tipoOrigemCollection, tipoOrigem);
+      expect(comp.tipoOrigemsCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const caixa: ICaixa = { id: 456 };
       const tipoCaixa: ITipoCaixa = { id: 12060 };
-      caixa.tipoCaixas = [tipoCaixa];
+      caixa.tipoCaixa = tipoCaixa;
       const tipoOrigem: ITipoOrigem = { id: 914 };
-      caixa.tipoOrigems = [tipoOrigem];
+      caixa.tipoOrigem = tipoOrigem;
 
       activatedRoute.data = of({ caixa });
       comp.ngOnInit();
 
-      expect(comp.tipoCaixasSharedCollection).toContain(tipoCaixa);
-      expect(comp.tipoOrigemsSharedCollection).toContain(tipoOrigem);
+      expect(comp.tipoCaixasCollection).toContain(tipoCaixa);
+      expect(comp.tipoOrigemsCollection).toContain(tipoOrigem);
       expect(comp.caixa).toEqual(caixa);
     });
   });

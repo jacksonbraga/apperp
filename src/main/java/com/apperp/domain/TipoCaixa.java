@@ -3,8 +3,6 @@ package com.apperp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,20 +25,14 @@ public class TipoCaixa implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "rel_tipo_caixa__grupo_caixa",
-        joinColumns = @JoinColumn(name = "tipo_caixa_id"),
-        inverseJoinColumns = @JoinColumn(name = "grupo_caixa_id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "tipoCaixas" }, allowSetters = true)
-    private Set<GrupoCaixa> grupoCaixas = new HashSet<>();
+    @JsonIgnoreProperties(value = { "tipoCaixa" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(unique = false)
+    private GrupoPagamento grupoPagamento;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tipoCaixas")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "tipoCaixas", "tipoOrigems" }, allowSetters = true)
-    private Set<Caixa> caixas = new HashSet<>();
+    // @JsonIgnoreProperties(value = { "tipoCaixa", "tipoOrigem" }, allowSetters = true)
+    // @OneToOne(fetch = FetchType.LAZY, mappedBy = "tipoCaixa")
+    // private Caixa caixa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -70,59 +62,37 @@ public class TipoCaixa implements Serializable {
         this.descricao = descricao;
     }
 
-    public Set<GrupoCaixa> getGrupoCaixas() {
-        return this.grupoCaixas;
+    public GrupoPagamento getGrupoPagamento() {
+        return this.grupoPagamento;
     }
 
-    public void setGrupoCaixas(Set<GrupoCaixa> grupoCaixas) {
-        this.grupoCaixas = grupoCaixas;
+    public void setGrupoPagamento(GrupoPagamento grupoPagamento) {
+        this.grupoPagamento = grupoPagamento;
     }
 
-    public TipoCaixa grupoCaixas(Set<GrupoCaixa> grupoCaixas) {
-        this.setGrupoCaixas(grupoCaixas);
+    public TipoCaixa grupoPagamento(GrupoPagamento grupoPagamento) {
+        this.setGrupoPagamento(grupoPagamento);
         return this;
     }
 
-    public TipoCaixa addGrupoCaixa(GrupoCaixa grupoCaixa) {
-        this.grupoCaixas.add(grupoCaixa);
-        return this;
-    }
+    // public Caixa getCaixa() {
+    //     return this.caixa;
+    // }
 
-    public TipoCaixa removeGrupoCaixa(GrupoCaixa grupoCaixa) {
-        this.grupoCaixas.remove(grupoCaixa);
-        return this;
-    }
+    // public void setCaixa(Caixa caixa) {
+    //     if (this.caixa != null) {
+    //         this.caixa.setTipoCaixa(null);
+    //     }
+    //     if (caixa != null) {
+    //         caixa.setTipoCaixa(this);
+    //     }
+    //     this.caixa = caixa;
+    // }
 
-    public Set<Caixa> getCaixas() {
-        return this.caixas;
-    }
-
-    public void setCaixas(Set<Caixa> caixas) {
-        if (this.caixas != null) {
-            this.caixas.forEach(i -> i.removeTipoCaixa(this));
-        }
-        if (caixas != null) {
-            caixas.forEach(i -> i.addTipoCaixa(this));
-        }
-        this.caixas = caixas;
-    }
-
-    public TipoCaixa caixas(Set<Caixa> caixas) {
-        this.setCaixas(caixas);
-        return this;
-    }
-
-    public TipoCaixa addCaixa(Caixa caixa) {
-        this.caixas.add(caixa);
-        caixa.getTipoCaixas().add(this);
-        return this;
-    }
-
-    public TipoCaixa removeCaixa(Caixa caixa) {
-        this.caixas.remove(caixa);
-        caixa.getTipoCaixas().remove(this);
-        return this;
-    }
+    // public TipoCaixa caixa(Caixa caixa) {
+    //     this.setCaixa(caixa);
+    //     return this;
+    // }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -23,7 +23,7 @@ export class TipoOrigemUpdateComponent implements OnInit {
   isSaving = false;
   tipoOrigem: ITipoOrigem | null = null;
 
-  grupoOrigemsSharedCollection: IGrupoOrigem[] = [];
+  grupoOrigemsCollection: IGrupoOrigem[] = [];
 
   editForm: TipoOrigemFormGroup = this.tipoOrigemFormService.createTipoOrigemFormGroup();
 
@@ -84,21 +84,21 @@ export class TipoOrigemUpdateComponent implements OnInit {
     this.tipoOrigem = tipoOrigem;
     this.tipoOrigemFormService.resetForm(this.editForm, tipoOrigem);
 
-    this.grupoOrigemsSharedCollection = this.grupoOrigemService.addGrupoOrigemToCollectionIfMissing<IGrupoOrigem>(
-      this.grupoOrigemsSharedCollection,
-      ...(tipoOrigem.grupoOrigems ?? []),
+    this.grupoOrigemsCollection = this.grupoOrigemService.addGrupoOrigemToCollectionIfMissing<IGrupoOrigem>(
+      this.grupoOrigemsCollection,
+      tipoOrigem.grupoOrigem,
     );
   }
 
   protected loadRelationshipsOptions(): void {
     this.grupoOrigemService
-      .query()
+      .query({ filter: '' })
       .pipe(map((res: HttpResponse<IGrupoOrigem[]>) => res.body ?? []))
       .pipe(
         map((grupoOrigems: IGrupoOrigem[]) =>
-          this.grupoOrigemService.addGrupoOrigemToCollectionIfMissing<IGrupoOrigem>(grupoOrigems, ...(this.tipoOrigem?.grupoOrigems ?? [])),
+          this.grupoOrigemService.addGrupoOrigemToCollectionIfMissing<IGrupoOrigem>(grupoOrigems, this.tipoOrigem?.grupoOrigem),
         ),
       )
-      .subscribe((grupoOrigems: IGrupoOrigem[]) => (this.grupoOrigemsSharedCollection = grupoOrigems));
+      .subscribe((grupoOrigems: IGrupoOrigem[]) => (this.grupoOrigemsCollection = grupoOrigems));
   }
 }

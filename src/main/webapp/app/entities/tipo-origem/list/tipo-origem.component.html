@@ -60,28 +60,12 @@
           </td>
           <td>{{ tipoOrigem.descricao }}</td>
           <td>
-            <span *ngFor="let grupoOrigem of tipoOrigem.grupoOrigems; let last = last">
-              <a class="form-control-static" [routerLink]="['/grupo-origem', grupoOrigem.id, 'view']">{{ grupoOrigem.descricao }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="tipoOrigem.grupoOrigem">
+              <a [routerLink]="['/grupo-origem', tipoOrigem.grupoOrigem.id, 'view']">{{ tipoOrigem.grupoOrigem.descricao }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">
-              <!-- <button
-                type="submit"
-                [routerLink]="['/caixa']"
-                [queryParams]="{ 'filter[tipoOrigemId.in]': tipoOrigem.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('apperpApp.tipoOrigem.caixa' | translate) }"
-                  >Mostrar Caixa</span
-                >
-              </button> -->
               <a [routerLink]="['/tipo-origem', tipoOrigem.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>

@@ -1,9 +1,7 @@
 package com.apperp.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A DTO for the {@link com.apperp.domain.TipoCaixa} entity.
@@ -15,7 +13,7 @@ public class TipoCaixaDTO implements Serializable {
 
     private String descricao;
 
-    private Set<GrupoCaixaDTO> grupoCaixas = new HashSet<>();
+    private GrupoPagamentoDTO grupoPagamento;
 
     public Long getId() {
         return id;
@@ -33,12 +31,12 @@ public class TipoCaixaDTO implements Serializable {
         this.descricao = descricao;
     }
 
-    public Set<GrupoCaixaDTO> getGrupoCaixas() {
-        return grupoCaixas;
+    public GrupoPagamentoDTO getGrupoPagamento() {
+        return grupoPagamento;
     }
 
-    public void setGrupoCaixas(Set<GrupoCaixaDTO> grupoCaixas) {
-        this.grupoCaixas = grupoCaixas;
+    public void setGrupoPagamento(GrupoPagamentoDTO grupoPagamento) {
+        this.grupoPagamento = grupoPagamento;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class TipoCaixaDTO implements Serializable {
         return "TipoCaixaDTO{" +
             "id=" + getId() +
             ", descricao='" + getDescricao() + "'" +
-            ", grupoCaixas=" + getGrupoCaixas() +
+            ", grupoPagamento=" + getGrupoPagamento() +
             "}";
     }
 }

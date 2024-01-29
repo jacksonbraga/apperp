@@ -44,9 +44,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="grupoCaixa.descricao">
+          <th scope="col" jhiSortBy="grupoPagamento.descricao">
             <div class="d-flex">
-              <span jhiTranslate="apperpApp.tipoCaixa.grupoCaixa">Grupo Caixa</span>
+              <span jhiTranslate="apperpApp.tipoCaixa.grupoPagamento">Grupo Pagamento</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -60,28 +60,12 @@
           </td>
           <td>{{ tipoCaixa.descricao }}</td>
           <td>
-            <span *ngFor="let grupoCaixa of tipoCaixa.grupoCaixas; let last = last">
-              <a class="form-control-static" [routerLink]="['/grupo-caixa', grupoCaixa.id, 'view']">{{ grupoCaixa.descricao }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="tipoCaixa.grupoPagamento">
+              <a [routerLink]="['/grupo-pagamento', tipoCaixa.grupoPagamento.id, 'view']">{{ tipoCaixa.grupoPagamento.descricao }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">
-              <!-- <button
-                type="submit"
-                [routerLink]="['/caixa']"
-                [queryParams]="{ 'filter[tipoCaixaId.in]': tipoCaixa.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('apperpApp.tipoCaixa.caixa' | translate) }"
-                  >Mostrar Caixa</span
-                >
-              </button> -->
               <a [routerLink]="['/tipo-caixa', tipoCaixa.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>

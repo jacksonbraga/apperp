@@ -32,23 +32,12 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="apperpApp.caixa.valor" for="field_valor">Valor</label>
-          <input
-            currencyMask
-            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
-            formControlName="valor"
-            type="text"
-            class="form-control"
-            name="valor"
-            id="field_valor"
-            data-cy="valor"
-          />
-
-          <!-- <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" /> -->
+          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="apperpApp.caixa.data" for="field_data">Data</label>
-          <div class="d-flex">
+          <div class="input-group">
             <input
               id="field_data"
               data-cy="data"
@@ -64,34 +53,34 @@
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="apperpApp.caixa.tipoCaixa" for="field_tipoCaixas">Tipo Caixa</label>
+          <label class="form-label" jhiTranslate="apperpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
           <select
             class="form-control"
-            id="field_tipoCaixas"
+            id="field_tipoCaixa"
             data-cy="tipoCaixa"
-            multiple
-            name="tipoCaixas"
-            formControlName="tipoCaixas"
+            name="tipoCaixa"
+            formControlName="tipoCaixa"
             [compareWith]="compareTipoCaixa"
           >
-            <option [ngValue]="tipoCaixaOption" *ngFor="let tipoCaixaOption of tipoCaixasSharedCollection">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoCaixaOption" *ngFor="let tipoCaixaOption of tipoCaixasCollection">
               {{ tipoCaixaOption.descricao }}
             </option>
           </select>
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="apperpApp.caixa.tipoOrigem" for="field_tipoOrigems">Tipo Origem</label>
+          <label class="form-label" jhiTranslate="apperpApp.caixa.tipoOrigem" for="field_tipoOrigem">Tipo Origem</label>
           <select
             class="form-control"
-            id="field_tipoOrigems"
+            id="field_tipoOrigem"
             data-cy="tipoOrigem"
-            multiple
-            name="tipoOrigems"
-            formControlName="tipoOrigems"
+            name="tipoOrigem"
+            formControlName="tipoOrigem"
             [compareWith]="compareTipoOrigem"
           >
-            <option [ngValue]="tipoOrigemOption" *ngFor="let tipoOrigemOption of tipoOrigemsSharedCollection">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoOrigemOption" *ngFor="let tipoOrigemOption of tipoOrigemsCollection">
               {{ tipoOrigemOption.descricao }}
             </option>
           </select>

@@ -20,10 +20,9 @@
         </dd>
         <dt><span jhiTranslate="apperpApp.tipoOrigem.grupoOrigem">Grupo Origem</span></dt>
         <dd>
-          <span *ngFor="let grupoOrigem of tipoOrigem.grupoOrigems; let last = last">
-            <a [routerLink]="['/grupo-origem', grupoOrigem.id, 'view']">{{ grupoOrigem.descricao }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="tipoOrigem.grupoOrigem">
+            <a [routerLink]="['/grupo-origem', tipoOrigem.grupoOrigem.id, 'view']">{{ tipoOrigem.grupoOrigem.descricao }}</a>
+          </div>
         </dd>
       </dl>
 

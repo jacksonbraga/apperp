@@ -5874,3 +5874,44 @@
 /* ===== border colors ===== */
 /* ===== grid ===== */
 /* ===== ui ===== */
+
+.fonte-tamanho {
+  font-family: Arial !important;
+  font-size: 15px !important;
+}
+
+.cafe-avulso {
+  background: #aed7ff !important;
+}
+
+.almoco {
+  background-color: '#ffffff';
+}
+
+.lanche {
+  background-color: '#ffffff';
+}
+
+.lanche-avulso {
+  background-color: #bfdfff;
+}
+
+.cafe {
+  background-color: '#ffffff';
+}
+
+.almoco-avulso {
+  background-color: '#b7dbff';
+}
+
+.encomenda {
+  background-color: '#ffffc4';
+}
+
+.evento {
+  background-color: '#c4ffc4';
+}
+
+.massa {
+  background-color: '#ffcaca';
+}

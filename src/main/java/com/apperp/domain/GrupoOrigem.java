@@ -3,8 +3,6 @@ package com.apperp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,10 +25,9 @@ public class GrupoOrigem implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "grupoOrigems")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "grupoOrigems", "caixas" }, allowSetters = true)
-    private Set<TipoOrigem> tipoOrigems = new HashSet<>();
+    // @JsonIgnoreProperties(value = { "grupoOrigem", "caixa" }, allowSetters = true)
+    // @OneToOne(fetch = FetchType.LAZY, mappedBy = "grupoOrigem")
+    // private TipoOrigem tipoOrigem;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -60,36 +57,24 @@ public class GrupoOrigem implements Serializable {
         this.descricao = descricao;
     }
 
-    public Set<TipoOrigem> getTipoOrigems() {
-        return this.tipoOrigems;
-    }
+    // public TipoOrigem getTipoOrigem() {
+    //     return this.tipoOrigem;
+    // }
 
-    public void setTipoOrigems(Set<TipoOrigem> tipoOrigems) {
-        if (this.tipoOrigems != null) {
-            this.tipoOrigems.forEach(i -> i.removeGrupoOrigem(this));
-        }
-        if (tipoOrigems != null) {
-            tipoOrigems.forEach(i -> i.addGrupoOrigem(this));
-        }
-        this.tipoOrigems = tipoOrigems;
-    }
+    // public void setTipoOrigem(TipoOrigem tipoOrigem) {
+    //     if (this.tipoOrigem != null) {
+    //         this.tipoOrigem.setGrupoOrigem(null);
+    //     }
+    //     if (tipoOrigem != null) {
+    //         tipoOrigem.setGrupoOrigem(this);
+    //     }
+    //     this.tipoOrigem = tipoOrigem;
+    // }
 
-    public GrupoOrigem tipoOrigems(Set<TipoOrigem> tipoOrigems) {
-        this.setTipoOrigems(tipoOrigems);
-        return this;
-    }
-
-    public GrupoOrigem addTipoOrigem(TipoOrigem tipoOrigem) {
-        this.tipoOrigems.add(tipoOrigem);
-        tipoOrigem.getGrupoOrigems().add(this);
-        return this;
-    }
-
-    public GrupoOrigem removeTipoOrigem(TipoOrigem tipoOrigem) {
-        this.tipoOrigems.remove(tipoOrigem);
-        tipoOrigem.getGrupoOrigems().remove(this);
-        return this;
-    }
+    // public GrupoOrigem tipoOrigem(TipoOrigem tipoOrigem) {
+    //     this.setTipoOrigem(tipoOrigem);
+    //     return this;
+    // }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -19,18 +19,18 @@
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="apperpApp.tipoCaixa.grupoCaixa" for="field_grupoCaixas">Grupo Caixa</label>
+          <label class="form-label" jhiTranslate="apperpApp.tipoCaixa.grupoPagamento" for="field_grupoPagamento">Grupo Pagamento</label>
           <select
             class="form-control"
-            id="field_grupoCaixas"
-            data-cy="grupoCaixa"
-            multiple
-            name="grupoCaixas"
-            formControlName="grupoCaixas"
-            [compareWith]="compareGrupoCaixa"
+            id="field_grupoPagamento"
+            data-cy="grupoPagamento"
+            name="grupoPagamento"
+            formControlName="grupoPagamento"
+            [compareWith]="compareGrupoPagamento"
           >
-            <option [ngValue]="grupoCaixaOption" *ngFor="let grupoCaixaOption of grupoCaixasSharedCollection">
-              {{ grupoCaixaOption.descricao }}
+            <option [ngValue]="null"></option>
+            <option [ngValue]="grupoPagamentoOption" *ngFor="let grupoPagamentoOption of grupoPagamentosCollection">
+              {{ grupoPagamentoOption.descricao }}
             </option>
           </select>
         </div>

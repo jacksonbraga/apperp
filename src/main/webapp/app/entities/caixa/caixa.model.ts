@@ -8,8 +8,8 @@ export interface ICaixa {
   observacao?: string | null;
   valor?: number | null;
   data?: dayjs.Dayjs | null;
-  tipoCaixas?: Pick<ITipoCaixa, 'id' | 'descricao'>[] | null;
-  tipoOrigems?: Pick<ITipoOrigem, 'id' | 'descricao'>[] | null;
+  tipoCaixa?: Pick<ITipoCaixa, 'id' | 'descricao'> | null;
+  tipoOrigem?: Pick<ITipoOrigem, 'id' | 'descricao'> | null;
 }
 
 export type NewCaixa = Omit<ICaixa, 'id'> & { id: null };

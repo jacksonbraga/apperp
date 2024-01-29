@@ -14,13 +14,12 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type TipoCaixaFormGroupInput = ITipoCaixa | PartialWithRequiredKeyOf<NewTipoCaixa>;
 
-type TipoCaixaFormDefaults = Pick<NewTipoCaixa, 'id' | 'grupoCaixas' | 'caixas'>;
+type TipoCaixaFormDefaults = Pick<NewTipoCaixa, 'id'>;
 
 type TipoCaixaFormGroupContent = {
   id: FormControl<ITipoCaixa['id'] | NewTipoCaixa['id']>;
   descricao: FormControl<ITipoCaixa['descricao']>;
-  grupoCaixas: FormControl<ITipoCaixa['grupoCaixas']>;
-  caixas: FormControl<ITipoCaixa['caixas']>;
+  grupoPagamento: FormControl<ITipoCaixa['grupoPagamento']>;
 };
 
 export type TipoCaixaFormGroup = FormGroup<TipoCaixaFormGroupContent>;
@@ -41,8 +40,7 @@ export class TipoCaixaFormService {
         },
       ),
       descricao: new FormControl(tipoCaixaRawValue.descricao),
-      grupoCaixas: new FormControl(tipoCaixaRawValue.grupoCaixas ?? []),
-      caixas: new FormControl(tipoCaixaRawValue.caixas ?? []),
+      grupoPagamento: new FormControl(tipoCaixaRawValue.grupoPagamento),
     });
   }
 
@@ -63,8 +61,6 @@ export class TipoCaixaFormService {
   private getFormDefaults(): TipoCaixaFormDefaults {
     return {
       id: null,
-      grupoCaixas: [],
-      caixas: [],
     };
   }
 }

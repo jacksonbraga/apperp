@@ -6,8 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { IGrupoCaixa } from 'app/entities/grupo-caixa/grupo-caixa.model';
-import { GrupoCaixaService } from 'app/entities/grupo-caixa/service/grupo-caixa.service';
+import { IGrupoPagamento } from 'app/entities/grupo-pagamento/grupo-pagamento.model';
+import { GrupoPagamentoService } from 'app/entities/grupo-pagamento/service/grupo-pagamento.service';
 import { TipoCaixaService } from '../service/tipo-caixa.service';
 import { ITipoCaixa } from '../tipo-caixa.model';
 import { TipoCaixaFormService } from './tipo-caixa-form.service';
@@ -20,7 +20,7 @@ describe('TipoCaixa Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let tipoCaixaFormService: TipoCaixaFormService;
   let tipoCaixaService: TipoCaixaService;
-  let grupoCaixaService: GrupoCaixaService;
+  let grupoPagamentoService: GrupoPagamentoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,43 +42,39 @@ describe('TipoCaixa Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     tipoCaixaFormService = TestBed.inject(TipoCaixaFormService);
     tipoCaixaService = TestBed.inject(TipoCaixaService);
-    grupoCaixaService = TestBed.inject(GrupoCaixaService);
+    grupoPagamentoService = TestBed.inject(GrupoPagamentoService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call GrupoCaixa query and add missing value', () => {
+    it('Should call grupoPagamento query and add missing value', () => {
       const tipoCaixa: ITipoCaixa = { id: 456 };
-      const grupoCaixas: IGrupoCaixa[] = [{ id: 20130 }];
-      tipoCaixa.grupoCaixas = grupoCaixas;
+      const grupoPagamento: IGrupoPagamento = { id: 27892 };
+      tipoCaixa.grupoPagamento = grupoPagamento;
 
-      const grupoCaixaCollection: IGrupoCaixa[] = [{ id: 12652 }];
-      jest.spyOn(grupoCaixaService, 'query').mockReturnValue(of(new HttpResponse({ body: grupoCaixaCollection })));
-      const additionalGrupoCaixas = [...grupoCaixas];
-      const expectedCollection: IGrupoCaixa[] = [...additionalGrupoCaixas, ...grupoCaixaCollection];
-      jest.spyOn(grupoCaixaService, 'addGrupoCaixaToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const grupoPagamentoCollection: IGrupoPagamento[] = [{ id: 14135 }];
+      jest.spyOn(grupoPagamentoService, 'query').mockReturnValue(of(new HttpResponse({ body: grupoPagamentoCollection })));
+      const expectedCollection: IGrupoPagamento[] = [grupoPagamento, ...grupoPagamentoCollection];
+      jest.spyOn(grupoPagamentoService, 'addGrupoPagamentoToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ tipoCaixa });
       comp.ngOnInit();
 
-      expect(grupoCaixaService.query).toHaveBeenCalled();
-      expect(grupoCaixaService.addGrupoCaixaToCollectionIfMissing).toHaveBeenCalledWith(
-        grupoCaixaCollection,
-        ...additionalGrupoCaixas.map(expect.objectContaining),
-      );
-      expect(comp.grupoCaixasSharedCollection).toEqual(expectedCollection);
+      expect(grupoPagamentoService.query).toHaveBeenCalled();
+      expect(grupoPagamentoService.addGrupoPagamentoToCollectionIfMissing).toHaveBeenCalledWith(grupoPagamentoCollection, grupoPagamento);
+      expect(comp.grupoPagamentosCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const tipoCaixa: ITipoCaixa = { id: 456 };
-      const grupoCaixa: IGrupoCaixa = { id: 27891 };
-      tipoCaixa.grupoCaixas = [grupoCaixa];
+      const grupoPagamento: IGrupoPagamento = { id: 19676 };
+      tipoCaixa.grupoPagamento = grupoPagamento;
 
       activatedRoute.data = of({ tipoCaixa });
       comp.ngOnInit();
 
-      expect(comp.grupoCaixasSharedCollection).toContain(grupoCaixa);
+      expect(comp.grupoPagamentosCollection).toContain(grupoPagamento);
       expect(comp.tipoCaixa).toEqual(tipoCaixa);
     });
   });
@@ -152,13 +148,13 @@ describe('TipoCaixa Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareGrupoCaixa', () => {
-      it('Should forward to grupoCaixaService', () => {
+    describe('compareGrupoPagamento', () => {
+      it('Should forward to grupoPagamentoService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(grupoCaixaService, 'compareGrupoCaixa');
-        comp.compareGrupoCaixa(entity, entity2);
-        expect(grupoCaixaService.compareGrupoCaixa).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(grupoPagamentoService, 'compareGrupoPagamento');
+        comp.compareGrupoPagamento(entity, entity2);
+        expect(grupoPagamentoService.compareGrupoPagamento).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });
