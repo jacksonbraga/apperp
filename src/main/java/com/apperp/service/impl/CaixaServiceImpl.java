@@ -47,8 +47,8 @@ public class CaixaServiceImpl implements CaixaService {
         Optional<TipoCaixa> tipoCaixa = tipoCaixaRepository.findById(caixa.getTipoCaixa().getId());
 
         if (!tipoCaixa.isEmpty()) {
-            BigDecimal percentual = tipoCaixa.get().getPercTaxa();
-            Integer prazo = tipoCaixa.get().getPrazoExtrato();
+            BigDecimal percentual = tipoCaixa.orElse(null).getPercTaxa();
+            Integer prazo = tipoCaixa.orElse(null).getPrazoExtrato();
 
             if (percentual == null) {
                 percentual = new BigDecimal(0);
@@ -93,8 +93,8 @@ public class CaixaServiceImpl implements CaixaService {
         Optional<TipoCaixa> tipoCaixa = tipoCaixaRepository.findById(caixa.getTipoCaixa().getId());
 
         if (!tipoCaixa.isEmpty()) {
-            BigDecimal percentual = tipoCaixa.get().getPercTaxa();
-            Integer prazo = tipoCaixa.get().getPrazoExtrato();
+            BigDecimal percentual = tipoCaixa.orElse(null).getPercTaxa();
+            Integer prazo = tipoCaixa.orElse(null).getPrazoExtrato();
 
             if (percentual == null) {
                 percentual = new BigDecimal(0);
