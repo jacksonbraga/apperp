@@ -19,7 +19,7 @@ eureka:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: mysql://root:zw5GP83py8g4FMXCVbDv3fvXSei17u8q
+    url: jdbc:mysql://root:zw5GP83py8g4FMXCVbDv3fvXSei17u8q
     username: root
     password: zw5GP83py8g4FMXCVbDv3fvXSei17u8q
     hikari:
