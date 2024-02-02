@@ -50,6 +50,20 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+
+          <th scope="col" jhiSortBy="grupoPagamento.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.tipoCaixa.percTaxa">Percentual Taxa</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="grupoPagamento.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="apperpApp.tipoCaixa.prazoExtrato">Prazo Extrato</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -64,6 +78,8 @@
               <a [routerLink]="['/grupo-pagamento', tipoCaixa.grupoPagamento.id, 'view']">{{ tipoCaixa.grupoPagamento.descricao }}</a>
             </div>
           </td>
+          <td>{{ tipoCaixa.percTaxa }}</td>
+          <td>{{ tipoCaixa.prazoExtrato }}</td>
           <td class="text-end">
             <div class="btn-group">
               <a [routerLink]="['/tipo-caixa', tipoCaixa.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

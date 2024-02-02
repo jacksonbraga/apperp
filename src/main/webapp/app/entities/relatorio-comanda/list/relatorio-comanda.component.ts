@@ -11,8 +11,11 @@ import { SortService } from 'app/shared/sort/sort.service';
 import { IRelatorioComanda as IRelatorioControleComanda } from '../relatorio-comanda.model';
 import {
   EntityArrayResponseType,
+  EntityArrayResponseTypeConferenciaExtrato,
+  EntityArrayResponseTypeConferenciaExtratoAcumulado,
   EntityArrayResponseTypeControle,
   EntityArrayResponseTypeControle4,
+  EntityArrayResponseTypeTicketMedio,
   EntityArrayResponseTypeValoresRecebidosResumo,
   RelatorioComandaService,
 } from '../service/relatorio-comanda.service';
@@ -26,6 +29,8 @@ import { ICor } from 'app/entities/cor/cor.model';
 import { IRelatorioValoresRecebidosResumo } from '../relatorio-controle-valores-recebidos-resumo.model';
 import { IRelatorioControle4 as IRelatorioConferencia } from '../relatorio-controle-conferencia.model';
 import { IRelatorioValoresRecebidos } from '../relatorio-controle-valores-recebidos.model';
+import { IRelatorioConferenciaExtrato } from '../relatorio-controle-conferencia-extrato.model';
+import { IRelatorioConferenciaExtratoAcumulado } from '../relatorio-controle-conferencia-extrato-acumulado.model';
 
 @Component({
   standalone: true,
@@ -65,6 +70,10 @@ export class RelatorioComandaComponent implements OnInit {
   ControleValoresRecebidos?: IRelatorioValoresRecebidos[];
   ControleValoresRecebidosResumo?: IRelatorioValoresRecebidosResumo[];
   ControleConferencia?: IRelatorioConferencia[];
+  ControleTicketMedio?: IRelatorioValoresRecebidosResumo[];
+  ConferenciaExtrato?: IRelatorioConferenciaExtrato[];
+
+  ConferenciaExtratoAcumulado?: IRelatorioConferenciaExtratoAcumulado[];
 
   isLoading = false;
 
@@ -73,6 +82,10 @@ export class RelatorioComandaComponent implements OnInit {
   pivotValoresRecebidosResumoRecebidos: WebDataRocks.Pivot | undefined;
   pivotValoresRecebidosResumoLancados: WebDataRocks.Pivot | undefined;
   pivotConferencia: WebDataRocks.Pivot | undefined;
+  pivotTicketMedio: WebDataRocks.Pivot | undefined;
+  pivotConferenciaExtrato: WebDataRocks.Pivot | undefined;
+
+  pivotConferenciaExtratoAcumulado: WebDataRocks.Pivot | undefined;
 
   predicate = 'id';
   ascending = true;
@@ -107,6 +120,9 @@ export class RelatorioComandaComponent implements OnInit {
   dataControleValoresRecebidos: any = '';
   dataControleValoresRecebidosResumo: any = '';
   dataControleConferencia: any = '';
+  dataTicketMedio: any = '';
+  dataConferenciaExtrato: any = '';
+  dataConferenciaExtratoAcumulado: any = '';
 
   configControleComanda: any = [
     {
@@ -165,7 +181,326 @@ export class RelatorioComandaComponent implements OnInit {
     },
   ];
 
+  configConferenciaExtrato: any = [
+    {
+      equipamento: {
+        type: 'string',
+      },
+      tipo: {
+        type: 'string',
+      },
+      valorPrevisto: {
+        type: 'number',
+      },
+      valorConfirmado: {
+        type: 'number',
+      },
+      valorTaxa: {
+        type: 'number',
+      },
+    },
+  ];
+
+  configConferenciaExtratoAcumulado: any = [
+    {
+      equipamento: {
+        type: 'string',
+      },
+      tipo: {
+        type: 'string',
+      },
+      d01: {
+        type: 'number',
+      },
+      d02: {
+        type: 'number',
+      },
+      d03: {
+        type: 'number',
+      },
+      d04: {
+        type: 'number',
+      },
+      d05: {
+        type: 'number',
+      },
+      d06: {
+        type: 'number',
+      },
+      d07: {
+        type: 'number',
+      },
+      d08: {
+        type: 'number',
+      },
+      d09: {
+        type: 'number',
+      },
+      d10: {
+        type: 'number',
+      },
+      d11: {
+        type: 'number',
+      },
+      d12: {
+        type: 'number',
+      },
+      d13: {
+        type: 'number',
+      },
+      d14: {
+        type: 'number',
+      },
+      d15: {
+        type: 'number',
+      },
+      d16: {
+        type: 'number',
+      },
+      d17: {
+        type: 'number',
+      },
+      d18: {
+        type: 'number',
+      },
+      d19: {
+        type: 'number',
+      },
+      d20: {
+        type: 'number',
+      },
+      d21: {
+        type: 'number',
+      },
+      d22: {
+        type: 'number',
+      },
+      d23: {
+        type: 'number',
+      },
+      d24: {
+        type: 'number',
+      },
+      d25: {
+        type: 'number',
+      },
+      d26: {
+        type: 'number',
+      },
+      d27: {
+        type: 'number',
+      },
+      d28: {
+        type: 'number',
+      },
+      d29: {
+        type: 'number',
+      },
+      d30: {
+        type: 'number',
+      },
+      d31: {
+        type: 'number',
+      },
+    },
+  ];
+
   configControleValoresRecebidosResumo: any = [
+    {
+      tipo: {
+        type: 'string',
+      },
+      d01: {
+        type: 'number',
+      },
+      d02: {
+        type: 'number',
+      },
+      d03: {
+        type: 'number',
+      },
+      d04: {
+        type: 'number',
+      },
+      d05: {
+        type: 'number',
+      },
+      d06: {
+        type: 'number',
+      },
+      d07: {
+        type: 'number',
+      },
+      d08: {
+        type: 'number',
+      },
+      d09: {
+        type: 'number',
+      },
+      d10: {
+        type: 'number',
+      },
+      d11: {
+        type: 'number',
+      },
+      d12: {
+        type: 'number',
+      },
+      d13: {
+        type: 'number',
+      },
+      d14: {
+        type: 'number',
+      },
+      d15: {
+        type: 'number',
+      },
+      d16: {
+        type: 'number',
+      },
+      d17: {
+        type: 'number',
+      },
+      d18: {
+        type: 'number',
+      },
+      d19: {
+        type: 'number',
+      },
+      d20: {
+        type: 'number',
+      },
+      d21: {
+        type: 'number',
+      },
+      d22: {
+        type: 'number',
+      },
+      d23: {
+        type: 'number',
+      },
+      d24: {
+        type: 'number',
+      },
+      d25: {
+        type: 'number',
+      },
+      d26: {
+        type: 'number',
+      },
+      d27: {
+        type: 'number',
+      },
+      d28: {
+        type: 'number',
+      },
+      d29: {
+        type: 'number',
+      },
+      d30: {
+        type: 'number',
+      },
+      d31: {
+        type: 'number',
+      },
+
+      d01L: {
+        type: 'number',
+      },
+      d02L: {
+        type: 'number',
+      },
+      d03L: {
+        type: 'number',
+      },
+      d04L: {
+        type: 'number',
+      },
+      d05L: {
+        type: 'number',
+      },
+      d06L: {
+        type: 'number',
+      },
+      d07L: {
+        type: 'number',
+      },
+      d08L: {
+        type: 'number',
+      },
+      d09L: {
+        type: 'number',
+      },
+      d10L: {
+        type: 'number',
+      },
+      d11L: {
+        type: 'number',
+      },
+      d12L: {
+        type: 'number',
+      },
+      d13L: {
+        type: 'number',
+      },
+      d14L: {
+        type: 'number',
+      },
+      d15L: {
+        type: 'number',
+      },
+      d16L: {
+        type: 'number',
+      },
+      d17L: {
+        type: 'number',
+      },
+      d18L: {
+        type: 'number',
+      },
+      d19L: {
+        type: 'number',
+      },
+      d20L: {
+        type: 'number',
+      },
+      d21L: {
+        type: 'number',
+      },
+      d22L: {
+        type: 'number',
+      },
+      d23L: {
+        type: 'number',
+      },
+      d24L: {
+        type: 'number',
+      },
+      d25L: {
+        type: 'number',
+      },
+      d26L: {
+        type: 'number',
+      },
+      d27L: {
+        type: 'number',
+      },
+      d28L: {
+        type: 'number',
+      },
+      d29L: {
+        type: 'number',
+      },
+      d30L: {
+        type: 'number',
+      },
+      d31L: {
+        type: 'number',
+      },
+    },
+  ];
+
+  configTicketMedio: any = [
     {
       tipo: {
         type: 'string',
@@ -797,6 +1132,499 @@ export class RelatorioComandaComponent implements OnInit {
     this.pivotValoresRecebidos.expandAllData();
   }
 
+  montaRelatorioConferenciaExtrato(tab: string): void {
+    const tag = '#wdr-relatorio-comanda-7-' + tab;
+
+    this.pivotConferenciaExtrato = new WebDataRocks({
+      container: tag,
+      toolbar: false,
+      width: '100%',
+      height: '100%',
+      customizeCell: this.customValoresRecebidos,
+      report: {
+        dataSource: {
+          dataSourceType: 'json',
+          data: this.dataConferenciaExtrato,
+        },
+        tableSizes: {
+          columns: [
+            {
+              idx: 0,
+              width: 230,
+            },
+            {
+              idx: 1,
+              width: 180,
+            },
+            {
+              idx: 2,
+              width: 150,
+            },
+            {
+              idx: 3,
+              width: 150,
+            },
+            {
+              idx: 4,
+              width: 150,
+            },
+            {
+              idx: 5,
+              width: 150,
+            },
+          ],
+        },
+        slice: {
+          rows: [
+            {
+              uniqueName: 'equipamento',
+              sort: 'asc',
+            },
+            {
+              uniqueName: 'tipo',
+              sort: 'asc',
+            },
+          ],
+          columns: [
+            {
+              uniqueName: 'Measures',
+            },
+          ],
+          measures: [
+            {
+              uniqueName: 'valorPrevisto',
+              aggregation: 'sum',
+              caption: 'Previsto',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'valorConfirmado',
+              aggregation: 'sum',
+              caption: 'Confirmado',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'valorTaxa',
+              aggregation: 'sum',
+              caption: 'Taxa',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'diferenca',
+              formula: 'sum("valorPrevisto") - sum("valorConfirmado") ',
+              caption: 'Diferença',
+              format: 'decimal',
+            },
+          ],
+          drills: {
+            drillAll: true,
+          },
+        },
+        formats: [
+          {
+            name: 'numero',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 0,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'decimal',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 2,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'texto',
+            textAlign: 'left',
+          },
+        ],
+
+        conditions: [
+          {
+            formula: '#value > 0',
+            measure: 'diferenca',
+            format: {
+              backgroundColor: '#FF0000',
+              color: '#000000',
+              fontFamily: 'Arial',
+              fontSize: '14px',
+            },
+          },
+        ],
+
+        options: {
+          grid: {
+            type: 'flat',
+            title: '',
+            showFilter: false,
+            showHeaders: false,
+            showTotals: true,
+
+            showGrandTotals: 'on',
+            showHierarchies: true,
+            showHierarchyCaptions: true,
+            showReportFiltersArea: false,
+          },
+          configuratorActive: false,
+          configuratorButton: false,
+          showAggregations: true,
+
+          showCalculatedValuesButton: true,
+          drillThrough: true,
+          sorting: 'on',
+          datePattern: 'dd/MM/yyyy',
+          dateTimePattern: 'dd/MM/yyyy HH:mm:ss',
+          showDefaultSlice: true,
+          defaultHierarchySortName: 'asc',
+        },
+        localization: 'http://localhost:4200/content/pr.json',
+      },
+    });
+
+    this.pivotConferenciaExtrato.expandAllData();
+  }
+
+  montaRelatorioConferenciaExtratoAcumulado(tab: string): void {
+    const tag = '#wdr-relatorio-comanda-8-' + tab;
+
+    this.pivotConferenciaExtratoAcumulado = new WebDataRocks({
+      container: tag,
+      toolbar: false,
+      width: '100%',
+      height: '100%',
+      customizeCell: this.customValoresRecebidosResumo,
+      report: {
+        dataSource: {
+          dataSourceType: 'json',
+          data: this.dataConferenciaExtratoAcumulado,
+        },
+        tableSizes: {
+          columns: [
+            {
+              idx: 0,
+              width: 230,
+            },
+            {
+              idx: 1,
+              width: 180,
+            },
+            {
+              idx: 2,
+              width: 150,
+            },
+            {
+              idx: 3,
+              width: 150,
+            },
+            {
+              idx: 4,
+              width: 150,
+            },
+            {
+              idx: 5,
+              width: 150,
+            },
+          ],
+        },
+        slice: {
+          rows: [
+            {
+              uniqueName: 'equipamento',
+              sort: 'asc',
+            },
+            {
+              uniqueName: 'tipo',
+              sort: 'asc',
+            },
+          ],
+          columns: [
+            {
+              uniqueName: 'Measures',
+            },
+          ],
+          measures: [
+            {
+              uniqueName: 'Formula #1',
+              formula:
+                'sum("d01") + sum("d02") + sum("d03") + sum("d04") + sum("d05") + sum("d06") + sum("d07") + sum("d08") + sum("d09") + sum("d10") + sum("d11") + sum("d12") + sum("d13") + sum("d14") + sum("d15") + sum("d16") + sum("d17") + sum("d18") + sum("d19") + sumsum("d20") + (sum("d21") + sum("d22") + sum("d23") + sum("d24") + sum("d25") + sum("d26") + sum("d27") + sum("d28") + sum("d29") + sum("d30") + sum("d31") ',
+              caption: 'Total',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd01',
+              aggregation: 'sum',
+              caption: '01',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd02',
+              aggregation: 'sum',
+              caption: '02',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd03',
+              aggregation: 'sum',
+              caption: '03',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd04',
+              aggregation: 'sum',
+              caption: '04',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd05',
+              aggregation: 'sum',
+              caption: '05',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd06',
+              aggregation: 'sum',
+              caption: '06',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd07',
+              aggregation: 'sum',
+              caption: '07',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd08',
+              aggregation: 'sum',
+              caption: '08',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd09',
+              aggregation: 'sum',
+              caption: '09',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd10',
+              aggregation: 'sum',
+              caption: '10',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd11',
+              aggregation: 'sum',
+              caption: '11',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd12',
+              aggregation: 'sum',
+              caption: '12',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd13',
+              aggregation: 'sum',
+              caption: '13',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd14',
+              aggregation: 'sum',
+              caption: '14',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd15',
+              aggregation: 'sum',
+              caption: '15',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd16',
+              aggregation: 'sum',
+              caption: '16',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd17',
+              aggregation: 'sum',
+              caption: '17',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd18',
+              aggregation: 'sum',
+              caption: '18',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd19',
+              aggregation: 'sum',
+              caption: '19',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd20',
+              aggregation: 'sum',
+              caption: '20',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd21',
+              aggregation: 'sum',
+              caption: '21',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd22',
+              aggregation: 'sum',
+              caption: '22',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd23',
+              aggregation: 'sum',
+              caption: '23',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd24',
+              aggregation: 'sum',
+              caption: '24',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd25',
+              aggregation: 'sum',
+              caption: '25',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd26',
+              aggregation: 'sum',
+              caption: '26',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd27',
+              aggregation: 'sum',
+              caption: '27',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd28',
+              aggregation: 'sum',
+              caption: '28',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd29',
+              aggregation: 'sum',
+              caption: '29',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd30',
+              aggregation: 'sum',
+              caption: '30',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd31',
+              aggregation: 'sum',
+              caption: '31',
+              format: 'decimal',
+            },
+          ],
+          drills: {
+            drillAll: true,
+          },
+        },
+        formats: [
+          {
+            name: 'numero',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 0,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'decimal',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 2,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'texto',
+            textAlign: 'left',
+          },
+        ],
+
+        conditions: [
+          {
+            formula: '#value > 0',
+            measure: 'diferenca',
+            format: {
+              backgroundColor: '#FF0000',
+              color: '#000000',
+              fontFamily: 'Arial',
+              fontSize: '14px',
+            },
+          },
+        ],
+
+        options: {
+          grid: {
+            type: 'flat',
+            title: '',
+            showFilter: false,
+            showHeaders: false,
+            showTotals: true,
+
+            showGrandTotals: 'on',
+            showHierarchies: true,
+            showHierarchyCaptions: true,
+            showReportFiltersArea: false,
+          },
+          configuratorActive: false,
+          configuratorButton: false,
+          showAggregations: true,
+
+          showCalculatedValuesButton: true,
+          drillThrough: true,
+          sorting: 'on',
+          datePattern: 'dd/MM/yyyy',
+          dateTimePattern: 'dd/MM/yyyy HH:mm:ss',
+          showDefaultSlice: true,
+          defaultHierarchySortName: 'asc',
+        },
+        localization: 'http://localhost:4200/content/pr.json',
+      },
+    });
+
+    this.pivotConferenciaExtratoAcumulado.expandAllData();
+  }
+
   montaRelatorioValoresRecebidosResumoRecebidos(tab: string): void {
     const tagValoresRecebidos = '#wdr-relatorio-comanda-4-' + tab;
 
@@ -1217,8 +2045,6 @@ export class RelatorioComandaComponent implements OnInit {
 
   montaRelatorioValoresRecebidosResumoLancados(tab: string): void {
     const tagValoresRecebidos = '#wdr-relatorio-comanda-5-' + tab;
-
-    console.log(this.dataControleValoresRecebidosResumo);
 
     this.pivotValoresRecebidosResumoLancados = new WebDataRocks({
       container: tagValoresRecebidos,
@@ -1787,10 +2613,434 @@ export class RelatorioComandaComponent implements OnInit {
 
     this.montaConferencia(tab);
 
+    if (tab !== '99') {
+      this.montaRelatorioConferenciaExtrato(tab);
+    }
+
     if (tab === '99') {
       this.montaRelatorioValoresRecebidosResumoRecebidos(tab);
       this.montaRelatorioValoresRecebidosResumoLancados(tab);
+      this.montaRelatorioTicketMedio(tab);
+      this.montaRelatorioConferenciaExtratoAcumulado(tab);
     }
+  }
+
+  montaRelatorioTicketMedio(tab: string): void {
+    const tagValoresTickeMedio = '#wdr-relatorio-comanda-6-' + tab;
+
+    this.pivotTicketMedio = new WebDataRocks({
+      container: tagValoresTickeMedio,
+      toolbar: false,
+      width: '100%',
+      height: '100%',
+      customizeCell: this.customValoresRecebidosResumo,
+      report: {
+        dataSource: {
+          dataSourceType: 'json',
+          data: this.dataTicketMedio,
+        },
+        tableSizes: {
+          columns: [
+            {
+              idx: 0,
+              width: 180,
+            },
+            {
+              idx: 1,
+              width: 100,
+            },
+            {
+              idx: 2,
+              width: 100,
+            },
+            {
+              idx: 3,
+              width: 100,
+            },
+            {
+              idx: 4,
+              width: 100,
+            },
+            {
+              idx: 5,
+              width: 100,
+            },
+            {
+              idx: 6,
+              width: 100,
+            },
+            {
+              idx: 7,
+              width: 100,
+            },
+            {
+              idx: 8,
+              width: 100,
+            },
+            {
+              idx: 9,
+              width: 100,
+            },
+            {
+              idx: 10,
+              width: 100,
+            },
+            {
+              idx: 11,
+              width: 100,
+            },
+            {
+              idx: 12,
+              width: 100,
+            },
+            {
+              idx: 13,
+              width: 100,
+            },
+            {
+              idx: 14,
+              width: 100,
+            },
+            {
+              idx: 15,
+              width: 100,
+            },
+            {
+              idx: 16,
+              width: 100,
+            },
+            {
+              idx: 17,
+              width: 100,
+            },
+            {
+              idx: 18,
+              width: 100,
+            },
+            {
+              idx: 19,
+              width: 100,
+            },
+            {
+              idx: 20,
+              width: 100,
+            },
+            {
+              idx: 21,
+              width: 100,
+            },
+            {
+              idx: 22,
+              width: 100,
+            },
+            {
+              idx: 23,
+              width: 100,
+            },
+            {
+              idx: 24,
+              width: 100,
+            },
+            {
+              idx: 25,
+              width: 100,
+            },
+            {
+              idx: 26,
+              width: 100,
+            },
+            {
+              idx: 27,
+              width: 100,
+            },
+            {
+              idx: 28,
+              width: 100,
+            },
+            {
+              idx: 29,
+              width: 100,
+            },
+            {
+              idx: 30,
+              width: 100,
+            },
+            {
+              idx: 31,
+              width: 100,
+            },
+          ],
+        },
+        slice: {
+          rows: [
+            {
+              uniqueName: 'tipo',
+              sort: 'asc',
+            },
+          ],
+          columns: [
+            {
+              uniqueName: 'Measures',
+            },
+          ],
+          measures: [
+            {
+              uniqueName: 'Formula #1',
+              formula:
+                '(sum("d01") + sum("d02") + sum("d03") + sum("d04") + sum("d05") + sum("d06") + sum("d07") + sum("d08") + sum("d09") + sum("d10") + sum("d11") + sum("d12") + sum("d13") + sum("d14") + sum("d15") + sum("d16") + sum("d17") + sum("d18") + sum("d19") + sumsum("d20") + sum("d21") + sum("d22") + sum("d23") + sum("d24") + sum("d25") + sum("d26") + sum("d27") + sum("d28") + sum("d29") + sum("d30") + sum("d31")) / 31',
+              caption: 'Total',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd01',
+              aggregation: 'sum',
+              caption: '01',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd02',
+              aggregation: 'sum',
+              caption: '02',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd03',
+              aggregation: 'sum',
+              caption: '03',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd04',
+              aggregation: 'sum',
+              caption: '04',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd05',
+              aggregation: 'sum',
+              caption: '05',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd06',
+              aggregation: 'sum',
+              caption: '06',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd07',
+              aggregation: 'sum',
+              caption: '07',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd08',
+              aggregation: 'sum',
+              caption: '08',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd09',
+              aggregation: 'sum',
+              caption: '09',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd10',
+              aggregation: 'sum',
+              caption: '10',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd11',
+              aggregation: 'sum',
+              caption: '11',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd12',
+              aggregation: 'sum',
+              caption: '12',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd13',
+              aggregation: 'sum',
+              caption: '13',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd14',
+              aggregation: 'sum',
+              caption: '14',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd15',
+              aggregation: 'sum',
+              caption: '15',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd16',
+              aggregation: 'sum',
+              caption: '16',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd17',
+              aggregation: 'sum',
+              caption: '17',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd18',
+              aggregation: 'sum',
+              caption: '18',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd19',
+              aggregation: 'sum',
+              caption: '19',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd20',
+              aggregation: 'sum',
+              caption: '20',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd21',
+              aggregation: 'sum',
+              caption: '21',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd22',
+              aggregation: 'sum',
+              caption: '22',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd23',
+              aggregation: 'sum',
+              caption: '23',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd24',
+              aggregation: 'sum',
+              caption: '24',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd25',
+              aggregation: 'sum',
+              caption: '25',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd26',
+              aggregation: 'sum',
+              caption: '26',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd27',
+              aggregation: 'sum',
+              caption: '27',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd28',
+              aggregation: 'sum',
+              caption: '28',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd29',
+              aggregation: 'sum',
+              caption: '29',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd30',
+              aggregation: 'sum',
+              caption: '30',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'd31',
+              aggregation: 'sum',
+              caption: '31',
+              format: 'decimal',
+            },
+          ],
+          drills: {
+            drillAll: true,
+          },
+        },
+        formats: [
+          {
+            name: 'numero',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 0,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'decimal',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 2,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'texto',
+            textAlign: 'left',
+          },
+        ],
+
+        options: {
+          grid: {
+            type: 'flat',
+            title: '',
+            showFilter: false,
+            showHeaders: false,
+            showTotals: true,
+
+            showGrandTotals: 'on',
+            showHierarchies: true,
+            showHierarchyCaptions: true,
+            showReportFiltersArea: false,
+          },
+          configuratorActive: false,
+          configuratorButton: false,
+          showAggregations: true,
+
+          showCalculatedValuesButton: true,
+          drillThrough: true,
+          sorting: 'on',
+          datePattern: 'dd/MM/yyyy',
+          dateTimePattern: 'dd/MM/yyyy HH:mm:ss',
+          showDefaultSlice: true,
+          defaultHierarchySortName: 'asc',
+        },
+        localization: 'http://localhost:4200/content/pr.json',
+      },
+    });
+
+    this.pivotTicketMedio.expandAllData();
   }
 
   onItemSelectAno(item: any): void {}
@@ -2028,6 +3278,8 @@ export class RelatorioComandaComponent implements OnInit {
     this.dataControleValoresRecebidos = [];
     this.dataControleValoresRecebidosResumo = [];
     this.dataControleConferencia = [];
+    this.dataConferenciaExtrato = [];
+    this.dataConferenciaExtratoAcumulado = [];
 
     this.isLoading = true;
 
@@ -2046,6 +3298,24 @@ export class RelatorioComandaComponent implements OnInit {
     this.loadFromBackendWithRouteInformationsControleConferencia().subscribe({
       next: (res: EntityArrayResponseTypeControle4) => {
         this.onResponseSuccessControleConferencia(res);
+      },
+    });
+
+    this.loadFromBackendWithRouteInformationsConferenciaExtrato().subscribe({
+      next: (res: EntityArrayResponseTypeConferenciaExtrato) => {
+        this.onResponseSuccessConferenciaExtrato(res);
+      },
+    });
+
+    this.loadFromBackendWithRouteInformationsConferenciaExtratoAcumulado().subscribe({
+      next: (res: EntityArrayResponseTypeConferenciaExtratoAcumulado) => {
+        this.onResponseSuccessConferenciaExtratoAcumulado(res);
+      },
+    });
+
+    this.loadFromBackendWithRouteInformationsTicketMedio().subscribe({
+      next: (res: EntityArrayResponseTypeTicketMedio) => {
+        this.onResponseSuccessTicketMedio(res);
       },
     });
 
@@ -2088,6 +3358,26 @@ export class RelatorioComandaComponent implements OnInit {
     );
   }
 
+  protected loadFromBackendWithRouteInformationsConferenciaExtrato(): Observable<EntityArrayResponseTypeConferenciaExtrato> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendConferenciaExtrato(this.predicate, this.ascending)),
+    );
+  }
+
+  protected loadFromBackendWithRouteInformationsConferenciaExtratoAcumulado(): Observable<EntityArrayResponseTypeConferenciaExtratoAcumulado> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendConferenciaExtratoAcumulado(this.predicate, this.ascending)),
+    );
+  }
+
+  protected loadFromBackendWithRouteInformationsTicketMedio(): Observable<EntityArrayResponseTypeTicketMedio> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendTicketMedio(this.predicate, this.ascending)),
+    );
+  }
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
     this.predicate = sort[0];
@@ -2106,6 +3396,18 @@ export class RelatorioComandaComponent implements OnInit {
     this.dataControleConferencia = this.configControleConferencia.concat(this.ControleConferencia);
   }
 
+  protected onResponseSuccessConferenciaExtrato(response: EntityArrayResponseTypeConferenciaExtrato): void {
+    const dataFromBody = this.fillComponentAttributesConferenciaExtratoFromResponseBody(response.body);
+    this.ConferenciaExtrato = this.refineDataConferenciaExtrato(dataFromBody);
+    this.dataConferenciaExtrato = this.configConferenciaExtrato.concat(this.ConferenciaExtrato);
+  }
+
+  protected onResponseSuccessConferenciaExtratoAcumulado(response: EntityArrayResponseTypeConferenciaExtratoAcumulado): void {
+    const dataFromBody = this.fillComponentAttributesConferenciaExtratoAcumuladoFromResponseBody(response.body);
+    this.ConferenciaExtratoAcumulado = this.refineDataConferenciaExtratoAcumulado(dataFromBody);
+    this.dataConferenciaExtratoAcumulado = this.configConferenciaExtratoAcumulado.concat(this.ConferenciaExtratoAcumulado);
+  }
+
   protected onResponseSuccessControleValoresRecebidos(response: EntityArrayResponseTypeControle): void {
     const dataFromBody = this.fillComponentAttributesControleFromResponseBody(response.body);
     this.ControleValoresRecebidos = this.refineDataControleValoresRecebidos(dataFromBody);
@@ -2116,14 +3418,19 @@ export class RelatorioComandaComponent implements OnInit {
     const dataFromBody = this.fillComponentAttributesControleValoresRecebidosResumoFromResponseBody(response.body);
     this.ControleValoresRecebidosResumo = this.refineDataControleValoresRecebidosResumo(dataFromBody);
 
-    console.log(this.ControleValoresRecebidosResumo);
-
     this.dataControleValoresRecebidosResumo = this.configControleValoresRecebidosResumo.concat(this.ControleValoresRecebidosResumo);
+  }
 
-    console.log(this.dataControleValoresRecebidosResumo);
+  protected onResponseSuccessTicketMedio(response: EntityArrayResponseTypeTicketMedio): void {
+    const dataFromBody = this.fillComponentAttributesTicketMedioFromResponseBody(response.body);
+    this.ControleTicketMedio = this.refineDataTicketMedio(dataFromBody);
 
-    this.montaRelatorio(String(this.dia));
-    this.isLoading = false;
+    this.dataTicketMedio = this.configTicketMedio.concat(this.ControleTicketMedio);
+
+    setTimeout(() => {
+      this.montaRelatorio(String(this.dia));
+      this.isLoading = false;
+    }, 1000);
   }
 
   protected refineDataControleComanda(data: IRelatorioControleComanda[]): IRelatorioControleComanda[] {
@@ -2138,7 +3445,19 @@ export class RelatorioComandaComponent implements OnInit {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 
+  protected refineDataTicketMedio(data: IRelatorioValoresRecebidosResumo[]): IRelatorioValoresRecebidosResumo[] {
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
+  }
+
   protected refineDataControleConferencia(data: IRelatorioConferencia[]): IRelatorioConferencia[] {
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
+  }
+
+  protected refineDataConferenciaExtrato(data: IRelatorioConferenciaExtrato[]): IRelatorioConferenciaExtrato[] {
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
+  }
+
+  protected refineDataConferenciaExtratoAcumulado(data: IRelatorioConferenciaExtratoAcumulado[]): IRelatorioConferenciaExtratoAcumulado[] {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 
@@ -2153,6 +3472,24 @@ export class RelatorioComandaComponent implements OnInit {
   protected fillComponentAttributesControleValoresRecebidosResumoFromResponseBody(
     data: IRelatorioValoresRecebidosResumo[] | null,
   ): IRelatorioValoresRecebidosResumo[] {
+    return data ?? [];
+  }
+
+  protected fillComponentAttributesTicketMedioFromResponseBody(
+    data: IRelatorioValoresRecebidosResumo[] | null,
+  ): IRelatorioValoresRecebidosResumo[] {
+    return data ?? [];
+  }
+
+  protected fillComponentAttributesConferenciaExtratoFromResponseBody(
+    data: IRelatorioConferenciaExtrato[] | null,
+  ): IRelatorioConferenciaExtrato[] {
+    return data ?? [];
+  }
+
+  protected fillComponentAttributesConferenciaExtratoAcumuladoFromResponseBody(
+    data: IRelatorioConferenciaExtratoAcumulado[] | null,
+  ): IRelatorioConferenciaExtratoAcumulado[] {
     return data ?? [];
   }
 
@@ -2183,6 +3520,17 @@ export class RelatorioComandaComponent implements OnInit {
       .pipe(tap(() => (this.isLoading = true)));
   }
 
+  protected queryBackendTicketMedio(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseTypeTicketMedio> {
+    this.isLoading = true;
+    const queryObject: any = {
+      sort: this.getSortQueryParam(predicate, ascending),
+    };
+
+    return this.relatorioComandaService
+      .queryTicketMedio(this.dataInicio, this.dataFim, queryObject)
+      .pipe(tap(() => (this.isLoading = true)));
+  }
+
   protected queryBackendControleValoresRecebidos(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseTypeControle> {
     this.isLoading = true;
     const queryObject: any = {
@@ -2202,6 +3550,31 @@ export class RelatorioComandaComponent implements OnInit {
 
     return this.relatorioComandaService
       .queryControleConferencia(this.dataInicio, this.dataFim, queryObject)
+      .pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected queryBackendConferenciaExtrato(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseTypeConferenciaExtrato> {
+    this.isLoading = true;
+    const queryObject: any = {
+      sort: this.getSortQueryParam(predicate, ascending),
+    };
+
+    return this.relatorioComandaService
+      .queryConferenciaExtrato(this.dataInicio, this.dataFim, queryObject)
+      .pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected queryBackendConferenciaExtratoAcumulado(
+    predicate?: string,
+    ascending?: boolean,
+  ): Observable<EntityArrayResponseTypeConferenciaExtratoAcumulado> {
+    this.isLoading = true;
+    const queryObject: any = {
+      sort: this.getSortQueryParam(predicate, ascending),
+    };
+
+    return this.relatorioComandaService
+      .queryConferenciaExtratoAcumulado(this.dataInicio, this.dataFim, queryObject)
       .pipe(tap(() => (this.isLoading = false)));
   }
 

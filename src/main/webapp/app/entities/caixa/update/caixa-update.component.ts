@@ -14,12 +14,14 @@ import { TipoOrigemService } from 'app/entities/tipo-origem/service/tipo-origem.
 import { CaixaService } from '../service/caixa.service';
 import { ICaixa } from '../caixa.model';
 import { CaixaFormService, CaixaFormGroup } from './caixa-form.service';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import dayjs from 'dayjs/esm';
 
 @Component({
   standalone: true,
   selector: 'jhi-caixa-update',
   templateUrl: './caixa-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, NgxCurrencyDirective],
 })
 export class CaixaUpdateComponent implements OnInit {
   isSaving = false;
@@ -47,6 +49,8 @@ export class CaixaUpdateComponent implements OnInit {
       this.caixa = caixa;
       if (caixa) {
         this.updateForm(caixa);
+      } else {
+        this.editForm.get('data')?.setValue(dayjs());
       }
 
       this.loadRelationshipsOptions();

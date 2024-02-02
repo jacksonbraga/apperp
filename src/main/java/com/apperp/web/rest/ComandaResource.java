@@ -109,7 +109,6 @@ public class ComandaResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody ComandaDTO comandaDTO
     ) throws URISyntaxException {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         log.debug("REST request to update Comanda : {}, {}", id, comandaDTO);
         if (comandaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

@@ -13,12 +13,12 @@
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="form-label" jhiTranslate="apperpApp.caixa.descricao" for="field_descricao">Descricao</label>
           <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
-        </div>
+        </div> -->
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="form-label" jhiTranslate="apperpApp.caixa.observacao" for="field_observacao">Observacao</label>
           <input
             type="text"
@@ -28,29 +28,7 @@
             data-cy="observacao"
             formControlName="observacao"
           />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.valor" for="field_valor">Valor</label>
-          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.data" for="field_data">Data</label>
-          <div class="input-group">
-            <input
-              id="field_data"
-              data-cy="data"
-              type="text"
-              class="form-control"
-              name="data"
-              ngbDatepicker
-              #dataDp="ngbDatepicker"
-              formControlName="data"
-            />
-            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
-          </div>
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="apperpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
@@ -84,6 +62,117 @@
               {{ tipoOrigemOption.descricao }}
             </option>
           </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.valor" for="field_valor">Valor</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            type="text"
+            class="form-control"
+            name="valor"
+            id="field_valor"
+            data-cy="valor"
+            formControlName="valor"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.data" for="field_data">Data</label>
+          <div class="input-group">
+            <input
+              id="field_data"
+              data-cy="data"
+              type="text"
+              class="form-control"
+              name="data"
+              ngbDatepicker
+              #dataDp="ngbDatepicker"
+              formControlName="data"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.valorEstimadoExtrato" for="field_valorEstimadoExtrato">Valor</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            type="text"
+            class="form-control"
+            name="valor"
+            id="field_valorEstimadoExtrato"
+            data-cy="valorEstimadoExtrato"
+            formControlName="valorEstimadoExtrato"
+          />
+        </div>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.dataEstimadaExtrato" for="field_dataEstimadaExtrato">Data</label>
+          <div class="input-group">
+            <input
+              id="field_dataEstimadaExtrato"
+              data-cy="dataEstimadaExtrato"
+              type="text"
+              class="form-control"
+              name="dataEstimadaExtrato"
+              ngbDatepicker
+              #dataDpDataEstimadaExtrato="ngbDatepicker"
+              formControlName="dataEstimadaExtrato"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDpDataEstimadaExtrato.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.valorLancadoExtrato" for="field_valorLancadoExtrato">Valor</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            type="text"
+            class="form-control"
+            name="valorLancadoExtrato"
+            id="field_valorLancadoExtrato"
+            data-cy="valorLancadoExtrato"
+            formControlName="valorLancadoExtrato"
+          />
+        </div>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.dataLancadaExtrato" for="field_dataLancadaExtrato">Data</label>
+          <div class="input-group">
+            <input
+              id="field_dataLancadaExtrato"
+              data-cy="dataLancadaExtrato"
+              type="text"
+              class="form-control"
+              name="dataLancadaExtrato"
+              ngbDatepicker
+              #dataDpDataLancadaExtrato="ngbDatepicker"
+              formControlName="dataLancadaExtrato"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataDpDataLancadaExtrato.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="apperpApp.caixa.valorTaxa" for="field_valorTaxa">Valor</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            type="text"
+            class="form-control"
+            name="valorTaxa"
+            id="field_valorTaxa"
+            data-cy="valorTaxa"
+            formControlName="valorTaxa"
+          />
         </div>
       </div>
 

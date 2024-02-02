@@ -19,6 +19,8 @@ type TipoCaixaFormDefaults = Pick<NewTipoCaixa, 'id'>;
 type TipoCaixaFormGroupContent = {
   id: FormControl<ITipoCaixa['id'] | NewTipoCaixa['id']>;
   descricao: FormControl<ITipoCaixa['descricao']>;
+  percTaxa: FormControl<ITipoCaixa['percTaxa']>;
+  prazoExtrato: FormControl<ITipoCaixa['prazoExtrato']>;
   grupoPagamento: FormControl<ITipoCaixa['grupoPagamento']>;
 };
 
@@ -40,6 +42,8 @@ export class TipoCaixaFormService {
         },
       ),
       descricao: new FormControl(tipoCaixaRawValue.descricao),
+      percTaxa: new FormControl(tipoCaixaRawValue.percTaxa),
+      prazoExtrato: new FormControl(tipoCaixaRawValue.prazoExtrato),
       grupoPagamento: new FormControl(tipoCaixaRawValue.grupoPagamento),
     });
   }

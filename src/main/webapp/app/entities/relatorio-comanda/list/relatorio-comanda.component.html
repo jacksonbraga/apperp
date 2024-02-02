@@ -94,6 +94,17 @@
           </div>
           <br />
           <div class="row">
+            <div class="col-6" *ngIf="active != 99">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Conferência de Extrato Bancário</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-7-{{ i + 1 }}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
             <div class="col-12" *ngIf="active == 99">
               <div class="card">
                 <div class="card-header" style="font-size: larger; font-weight: bold">Vendas diárias</div>
@@ -173,6 +184,17 @@
                 <div class="card-header" style="font-size: larger; font-weight: bold">Ticket Médio</div>
                 <div class="card-body">
                   <div id="wdr-relatorio-comanda-6-99"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header" style="font-size: larger; font-weight: bold">Conferência Extrato Bancário</div>
+                <div class="card-body">
+                  <div id="wdr-relatorio-comanda-8-99"></div>
                 </div>
               </div>
             </div>

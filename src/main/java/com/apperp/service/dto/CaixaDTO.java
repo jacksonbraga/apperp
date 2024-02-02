@@ -1,5 +1,6 @@
 package com.apperp.service.dto;
 
+import jakarta.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +21,56 @@ public class CaixaDTO implements Serializable {
     private BigDecimal valor;
 
     private LocalDate data;
+
+    private BigDecimal valorEstimadoExtrato;
+
+    private BigDecimal valorLancadoExtrato;
+
+    private LocalDate dataEstimadaExtrato;
+
+    private LocalDate dataLancadaExtrato;
+
+    private BigDecimal valorTaxa;
+
+    public BigDecimal getValorEstimadoExtrato() {
+        return valorEstimadoExtrato;
+    }
+
+    public void setValorEstimadoExtrato(BigDecimal valorEstimadoExtrato) {
+        this.valorEstimadoExtrato = valorEstimadoExtrato;
+    }
+
+    public BigDecimal getValorLancadoExtrato() {
+        return valorLancadoExtrato;
+    }
+
+    public void setValorLancadoExtrato(BigDecimal valorLancadoExtrato) {
+        this.valorLancadoExtrato = valorLancadoExtrato;
+    }
+
+    public LocalDate getDataEstimadaExtrato() {
+        return dataEstimadaExtrato;
+    }
+
+    public void setDataEstimadaExtrato(LocalDate dataEstimadaExtrato) {
+        this.dataEstimadaExtrato = dataEstimadaExtrato;
+    }
+
+    public LocalDate getDataLancadaExtrato() {
+        return dataLancadaExtrato;
+    }
+
+    public void setDataLancadaExtrato(LocalDate dataLancadaExtrato) {
+        this.dataLancadaExtrato = dataLancadaExtrato;
+    }
+
+    public BigDecimal getValorTaxa() {
+        return valorTaxa;
+    }
+
+    public void setValorTaxa(BigDecimal valorTaxa) {
+        this.valorTaxa = valorTaxa;
+    }
 
     private TipoCaixaDTO tipoCaixa;
 

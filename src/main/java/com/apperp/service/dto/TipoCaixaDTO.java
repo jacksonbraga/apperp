@@ -1,6 +1,8 @@
 package com.apperp.service.dto;
 
+import jakarta.persistence.Column;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -12,6 +14,26 @@ public class TipoCaixaDTO implements Serializable {
     private Long id;
 
     private String descricao;
+
+    private BigDecimal percTaxa;
+
+    private Integer prazoExtrato;
+
+    public BigDecimal getPercTaxa() {
+        return percTaxa;
+    }
+
+    public void setPercTaxa(BigDecimal percTaxa) {
+        this.percTaxa = percTaxa;
+    }
+
+    public Integer getPrazoExtrato() {
+        return prazoExtrato;
+    }
+
+    public void setPrazoExtrato(Integer prazoExtrato) {
+        this.prazoExtrato = prazoExtrato;
+    }
 
     private GrupoPagamentoDTO grupoPagamento;
 

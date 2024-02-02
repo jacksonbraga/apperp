@@ -21,7 +21,12 @@
       "descricao": "Descricao",
       "observacao": "Observacao",
       "valor": "Valor",
+      "valorEstimadoExtrato": "Vr Estimado",
+      "valorLancadoExtrato": "Vr Lançado",
+      "valorTaxa": "Vr Taxa",
       "data": "Data",
+      "dataEstimadaExtrato": "Dt Estimada",
+      "dataLancadaExtrato": "Dt Lançada",
       "tipoCaixa": "Tipo Caixa",
       "tipoOrigem": "Tipo Origem"
     }

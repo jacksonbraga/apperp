@@ -3,6 +3,7 @@ package com.apperp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +25,28 @@ public class TipoCaixa implements Serializable {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "perc_taxa", precision = 21, scale = 2)
+    private BigDecimal percTaxa;
+
+    @Column(name = "prazo_extrato", precision = 21, scale = 2)
+    private Integer prazoExtrato;
+
+    public BigDecimal getPercTaxa() {
+        return percTaxa;
+    }
+
+    public void setPercTaxa(BigDecimal percTaxa) {
+        this.percTaxa = percTaxa;
+    }
+
+    public Integer getPrazoExtrato() {
+        return prazoExtrato;
+    }
+
+    public void setPrazoExtrato(Integer prazoExtrato) {
+        this.prazoExtrato = prazoExtrato;
+    }
 
     @JsonIgnoreProperties(value = { "tipoCaixa" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY)

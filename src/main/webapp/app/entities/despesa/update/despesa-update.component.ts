@@ -15,7 +15,7 @@ import { DespesaFormService, DespesaFormGroup } from './despesa-form.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs/esm';
 import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
@@ -61,8 +61,9 @@ export class DespesaUpdateComponent implements OnInit {
       this.despesa = despesa;
       if (despesa) {
         this.updateForm(despesa);
+      } else {
+        this.editForm.get('data')?.setValue(dayjs());
       }
-
       this.loadRelationshipsOptions();
     });
   }
@@ -84,8 +85,6 @@ export class DespesaUpdateComponent implements OnInit {
           this.numeroParcelas = totalParcela - parcela + 1;
           this.valorParcela = despesa.valor;
           this.dataVencimento = despesa.dataVencimento;
-          console.log(this.valorParcela);
-          console.log(this.dataVencimento);
           this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
             result => {
               this.subscribeToSaveResponse(this.despesaService.create(despesa));

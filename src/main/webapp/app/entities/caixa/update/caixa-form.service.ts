@@ -21,7 +21,15 @@ type CaixaFormGroupContent = {
   descricao: FormControl<ICaixa['descricao']>;
   observacao: FormControl<ICaixa['observacao']>;
   valor: FormControl<ICaixa['valor']>;
+
+  valorEstimadoExtrato: FormControl<ICaixa['valorEstimadoExtrato']>;
+  valorLancadoExtrato: FormControl<ICaixa['valorLancadoExtrato']>;
+  valorTaxa: FormControl<ICaixa['valorTaxa']>;
+
   data: FormControl<ICaixa['data']>;
+  dataEstimadaExtrato: FormControl<ICaixa['dataEstimadaExtrato']>;
+  dataLancadaExtrato: FormControl<ICaixa['dataLancadaExtrato']>;
+
   tipoCaixa: FormControl<ICaixa['tipoCaixa']>;
   tipoOrigem: FormControl<ICaixa['tipoOrigem']>;
 };
@@ -46,7 +54,16 @@ export class CaixaFormService {
       descricao: new FormControl(caixaRawValue.descricao),
       observacao: new FormControl(caixaRawValue.observacao),
       valor: new FormControl(caixaRawValue.valor),
+
+      valorEstimadoExtrato: new FormControl(caixaRawValue.valorEstimadoExtrato),
+      valorLancadoExtrato: new FormControl(caixaRawValue.valorLancadoExtrato),
+      valorTaxa: new FormControl(caixaRawValue.valorTaxa),
+
       data: new FormControl(caixaRawValue.data),
+
+      dataEstimadaExtrato: new FormControl(caixaRawValue.dataEstimadaExtrato),
+      dataLancadaExtrato: new FormControl(caixaRawValue.dataLancadaExtrato),
+
       tipoCaixa: new FormControl(caixaRawValue.tipoCaixa),
       tipoOrigem: new FormControl(caixaRawValue.tipoOrigem),
     });

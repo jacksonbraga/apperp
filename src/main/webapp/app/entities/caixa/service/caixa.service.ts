@@ -16,6 +16,8 @@ export type PartialUpdateCaixa = Partial<ICaixa> & Pick<ICaixa, 'id'>;
 
 type RestOf<T extends ICaixa | NewCaixa> = Omit<T, 'data'> & {
   data?: string | null;
+  dataEstimadaExtrato?: string | null;
+  dataLancadaExtrato?: string | null;
 };
 
 export type RestCaixa = RestOf<ICaixa>;
@@ -104,6 +106,8 @@ export class CaixaService {
     return {
       ...caixa,
       data: caixa.data?.format(DATE_FORMAT) ?? null,
+      dataEstimadaExtrato: caixa.dataEstimadaExtrato?.format(DATE_FORMAT) ?? null,
+      dataLancadaExtrato: caixa.dataLancadaExtrato?.format(DATE_FORMAT) ?? null,
     };
   }
 
@@ -111,6 +115,8 @@ export class CaixaService {
     return {
       ...restCaixa,
       data: restCaixa.data ? dayjs(restCaixa.data) : undefined,
+      dataEstimadaExtrato: restCaixa.dataEstimadaExtrato ? dayjs(restCaixa.dataEstimadaExtrato) : undefined,
+      dataLancadaExtrato: restCaixa.dataLancadaExtrato ? dayjs(restCaixa.dataLancadaExtrato) : undefined,
     };
   }
 

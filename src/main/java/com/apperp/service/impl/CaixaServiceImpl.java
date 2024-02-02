@@ -1,10 +1,15 @@
 package com.apperp.service.impl;
 
 import com.apperp.domain.Caixa;
+import com.apperp.domain.TipoCaixa;
 import com.apperp.repository.CaixaRepository;
+import com.apperp.repository.TipoCaixaRepository;
 import com.apperp.service.CaixaService;
 import com.apperp.service.dto.CaixaDTO;
 import com.apperp.service.mapper.CaixaMapper;
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +29,13 @@ public class CaixaServiceImpl implements CaixaService {
 
     private final CaixaRepository caixaRepository;
 
+    private final TipoCaixaRepository tipoCaixaRepository;
+
     private final CaixaMapper caixaMapper;
 
-    public CaixaServiceImpl(CaixaRepository caixaRepository, CaixaMapper caixaMapper) {
+    public CaixaServiceImpl(CaixaRepository caixaRepository, CaixaMapper caixaMapper, TipoCaixaRepository tipoCaixaRepository) {
         this.caixaRepository = caixaRepository;
+        this.tipoCaixaRepository = tipoCaixaRepository;
         this.caixaMapper = caixaMapper;
     }
 
@@ -35,14 +43,84 @@ public class CaixaServiceImpl implements CaixaService {
     public CaixaDTO save(CaixaDTO caixaDTO) {
         log.debug("Request to save Caixa : {}", caixaDTO);
         Caixa caixa = caixaMapper.toEntity(caixaDTO);
+
+        Optional<TipoCaixa> tipoCaixa = tipoCaixaRepository.findById(caixa.getTipoCaixa().getId());
+
+        if (!tipoCaixa.isEmpty()) {
+            BigDecimal percentual = tipoCaixa.get().getPercTaxa();
+            Integer prazo = tipoCaixa.get().getPrazoExtrato();
+
+            if (percentual == null) {
+                percentual = new BigDecimal(0);
+            }
+
+            if (prazo == null) {
+                prazo = 0;
+            }
+
+            BigDecimal valorTaxa = (caixa.getValor().multiply(percentual)).divide(new BigDecimal(100));
+
+            LocalDate dataEstimada = caixa.getData();
+
+            for (Integer i = 0; i < prazo; i++) {
+                dataEstimada = dataEstimada.plusDays(1);
+                if ((this.fimDeSemana(dataEstimada))) prazo--;
+            }
+
+            dataEstimada = caixa.getData().plusDays(prazo);
+            BigDecimal valorEstimado = caixa.getValor().subtract(valorTaxa);
+
+            caixa.setValorTaxa(valorTaxa);
+            caixa.setDataEstimadaExtrato(dataEstimada);
+            caixa.setValorEstimadoExtrato(valorEstimado);
+        }
+
         caixa = caixaRepository.save(caixa);
         return caixaMapper.toDto(caixa);
+    }
+
+    public static boolean fimDeSemana(LocalDate ld) {
+        DayOfWeek d = ld.getDayOfWeek();
+        return d == DayOfWeek.SATURDAY || d == DayOfWeek.SUNDAY;
     }
 
     @Override
     public CaixaDTO update(CaixaDTO caixaDTO) {
         log.debug("Request to update Caixa : {}", caixaDTO);
+
         Caixa caixa = caixaMapper.toEntity(caixaDTO);
+
+        Optional<TipoCaixa> tipoCaixa = tipoCaixaRepository.findById(caixa.getTipoCaixa().getId());
+
+        if (!tipoCaixa.isEmpty()) {
+            BigDecimal percentual = tipoCaixa.get().getPercTaxa();
+            Integer prazo = tipoCaixa.get().getPrazoExtrato();
+
+            if (percentual == null) {
+                percentual = new BigDecimal(0);
+            }
+
+            if (prazo == null) {
+                prazo = 0;
+            }
+
+            BigDecimal valorTaxa = (caixa.getValor().multiply(percentual)).divide(new BigDecimal(100));
+            BigDecimal valorEstimado = caixa.getValor().subtract(valorTaxa);
+
+            LocalDate dataEstimada = caixa.getData();
+
+            for (Integer i = 0; i < prazo; i++) {
+                dataEstimada = dataEstimada.plusDays(1);
+                if ((this.fimDeSemana(dataEstimada))) prazo--;
+            }
+
+            dataEstimada = caixa.getData().plusDays(prazo);
+
+            caixa.setValorTaxa(valorTaxa);
+            caixa.setDataEstimadaExtrato(dataEstimada);
+            caixa.setValorEstimadoExtrato(valorEstimado);
+        }
+
         caixa = caixaRepository.save(caixa);
         return caixaMapper.toDto(caixa);
     }

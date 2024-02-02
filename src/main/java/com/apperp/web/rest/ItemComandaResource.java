@@ -9,6 +9,8 @@ import com.apperp.service.dto.ComandaDTO;
 import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
+import com.apperp.service.dto.IRelatorioConferenciaExtrato;
+import com.apperp.service.dto.IRelatorioConferenciaExtratoAcumulado;
 import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
@@ -257,6 +259,14 @@ public class ItemComandaResource {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControleValoresRecebidosResumoPorDia(dataInicio, dataFim));
     }
 
+    @GetMapping("/relatorio-ticket-medio/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioControleValoresRecebidosResumo>> listaRelatorioTicketMedioPorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioTicketMedioPorDia(dataInicio, dataFim));
+    }
+
     @GetMapping("/relatorio-caixa/{dataInicio}/{dataFim}")
     public ResponseEntity<List<IRelatorioCaixa>> listaRelatorioCaixaPorDia(@PathVariable String dataInicio, @PathVariable String dataFim) {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioCaixaPorDia(dataInicio, dataFim));
@@ -268,5 +278,21 @@ public class ItemComandaResource {
         @PathVariable String dataFim
     ) {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioControle4PorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-conferencia-extrato/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioConferenciaExtrato>> listaRelatorioConferenciaExtratoPorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioConferenciaExtrato(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-conferencia-extrato-acumulado/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioConferenciaExtratoAcumulado>> listaRelatorioConferenciaExtratoAcumuladoPorDia(
+        @PathVariable String dataInicio,
+        @PathVariable String dataFim
+    ) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioConferenciaExtratoAcumulado(dataInicio, dataFim));
     }
 }

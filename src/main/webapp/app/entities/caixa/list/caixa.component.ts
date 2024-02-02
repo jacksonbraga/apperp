@@ -122,6 +122,7 @@ export class CaixaComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
+
     this.caixas = dataFromBody;
   }
 

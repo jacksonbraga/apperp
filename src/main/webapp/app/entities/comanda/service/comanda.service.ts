@@ -44,9 +44,6 @@ export class ComandaService {
   }
 
   update(comanda: IComanda): Observable<EntityResponseType> {
-    console.log('ARQUI - Update request');
-    console.log(comanda);
-
     const copy = this.convertDateFromClient(comanda);
     return this.http
       .put<RestComanda>(`${this.resourceUrl}/${this.getComandaIdentifier(comanda)}`, copy, { observe: 'response' })
@@ -54,9 +51,6 @@ export class ComandaService {
   }
 
   updateDigitacao(comanda: IComanda): any {
-    console.log('ARQUI - Update request');
-    console.log(comanda);
-
     const copy = this.convertDateFromClient(comanda);
     return this.http
       .put<RestComanda>(`${this.resourceUrl}/atualiza-digitacao/${this.getComandaIdentifier(comanda)}`, copy, { observe: 'response' })

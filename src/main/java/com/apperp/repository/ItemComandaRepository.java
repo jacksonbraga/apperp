@@ -4,6 +4,8 @@ import com.apperp.domain.ItemComanda;
 import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
+import com.apperp.service.dto.IRelatorioConferenciaExtrato;
+import com.apperp.service.dto.IRelatorioConferenciaExtratoAcumulado;
 import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
@@ -235,6 +237,54 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
 
     @Query(
         value = "select\r\n" + //
+        "\ttipo,\r\n" + //
+        "\tIFNULL(sum(coalesce(D01))  / sum(coalesce(C01)),0)  as D01,\r\n" + //
+        "\tIFNULL(sum(coalesce(D02))  / sum(coalesce(C02)),0)  as D02,\r\n" + //
+        "\tIFNULL(sum(coalesce(D03))  / sum(coalesce(C03)),0)  as D03,\r\n" + //
+        "\tIFNULL(sum(coalesce(D04))  / sum(coalesce(C04)),0)  as D04,\r\n" + //
+        "\tIFNULL(sum(coalesce(D05))  / sum(coalesce(C05)),0)  as D05,\r\n" + //
+        "\tIFNULL(sum(coalesce(D06))  / sum(coalesce(C06)),0)  as D06,\r\n" + //
+        "\tIFNULL(sum(coalesce(D07))  / sum(coalesce(C07)),0)  as D07,\r\n" + //
+        "\tIFNULL(sum(coalesce(D08))  / sum(coalesce(C08)),0)  as D08,\r\n" + //
+        "\tIFNULL(sum(coalesce(D09))  / sum(coalesce(C09)),0)  as D09,\r\n" + //
+        "\tIFNULL(sum(coalesce(D10))  / sum(coalesce(C10)),0)  as D10,\r\n" + //
+        "\tIFNULL(sum(coalesce(D11))  / sum(coalesce(C11)),0)  as D11,\r\n" + //
+        "\tIFNULL(sum(coalesce(D12))  / sum(coalesce(C12)),0)  as D12,\r\n" + //
+        "\tIFNULL(sum(coalesce(D13))  / sum(coalesce(C13)),0)  as D13,\r\n" + //
+        "\tIFNULL(sum(coalesce(D14))  / sum(coalesce(C14)),0)  as D14,\r\n" + //
+        "\tIFNULL(sum(coalesce(D15))  / sum(coalesce(C15)),0)  as D15,\r\n" + //
+        "\tIFNULL(sum(coalesce(D16))  / sum(coalesce(C16)),0)  as D16,\r\n" + //
+        "\tIFNULL(sum(coalesce(D17))  / sum(coalesce(C17)),0)  as D17,\r\n" + //
+        "\tIFNULL(sum(coalesce(D18))  / sum(coalesce(C18)),0)  as D18,\r\n" + //
+        "\tIFNULL(sum(coalesce(D19))  / sum(coalesce(C19)),0)  as D19,\r\n" + //
+        "\tIFNULL(sum(coalesce(D20))  / sum(coalesce(C20)),0)  as D20,\r\n" + //
+        "\tIFNULL(sum(coalesce(D21))  / sum(coalesce(C21)),0)  as D21,\r\n" + //
+        "\tIFNULL(sum(coalesce(D22))  / sum(coalesce(C22)),0)  as D22,\r\n" + //
+        "\tIFNULL(sum(coalesce(D23))  / sum(coalesce(C23)),0)  as D23,\r\n" + //
+        "\tIFNULL(sum(coalesce(D24))  / sum(coalesce(C24)),0)  as D24,\r\n" + //
+        "\tIFNULL(sum(coalesce(D25))  / sum(coalesce(C25)),0)  as D25,\r\n" + //
+        "\tIFNULL(sum(coalesce(D26))  / sum(coalesce(C26)),0)  as D26,\r\n" + //
+        "\r\n" + //
+        "\tIFNULL(sum(coalesce(D27))  / sum(coalesce(C27)),0)  as D27,\r\n" + //
+        "\tIFNULL(sum(coalesce(D28))  / sum(coalesce(C28)),0)  as D28,\r\n" + //
+        "\tIFNULL(sum(coalesce(D29))  / sum(coalesce(C29)),0)  as D29,\r\n" + //
+        "\tIFNULL(sum(coalesce(D30))  / sum(coalesce(C30)),0)  as D30,\r\n" + //
+        "\tIFNULL(sum(coalesce(D31))  / sum(coalesce(C31)),0)  as D31\r\n" + //
+        "\r\n" + //
+        "from\r\n" + //
+        "\tapperp.conferencia\r\n" + //
+        "\twhere data between :dataInicio and :dataFim \r\n" + //
+        "\tgroup by tipo \r\n" + //
+        "\t",
+        nativeQuery = true
+    )
+    List<IRelatorioControleValoresRecebidosResumo> listaRelatorioTicketMedioPorDia(
+        @Param("dataInicio") String dataInicio,
+        @Param("dataFim") String dataFim
+    );
+
+    @Query(
+        value = "select\r\n" + //
         "\t\"Comandas\" as grupoComanda,\r\n" + //
         "\tgp.descricao as grupo,\r\n" + //
         "\tcc.id as id,\r\n" + //
@@ -296,6 +346,70 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         nativeQuery = true
     )
     List<IRelatorioControle4> listaRelatorioControle4PorDia(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
+
+    @Query(
+        value = " select tor.descricao as equipamento, \r\n" + //
+        "        tc.descricao as tipo, \r\n" + //
+        "        IFNULL(sum(c.valor_estimado_extrato), 0) as valorPrevisto,\r\n" + //
+        "        IFNULL(sum(c.valor_lancado_extrato),0)  as valorConfirmado,\r\n" + //
+        "        IFNULL(sum(c.valor_taxa),0)  as valorTaxa \r\n" + //
+        " from caixa c \r\n" + //
+        "   inner join tipo_origem tor on tor.id = c.tipo_origem_id  \r\n" + //
+        "   inner join tipo_caixa tc on tc.id = c.tipo_caixa_id     \r\n" + //
+        "   inner join grupo_origem gor on gor.id = tor.grupo_origem_id \r\n" + //
+        "where c.data between :dataInicio and :dataFim\r\n" + //
+        "group by tor.descricao, tc.descricao",
+        nativeQuery = true
+    )
+    List<IRelatorioConferenciaExtrato> listaRelatorioConferenciaExtratoPorDia(
+        @Param("dataInicio") String dataInicio,
+        @Param("dataFim") String dataFim
+    );
+
+    @Query(
+        value = " select equipamento,\r\n" + //
+        "        tipo,\r\n" + //
+        "        data_estimada_extrato,\r\n" + //
+        "        if(day(data_estimada_extrato) = 1, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D01,\r\n" + //
+        "        if(day(data_estimada_extrato) = 2, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D02,\r\n" + //
+        "        if(day(data_estimada_extrato) = 3, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D03,\r\n" + //
+        "        if(day(data_estimada_extrato) = 4, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D04,\r\n" + //
+        "        if(day(data_estimada_extrato) = 5, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D05,\r\n" + //
+        "        if(day(data_estimada_extrato) = 6, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D06,\r\n" + //
+        "        if(day(data_estimada_extrato) = 7, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D07,\r\n" + //
+        "        if(day(data_estimada_extrato) = 8, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D08,\r\n" + //
+        "        if(day(data_estimada_extrato) = 9, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D09,\r\n" + //
+        "        if(day(data_estimada_extrato) = 10, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D10,\r\n" + //
+        "        if(day(data_estimada_extrato) = 11, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D11,\r\n" + //
+        "        if(day(data_estimada_extrato) = 12, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D12,\r\n" + //
+        "        if(day(data_estimada_extrato) = 13, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D13,\r\n" + //
+        "        if(day(data_estimada_extrato) = 14, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D14,\r\n" + //
+        "        if(day(data_estimada_extrato) = 15, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D15,\r\n" + //
+        "        if(day(data_estimada_extrato) = 16, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D16,\r\n" + //
+        "        if(day(data_estimada_extrato) = 17, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D17,\r\n" + //
+        "        if(day(data_estimada_extrato) = 18, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D18,\r\n" + //
+        "        if(day(data_estimada_extrato) = 19, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D19,\r\n" + //
+        "        if(day(data_estimada_extrato) = 20, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D20,\r\n" + //
+        "        if(day(data_estimada_extrato) = 21, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D21,\r\n" + //
+        "        if(day(data_estimada_extrato) = 22, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D22,\r\n" + //
+        "        if(day(data_estimada_extrato) = 23, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D23,\r\n" + //
+        "        if(day(data_estimada_extrato) = 24, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D24,\r\n" + //
+        "        if(day(data_estimada_extrato) = 25, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D25,\r\n" + //
+        "        if(day(data_estimada_extrato) = 26, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D26,\r\n" + //
+        "        if(day(data_estimada_extrato) = 27, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D27,\r\n" + //
+        "        if(day(data_estimada_extrato) = 28, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D28,\r\n" + //
+        "        if(day(data_estimada_extrato) = 29, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D29,\r\n" + //
+        "        if(day(data_estimada_extrato) = 30, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D30,\r\n" + //
+        "        if(day(data_estimada_extrato) = 31, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D31\r\n" + //
+        " from apperp.conferencia_extrato\r\n" + //
+        " where data_estimada_extrato between :dataInicio and :dataFim\r\n" + //
+        "group by equipamento , tipo,  data_estimada_extrato",
+        nativeQuery = true
+    )
+    List<IRelatorioConferenciaExtratoAcumulado> listaRelatorioConferenciaExtratoAcumuladoPorDia(
+        @Param("dataInicio") String dataInicio,
+        @Param("dataFim") String dataFim
+    );
 
     List<ItemComanda> findAllByComandaId(Long id);
 

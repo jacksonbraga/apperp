@@ -7,13 +7,19 @@ import { IRelatorioComanda } from '../relatorio-comanda.model';
 import { IRelatorioControle4 } from '../relatorio-controle-conferencia.model';
 import { IRelatorioValoresRecebidosResumo } from '../relatorio-controle-valores-recebidos-resumo.model';
 import { IRelatorioControle } from '../relatorio-controle.model';
+import { IRelatorioConferenciaExtrato } from '../relatorio-controle-conferencia-extrato.model';
+import { IRelatorioConferenciaExtratoAcumulado } from '../relatorio-controle-conferencia-extrato-acumulado.model';
 
 export type EntityResponseType = HttpResponse<IRelatorioComanda>;
 export type EntityArrayResponseType = HttpResponse<IRelatorioComanda[]>;
 export type EntityArrayResponseTypeControle = HttpResponse<IRelatorioControle[]>;
 export type EntityArrayResponseTypeControle4 = HttpResponse<IRelatorioControle4[]>;
+export type EntityArrayResponseTypeConferenciaExtrato = HttpResponse<IRelatorioConferenciaExtrato[]>;
+export type EntityArrayResponseTypeConferenciaExtratoAcumulado = HttpResponse<IRelatorioConferenciaExtratoAcumulado[]>;
 
 export type EntityArrayResponseTypeValoresRecebidosResumo = HttpResponse<IRelatorioValoresRecebidosResumo[]>;
+
+export type EntityArrayResponseTypeTicketMedio = HttpResponse<IRelatorioValoresRecebidosResumo[]>;
 
 @Injectable({ providedIn: 'root' })
 export class RelatorioComandaService {
@@ -67,6 +73,15 @@ export class RelatorioComandaService {
     );
   }
 
+  queryTicketMedio(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseTypeTicketMedio> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioValoresRecebidosResumo[]>(`${this.resourceUrl}/relatorio-ticket-medio/` + dataInicio + '/' + dataFim, {
+      params: options,
+      observe: 'response',
+    });
+  }
+
   queryCaixa(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
 
@@ -83,5 +98,33 @@ export class RelatorioComandaService {
       params: options,
       observe: 'response',
     });
+  }
+
+  queryConferenciaExtrato(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseTypeConferenciaExtrato> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioConferenciaExtrato[]>(
+      `${this.resourceUrl}/relatorio-conferencia-extrato/` + dataInicio + '/' + dataFim,
+      {
+        params: options,
+        observe: 'response',
+      },
+    );
+  }
+
+  queryConferenciaExtratoAcumulado(
+    dataInicio: string,
+    dataFim: string,
+    req?: any,
+  ): Observable<EntityArrayResponseTypeConferenciaExtratoAcumulado> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioConferenciaExtratoAcumulado[]>(
+      `${this.resourceUrl}/relatorio-conferencia-extrato-acumulado/` + dataInicio + '/' + dataFim,
+      {
+        params: options,
+        observe: 'response',
+      },
+    );
   }
 }

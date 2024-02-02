@@ -7,6 +7,11 @@ export interface ICaixa {
   descricao?: string | null;
   observacao?: string | null;
   valor?: number | null;
+  valorEstimadoExtrato?: number | null;
+  valorLancadoExtrato?: number | null;
+  dataEstimadaExtrato?: dayjs.Dayjs | null;
+  dataLancadaExtrato?: dayjs.Dayjs | null;
+  valorTaxa?: number | null;
   data?: dayjs.Dayjs | null;
   tipoCaixa?: Pick<ITipoCaixa, 'id' | 'descricao'> | null;
   tipoOrigem?: Pick<ITipoOrigem, 'id' | 'descricao'> | null;

@@ -21,6 +21,8 @@
       },
       "id": "ID",
       "descricao": "Descricao",
+      "percTaxa": "Percentual da Taxa",
+      "prazoExtrato": "Prazo para o Extrato",
       "caixa": "Caixa"
     }
   }

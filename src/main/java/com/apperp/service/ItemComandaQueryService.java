@@ -8,6 +8,8 @@ import com.apperp.service.criteria.ItemComandaCriteria;
 import com.apperp.service.dto.IRelatorio;
 import com.apperp.service.dto.IRelatorioCaixa;
 import com.apperp.service.dto.IRelatorioComanda;
+import com.apperp.service.dto.IRelatorioConferenciaExtrato;
+import com.apperp.service.dto.IRelatorioConferenciaExtratoAcumulado;
 import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
@@ -191,6 +193,11 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
     }
 
     @Transactional(readOnly = true)
+    public List<IRelatorioControleValoresRecebidosResumo> listaRelatorioTicketMedioPorDia(String dataInicio, String dataFim) {
+        return itemComandaRepository.listaRelatorioTicketMedioPorDia(dataInicio, dataFim);
+    }
+
+    @Transactional(readOnly = true)
     public List<IRelatorioCaixa> listaRelatorioCaixaPorDia(String dataInicio, String dataFim) {
         return itemComandaRepository.listaRelatorioCaixaPorDia(dataInicio, dataFim);
     }
@@ -198,5 +205,15 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
     @Transactional(readOnly = true)
     public List<IRelatorioControle4> listaRelatorioControle4PorDia(String dataInicio, String dataFim) {
         return itemComandaRepository.listaRelatorioControle4PorDia(dataInicio, dataFim);
+    }
+
+    @Transactional(readOnly = true)
+    public List<IRelatorioConferenciaExtrato> listaRelatorioConferenciaExtrato(String dataInicio, String dataFim) {
+        return itemComandaRepository.listaRelatorioConferenciaExtratoPorDia(dataInicio, dataFim);
+    }
+
+    @Transactional(readOnly = true)
+    public List<IRelatorioConferenciaExtratoAcumulado> listaRelatorioConferenciaExtratoAcumulado(String dataInicio, String dataFim) {
+        return itemComandaRepository.listaRelatorioConferenciaExtratoAcumuladoPorDia(dataInicio, dataFim);
     }
 }

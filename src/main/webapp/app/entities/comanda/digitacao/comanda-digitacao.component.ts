@@ -154,7 +154,6 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
 
   preventTab(e: any): void {
     e = e || window.event;
-    console.log('preventTab');
     if (e.keyCode === 9) {
       // If tab key is pressed
       e.preventDefault(); // Stop event from its action
@@ -170,8 +169,6 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     this.formGroup.controls['pix'].disable();
     this.formGroup.controls['dinheiro'].disable();
     this.formGroup.controls['transferido'].disable();
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-    console.log(this.formGroup.get('numero')?.value);
 
     const numero = this.formGroup.get('numero')?.value;
     if (numero) {
@@ -192,7 +189,6 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
   }
 
   reseta(): void {
-    console.log('RESETAAAAAA');
     this.formGroup.reset();
     this.formGroup.get('numero')?.setValue('');
     this.formGroup.get('cartao')?.setValue('');
