@@ -223,7 +223,7 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         "\tif(sum(D31) <> sum(D31L), sum(D31) * -1, sum(D31)) as D31,\r\n" + //
         "\tif(sum(D31) <> sum(D31L), sum(D31L) * -1, sum(D31L)) as D31L\r\n" + //
         "from\r\n" + //
-        "\tapperp.conferencia\r\n" + //
+        "\t conferencia\r\n" + //
         "\twhere data between :dataInicio and :dataFim \r\n" + //
         "\tgroup by tipo \r\n" + //
         "\t\r\n" + //
@@ -272,7 +272,7 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         "\tIFNULL(sum(coalesce(D31))  / sum(coalesce(C31)),0)  as D31\r\n" + //
         "\r\n" + //
         "from\r\n" + //
-        "\tapperp.conferencia\r\n" + //
+        "\t conferencia\r\n" + //
         "\twhere data between :dataInicio and :dataFim \r\n" + //
         "\tgroup by tipo \r\n" + //
         "\t",
@@ -401,7 +401,7 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         "        if(day(data_estimada_extrato) = 29, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D29,\r\n" + //
         "        if(day(data_estimada_extrato) = 30, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D30,\r\n" + //
         "        if(day(data_estimada_extrato) = 31, if(sum(diferenca) <> 0, sum(valorPrevisto) * -1, sum(valorPrevisto)), 0) as D31\r\n" + //
-        " from apperp.conferencia_extrato\r\n" + //
+        " from conferencia_extrato\r\n" + //
         " where data_estimada_extrato between :dataInicio and :dataFim\r\n" + //
         "group by equipamento , tipo,  data_estimada_extrato",
         nativeQuery = true
