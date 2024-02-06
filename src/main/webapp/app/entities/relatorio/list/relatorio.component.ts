@@ -215,7 +215,7 @@ export class RelatorioComponent implements OnInit {
           showDefaultSlice: true,
           defaultHierarchySortName: 'asc',
         },
-        localization: 'http://localhost:4200/content/pr.json',
+        //localization: 'http://localhost:4200/content/pr.json',
       },
     });
 
