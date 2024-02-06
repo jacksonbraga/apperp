@@ -20,7 +20,7 @@
         "title": "Tipo Caixa"
       },
       "id": "ID",
-      "descricao": "Descricao",
+      "descricao": "Descrição",
       "percTaxa": "Percentual da Taxa",
       "prazoExtrato": "Prazo para o Extrato",
       "caixa": "Caixa"

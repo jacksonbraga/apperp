@@ -30,27 +30,26 @@
             <!-- <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button> -->
           </div>
         </div>
-        <div class="col-4">
-          <button class="btn btn-info" style="margin-top: 46px; margin-left: 5px" (click)="loadComFiltro()" [disabled]="isLoading">
+        <div class="col-10" style="margin-top: 38px; margin-left: 10px">
+          <button class="btn btn-info" (click)="loadComFiltro()" [disabled]="isLoading">
             <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
             <span jhiTranslate="appErpApp.controleComanda.home.refreshListLabel">Atualizar lista</span>
           </button>
-        </div>
+          <!-- </div>
 
-        <div class="col-6">
-          <div class="d-flex justify-content-end">
-            <button
-              style="margin-top: 46px; margin-left: 5px"
-              id="jh-create-entity"
-              data-cy="entityCreateButton"
-              class="btn btn-primary jh-create-entity create-controle-comanda"
-              [routerLink]="['/controle-comanda/new']"
-            >
-              <fa-icon icon="plus"></fa-icon>
-              <span jhiTranslate="appErpApp.controleComanda.home.createLabel">Criar novo Controle Comanda</span>
-            </button>
-          </div>
+        <div class="col-6"> -->
+          <!-- <div class="d-flex justify-content-end"> -->
+          <button
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-primary jh-create-entity create-controle-comanda"
+            [routerLink]="['/controle-comanda/new']"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="appErpApp.controleComanda.home.createLabel">Criar novo Controle Comanda</span>
+          </button>
         </div>
+        <!-- </div> -->
       </div>
     </form>
   </h2>

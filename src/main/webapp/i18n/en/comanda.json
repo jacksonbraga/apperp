@@ -18,8 +18,8 @@
         "title": "Comanda"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "observacao": "Observacao",
+      "descricao": "Descrição",
+      "observacao": "Observação",
       "data": "Data",
       "numero": "Numero",
       "itens": "Itens",

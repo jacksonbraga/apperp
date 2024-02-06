@@ -1,32 +1,32 @@
 {
-  "apperpApp": {
+  "appErpApp": {
     "caixa": {
       "home": {
-        "title": "Caixas",
+        "title": "Caixa",
         "refreshListLabel": "Pesquisar",
         "createLabel": "Criar novo Caixa",
         "createOrEditLabel": "Criar ou editar Caixa",
         "notFound": "Nenhum Caixa encontrado"
       },
-      "created": "Um novo Caixa foi criado com o identificador {{ param }}",
-      "updated": "Um Caixa foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Caixa foi excluído com o identificador {{ param }}",
+      "created": "Um novo Caixa foi criado",
+      "updated": "Um Caixa foi atualizado",
+      "deleted": "Um Caixa foi excluído",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Caixa {{ id }}?"
+        "question": "Tem certeza de que deseja excluir esse Caixa ?"
       },
       "detail": {
         "title": "Caixa"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "observacao": "Observacao",
+      "descricao": "Descrição",
+      "observacao": "Observação",
       "valor": "Valor",
-      "valorEstimadoExtrato": "Vr Estimado",
-      "valorLancadoExtrato": "Vr Lançado",
-      "valorTaxa": "Vr Taxa",
+      "valorEstimadoExtrato": "Vlr Previsto",
+      "valorLancadoExtrato": "Vlr Confirmado",
+      "valorTaxa": "Vlr Taxa",
       "data": "Data",
-      "dataEstimadaExtrato": "Dt Estimada",
-      "dataLancadaExtrato": "Dt Lançada",
+      "dataEstimadaExtrato": "Dt Prevista",
+      "dataLancadaExtrato": "Dt Confirmada",
       "tipoCaixa": "Tipo Caixa",
       "tipoOrigem": "Tipo Origem"
     }

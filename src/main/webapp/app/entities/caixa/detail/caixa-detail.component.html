@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="caixa">
-      <h2 data-cy="caixaDetailsHeading"><span jhiTranslate="apperpApp.caixa.detail.title">Caixa</span></h2>
+      <h2 data-cy="caixaDetailsHeading"><span jhiTranslate="appErpApp.caixa.detail.title">Caixa</span></h2>
 
       <hr />
 
@@ -14,29 +14,29 @@
         <dd>
           <span>{{ caixa.id }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.descricao">Descricao</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.descricao">Descricao</span></dt>
         <dd>
           <span>{{ caixa.descricao }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.observacao">Observacao</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.observacao">Observacao</span></dt>
         <dd>
           <span>{{ caixa.observacao }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.valor">Valor</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.valor">Valor</span></dt>
         <dd>
           <span>{{ caixa.valor }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.data">Data</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.data">Data</span></dt>
         <dd>
           <span>{{ caixa.data | formatMediumDate }}</span>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.tipoCaixa">Tipo Caixa</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.tipoCaixa">Tipo Caixa</span></dt>
         <dd>
           <div *ngIf="caixa.tipoCaixa">
             <a [routerLink]="['/tipo-caixa', caixa.tipoCaixa.id, 'view']">{{ caixa.tipoCaixa.descricao }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="apperpApp.caixa.tipoOrigem">Tipo Origem</span></dt>
+        <dt><span jhiTranslate="appErpApp.caixa.tipoOrigem">Tipo Origem</span></dt>
         <dd>
           <div *ngIf="caixa.tipoOrigem">
             <a [routerLink]="['/tipo-origem', caixa.tipoOrigem.id, 'view']">{{ caixa.tipoOrigem.descricao }}</a>

@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-caixa-heading" data-cy="CaixaCreateUpdateHeading" jhiTranslate="apperpApp.caixa.home.createOrEditLabel">
+      <h2 id="jhi-caixa-heading" data-cy="CaixaCreateUpdateHeading" jhiTranslate="appErpApp.caixa.home.createOrEditLabel">
         Criar ou editar Caixa
       </h2>
 
@@ -14,12 +14,12 @@
         </div>
 
         <!-- <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.descricao" for="field_descricao">Descricao</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.descricao" for="field_descricao">Descricao</label>
           <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
         </div> -->
 
         <!-- <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.observacao" for="field_observacao">Observacao</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.observacao" for="field_observacao">Observacao</label>
           <input
             type="text"
             class="form-control"
@@ -31,7 +31,7 @@
         </div> -->
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
           <select
             class="form-control"
             id="field_tipoCaixa"
@@ -48,7 +48,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.tipoOrigem" for="field_tipoOrigem">Tipo Origem</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.tipoOrigem" for="field_tipoOrigem">Tipo Origem</label>
           <select
             class="form-control"
             id="field_tipoOrigem"
@@ -65,7 +65,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.valor" for="field_valor">Valor</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.valor" for="field_valor">Valor</label>
           <input
             currencyMask
             [options]="{ prefix: '', thousands: '.', decimal: ',' }"
@@ -79,7 +79,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.data" for="field_data">Data</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.data" for="field_data">Data</label>
           <div class="input-group">
             <input
               id="field_data"
@@ -98,7 +98,7 @@
         </div>
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.valorEstimadoExtrato" for="field_valorEstimadoExtrato">Valor</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.valorEstimadoExtrato" for="field_valorEstimadoExtrato">Valor</label>
           <input
             currencyMask
             [options]="{ prefix: '', thousands: '.', decimal: ',' }"
@@ -112,7 +112,7 @@
         </div>
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.dataEstimadaExtrato" for="field_dataEstimadaExtrato">Data</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.dataEstimadaExtrato" for="field_dataEstimadaExtrato">Data</label>
           <div class="input-group">
             <input
               id="field_dataEstimadaExtrato"
@@ -133,7 +133,7 @@
         </div>
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.valorLancadoExtrato" for="field_valorLancadoExtrato">Valor</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.valorLancadoExtrato" for="field_valorLancadoExtrato">Valor</label>
           <input
             currencyMask
             [options]="{ prefix: '', thousands: '.', decimal: ',' }"
@@ -147,7 +147,7 @@
         </div>
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.dataLancadaExtrato" for="field_dataLancadaExtrato">Data</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.dataLancadaExtrato" for="field_dataLancadaExtrato">Data</label>
           <div class="input-group">
             <input
               id="field_dataLancadaExtrato"
@@ -168,7 +168,7 @@
         </div>
 
         <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="apperpApp.caixa.valorTaxa" for="field_valorTaxa">Valor</label>
+          <label class="form-label" jhiTranslate="appErpApp.caixa.valorTaxa" for="field_valorTaxa">Valor</label>
           <input
             currencyMask
             [options]="{ prefix: '', thousands: '.', decimal: ',' }"

@@ -18,8 +18,8 @@
         "title": "Despesa"
       },
       "id": "ID",
-      "descricao": "Descricao",
-      "observacao": "Observacao",
+      "descricao": "Descrição",
+      "observacao": "Observação",
       "parcela": "Parcela",
       "totalParcela": "Total Parcela",
       "valor": "Valor",
