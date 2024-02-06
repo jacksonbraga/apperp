@@ -9,6 +9,7 @@ import { IRelatorioValoresRecebidosResumo } from '../relatorio-controle-valores-
 import { IRelatorioControle } from '../relatorio-controle.model';
 import { IRelatorioConferenciaExtrato } from '../relatorio-controle-conferencia-extrato.model';
 import { IRelatorioConferenciaExtratoAcumulado } from '../relatorio-controle-conferencia-extrato-acumulado.model';
+import { IRelatorioDespesa } from '../relatorio-despesas.model';
 
 export type EntityResponseType = HttpResponse<IRelatorioComanda>;
 export type EntityArrayResponseType = HttpResponse<IRelatorioComanda[]>;
@@ -20,6 +21,8 @@ export type EntityArrayResponseTypeConferenciaExtratoAcumulado = HttpResponse<IR
 export type EntityArrayResponseTypeValoresRecebidosResumo = HttpResponse<IRelatorioValoresRecebidosResumo[]>;
 
 export type EntityArrayResponseTypeTicketMedio = HttpResponse<IRelatorioValoresRecebidosResumo[]>;
+
+export type EntityArrayResponseTypeDespesas = HttpResponse<IRelatorioDespesa[]>;
 
 @Injectable({ providedIn: 'root' })
 export class RelatorioComandaService {
@@ -77,6 +80,15 @@ export class RelatorioComandaService {
     const options = createRequestOption(req);
 
     return this.http.get<IRelatorioValoresRecebidosResumo[]>(`${this.resourceUrl}/relatorio-ticket-medio/` + dataInicio + '/' + dataFim, {
+      params: options,
+      observe: 'response',
+    });
+  }
+
+  queryDespesas(dataInicio: string, dataFim: string, req?: any): Observable<EntityArrayResponseTypeDespesas> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IRelatorioDespesa[]>(`${this.resourceUrl}/relatorio-despesas/` + dataInicio + '/' + dataFim, {
       params: options,
       observe: 'response',
     });

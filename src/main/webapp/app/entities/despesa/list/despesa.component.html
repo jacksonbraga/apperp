@@ -1,22 +1,65 @@
 <div>
   <h2 id="page-heading" data-cy="DespesaHeading">
     <span style="font-weight: bold" jhiTranslate="appErpApp.despesa.home.title">Despesas</span>
+    <div class="d-flex justify-content-start">
+      <div class="col-2 p-2">
+        <label
+          class="form-label"
+          style="font-size: medium; font-weight: bold"
+          jhiTranslate="appErpApp.relatorioComanda.ano"
+          for="field_data"
+          >Data</label
+        >
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="appErpApp.despesa.home.refreshListLabel">Atualizar lista</span>
-      </button>
+        <ng-multiselect-dropdown
+          [placeholder]="'Selecione o ano...'"
+          class="form-control"
+          [settings]="dropdownSettingsAno"
+          [data]="listaAnos"
+          [(ngModel)]="selectedAno"
+          (onSelect)="onItemSelectAno($event)"
+          (onDeSelect)="onItemDeSelectAno($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-despesa"
-        [routerLink]="['/despesa/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="appErpApp.despesa.home.createLabel">Criar novo Despesa</span>
-      </button>
+      <div class="col-2 p-2">
+        <label
+          class="form-label"
+          style="font-size: medium; font-weight: bold"
+          jhiTranslate="appErpApp.relatorioComanda.mes"
+          for="field_data"
+          >Data</label
+        >
+
+        <ng-multiselect-dropdown
+          [placeholder]="'Selecione o mês...'"
+          class="form-control"
+          [settings]="dropdownSettings"
+          [data]="listaMeses"
+          [(ngModel)]="selectedMes"
+          (onSelect)="onItemSelectMes($event)"
+          (onDeSelect)="onItemDeSelectMes($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-7 p-2" style="margin-top: 45px">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="appErpApp.despesa.home.refreshListLabel">Atualizar lista</span>
+        </button>
+
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-despesa"
+          [routerLink]="['/despesa/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="appErpApp.despesa.home.createLabel">Criar nova Despesa</span>
+        </button>
+      </div>
     </div>
   </h2>
 
@@ -44,12 +87,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="observacao">
+          <!-- <th scope="col" jhiSortBy="observacao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.despesa.observacao">Observacao</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="parcela">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.despesa.parcela">Parcela</span>
@@ -80,6 +123,20 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+
+          <th scope="col" jhiSortBy="dataPagamento">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.despesa.dataPagamento">Data</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="valorPagamento">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.despesa.valorPagamento">Valor</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
           <th scope="col" jhiSortBy="tipoDespesa.descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.despesa.tipoDespesa">Tipo Despesa</span>
@@ -95,12 +152,16 @@
             <a [routerLink]="['/despesa', despesa.id, 'view']">{{ despesa.id }}</a>
           </td>
           <td>{{ despesa.descricao }}</td>
-          <td>{{ despesa.observacao }}</td>
+          <!-- <td>{{ despesa.observacao }}</td> -->
           <td style="text-align: center">{{ despesa.parcela }}</td>
           <td style="text-align: center">{{ despesa.totalParcela }}</td>
           <td style="text-align: right">{{ despesa.valor | currency: 'R$' }}</td>
           <td style="text-align: center">{{ despesa.data | formatMediumDate }}</td>
           <td style="text-align: center">{{ despesa.dataVencimento | formatMediumDate }}</td>
+
+          <td style="text-align: center">{{ despesa.dataPagamento | formatMediumDate }}</td>
+          <td style="text-align: right">{{ despesa.valorPagamento | currency: 'R$' }}</td>
+
           <td>
             <div *ngIf="despesa.tipoDespesa">
               <a [routerLink]="['/tipo-despesa', despesa.tipoDespesa.id, 'view']">{{ despesa.tipoDespesa.descricao }}</a>

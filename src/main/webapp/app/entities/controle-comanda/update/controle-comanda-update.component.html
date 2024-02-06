@@ -71,6 +71,8 @@
               class="form-control"
               name="data"
               ngbDatepicker
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               #dataDp="ngbDatepicker"
               formControlName="data"
             />

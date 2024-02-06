@@ -103,6 +103,7 @@
     "ngx-currency": "^17.0.0",
     "ngx-date-picker": "^0.0.24",
     "ngx-infinite-scroll": "16.0.0",
+    "ngx-localstorage": "^5.1.0",
     "ngx-mask": "^14.2.4",
     "primeng": "^17.0.0",
     "rxjs": "7.8.1",

@@ -27,6 +27,26 @@ public class DespesaDTO implements Serializable {
 
     private LocalDate dataVencimento;
 
+    private LocalDate dataPagamento;
+
+    private BigDecimal valorPagamento;
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public BigDecimal getValorPagamento() {
+        return valorPagamento;
+    }
+
+    public void setValorPagamento(BigDecimal valorPagamento) {
+        this.valorPagamento = valorPagamento;
+    }
+
     private TipoDespesaDTO tipoDespesa;
 
     public Long getId() {

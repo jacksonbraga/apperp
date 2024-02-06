@@ -115,6 +115,7 @@ export class DespesaService {
     return {
       ...restDespesa,
       data: restDespesa.data ? dayjs(restDespesa.data) : undefined,
+      dataPagamento: restDespesa.dataPagamento ? dayjs(restDespesa.dataPagamento) : undefined,
       dataVencimento: restDespesa.dataVencimento ? dayjs(restDespesa.dataVencimento) : undefined,
     };
   }

@@ -3,8 +3,8 @@
     "despesa": {
       "home": {
         "title": "Despesas",
-        "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Despesa",
+        "refreshListLabel": "Pesquisar",
+        "createLabel": "Criar nova Despesa",
         "createOrEditLabel": "Criar ou editar Despesa",
         "notFound": "Nenhuma Despesa encontrada"
       },
@@ -24,6 +24,10 @@
       "totalParcela": "Parcelas",
       "valor": "Valor",
       "data": "Data",
+
+      "valorPagamento": "Valor Pagto",
+      "dataPagamento": "Data Pagto",
+
       "dataVencimento": "Vencimento",
       "tipoDespesa": "Tipo de Despesa"
     }

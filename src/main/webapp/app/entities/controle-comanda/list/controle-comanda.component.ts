@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
-import { NgbCalendar, NgbDateAdapter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dayjs from 'dayjs/esm';
 import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
@@ -16,6 +16,12 @@ import { IControleComanda } from '../controle-comanda.model';
 import { EntityArrayResponseType, ControleComandaService } from '../service/controle-comanda.service';
 import { ControleComandaDeleteDialogComponent } from '../delete/controle-comanda-delete-dialog.component';
 import { ControleComandaPreviaDialogComponent } from '../delete/controle-comanda-previa-dialog.component';
+import { LocalStorageDirective, LocalStorageService } from 'ngx-localstorage';
+
+interface StoredObject {
+  id: string;
+  valor: string;
+}
 
 @Component({
   standalone: true,
@@ -26,6 +32,7 @@ import { ControleComandaPreviaDialogComponent } from '../delete/controle-comanda
     FormsModule,
     SharedModule,
     SortDirective,
+    LocalStorageDirective,
     SortByDirective,
     DurationPipe,
 
@@ -42,6 +49,10 @@ export class ControleComandaComponent implements OnInit {
 
   formGroup!: FormGroup;
 
+  storedObject: StoredObject | undefined | null;
+
+  // cache: any = new Cache();
+
   predicate = 'id';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
@@ -52,9 +63,10 @@ export class ControleComandaComponent implements OnInit {
 
   maxDate: Date = new Date();
   ptbr: any;
-  //dt: any;
+  // dt: any;
 
   constructor(
+    private lss: LocalStorageService,
     protected controleComandaService: ControleComandaService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
@@ -62,15 +74,27 @@ export class ControleComandaComponent implements OnInit {
     protected modalService: NgbModal,
     private ngbCalendar: NgbCalendar,
     private dateAdapter: NgbDateAdapter<string>,
-  ) {
-    this.formGroup = this.formBuilder.group({
-      dataFiltro: new FormControl(this.dateAdapter.toModel(this.ngbCalendar.getToday())),
-    });
-  }
+  ) {}
+
+  public readonly defaultFalsyTransformer: () => any = () => false;
 
   trackId = (_index: number, item: IControleComanda): number => this.controleComandaService.getControleComandaIdentifier(item);
 
   ngOnInit(): void {
+    let data = this.ngbCalendar.getToday();
+    this.storedObject = this.lss.get<StoredObject>('dataFiltro');
+
+    if (this.storedObject?.valor != null && this.storedObject.valor !== 'Invalid Date') {
+      const ano = this.storedObject.valor.substring(0, 4);
+      const mes = this.storedObject.valor.substring(5, 7);
+      const dia = this.storedObject.valor.substring(8, 10);
+      data = new NgbDate(Number(ano), Number(mes), Number(dia));
+    }
+
+    this.formGroup = this.formBuilder.group({
+      dataFiltro: new FormControl(this.dateAdapter.toModel(data)),
+    });
+
     this.load();
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
   }
@@ -165,10 +189,12 @@ export class ControleComandaComponent implements OnInit {
       queryObject[filterOption.name] = filterOption.values;
     });
 
-    if (this.formGroup.get('dataFiltro')!.value) {
-      queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
-      //   queryObject['data.greaterThan'] = '2023-12-01';
-    }
+    this.lss.set<StoredObject>('dataFiltro', {
+      id: 'dataFiltro',
+      valor: dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD'),
+    });
+
+    queryObject['data.equals'] = dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD');
 
     return this.controleComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
@@ -212,7 +238,7 @@ export class ControleComandaComponent implements OnInit {
     modalRef.componentInstance.controleComanda = controle;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed
-      //.pipe(
+      // .pipe(
       //   filter(reason => reason === ITEM_DELETED_EVENT),
       //   switchMap(() => this.loadFromBackendWithRouteInformations()),
       // )

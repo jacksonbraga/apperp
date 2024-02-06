@@ -14,6 +14,7 @@ import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidosResumo;
+import com.apperp.service.dto.IRelatorioDespesa;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.mapper.ItemComandaMapper;
 import jakarta.persistence.criteria.JoinType;
@@ -195,6 +196,11 @@ public class ItemComandaQueryService extends QueryService<ItemComanda> {
     @Transactional(readOnly = true)
     public List<IRelatorioControleValoresRecebidosResumo> listaRelatorioTicketMedioPorDia(String dataInicio, String dataFim) {
         return itemComandaRepository.listaRelatorioTicketMedioPorDia(dataInicio, dataFim);
+    }
+
+    @Transactional(readOnly = true)
+    public List<IRelatorioDespesa> listaRelatorioDespesas(String dataInicio, String dataFim) {
+        return itemComandaRepository.listaRelatorioDespesas(dataInicio, dataFim);
     }
 
     @Transactional(readOnly = true)

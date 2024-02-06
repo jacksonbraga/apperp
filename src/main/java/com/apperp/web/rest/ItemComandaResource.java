@@ -15,6 +15,7 @@ import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidosResumo;
+import com.apperp.service.dto.IRelatorioDespesa;
 import com.apperp.service.dto.ItemComandaDTO;
 import com.apperp.service.dto.SituacaoDTO;
 import com.apperp.web.rest.errors.BadRequestAlertException;
@@ -265,6 +266,11 @@ public class ItemComandaResource {
         @PathVariable String dataFim
     ) {
         return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioTicketMedioPorDia(dataInicio, dataFim));
+    }
+
+    @GetMapping("/relatorio-despesas/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<IRelatorioDespesa>> listaRelatorioDespesas(@PathVariable String dataInicio, @PathVariable String dataFim) {
+        return ResponseEntity.ok().body(itemComandaQueryService.listaRelatorioDespesas(dataInicio, dataFim));
     }
 
     @GetMapping("/relatorio-caixa/{dataInicio}/{dataFim}")

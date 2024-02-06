@@ -87,6 +87,8 @@
               type="text"
               class="form-control"
               name="data"
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               ngbDatepicker
               #dataDp="ngbDatepicker"
               formControlName="data"
@@ -119,6 +121,8 @@
               class="form-control"
               name="dataEstimadaExtrato"
               ngbDatepicker
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               #dataDpDataEstimadaExtrato="ngbDatepicker"
               formControlName="dataEstimadaExtrato"
             />
@@ -151,6 +155,8 @@
               type="text"
               class="form-control"
               name="dataLancadaExtrato"
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               ngbDatepicker
               #dataDpDataLancadaExtrato="ngbDatepicker"
               formControlName="dataLancadaExtrato"

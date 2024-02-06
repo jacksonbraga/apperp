@@ -15,6 +15,7 @@ import {
   EntityArrayResponseTypeConferenciaExtratoAcumulado,
   EntityArrayResponseTypeControle,
   EntityArrayResponseTypeControle4,
+  EntityArrayResponseTypeDespesas,
   EntityArrayResponseTypeTicketMedio,
   EntityArrayResponseTypeValoresRecebidosResumo,
   RelatorioComandaService,
@@ -31,6 +32,7 @@ import { IRelatorioControle4 as IRelatorioConferencia } from '../relatorio-contr
 import { IRelatorioValoresRecebidos } from '../relatorio-controle-valores-recebidos.model';
 import { IRelatorioConferenciaExtrato } from '../relatorio-controle-conferencia-extrato.model';
 import { IRelatorioConferenciaExtratoAcumulado } from '../relatorio-controle-conferencia-extrato-acumulado.model';
+import { IRelatorioDespesa } from '../relatorio-despesas.model';
 
 @Component({
   standalone: true,
@@ -72,6 +74,7 @@ export class RelatorioComandaComponent implements OnInit {
   ControleConferencia?: IRelatorioConferencia[];
   ControleTicketMedio?: IRelatorioValoresRecebidosResumo[];
   ConferenciaExtrato?: IRelatorioConferenciaExtrato[];
+  Despesas?: IRelatorioDespesa[];
 
   ConferenciaExtratoAcumulado?: IRelatorioConferenciaExtratoAcumulado[];
 
@@ -86,6 +89,7 @@ export class RelatorioComandaComponent implements OnInit {
   pivotConferenciaExtrato: WebDataRocks.Pivot | undefined;
 
   pivotConferenciaExtratoAcumulado: WebDataRocks.Pivot | undefined;
+  pivotDespesas: WebDataRocks.Pivot | undefined;
 
   predicate = 'id';
   ascending = true;
@@ -110,11 +114,7 @@ export class RelatorioComandaComponent implements OnInit {
     { id: '12', descricao: 'dezembro' },
   ];
 
-  listaAnos: any[] = [
-    { id: '2024', descricao: '2024' },
-    { id: '2023', descricao: '2023' },
-    { id: '2022', descricao: '2022' },
-  ];
+  listaAnos: any[] = [{ id: '2024', descricao: '2024' }];
 
   dataControleComanda: any = '';
   dataControleValoresRecebidos: any = '';
@@ -123,6 +123,7 @@ export class RelatorioComandaComponent implements OnInit {
   dataTicketMedio: any = '';
   dataConferenciaExtrato: any = '';
   dataConferenciaExtratoAcumulado: any = '';
+  dataDespesas: any = '';
 
   configControleComanda: any = [
     {
@@ -704,6 +705,26 @@ export class RelatorioComandaComponent implements OnInit {
         type: 'number',
       },
       valorRecebido: {
+        type: 'number',
+      },
+    },
+  ];
+
+  configDespesas: any = [
+    {
+      grupo: {
+        type: 'string',
+      },
+      tipo: {
+        type: 'string',
+      },
+      descricao: {
+        type: 'string',
+      },
+      valorVencimento: {
+        type: 'number',
+      },
+      valorPagamento: {
         type: 'number',
       },
     },
@@ -2606,6 +2627,153 @@ export class RelatorioComandaComponent implements OnInit {
     this.pivotConferencia.expandAllData();
   }
 
+  montaDespesas(tab: string): void {
+    const tagDespesas = '#wdr-relatorio-comanda-8-' + tab;
+
+    this.pivotDespesas = new WebDataRocks({
+      container: tagDespesas,
+      toolbar: false,
+      width: '100%',
+      height: '100%',
+      customizeCell: this.customConferencia,
+      report: {
+        dataSource: {
+          dataSourceType: 'json',
+          data: this.dataDespesas,
+        },
+        tableSizes: {
+          columns: [
+            {
+              idx: 0,
+              width: 180,
+            },
+            {
+              idx: 1,
+              width: 220,
+            },
+            {
+              idx: 2,
+              width: 220,
+            },
+            {
+              idx: 3,
+              width: 120,
+            },
+          ],
+        },
+        slice: {
+          rows: [
+            {
+              uniqueName: 'grupo',
+              sort: 'asc',
+            },
+            {
+              uniqueName: 'tipo',
+              sort: 'asc',
+            },
+            {
+              uniqueName: 'descricao',
+              sort: 'asc',
+            },
+          ],
+          columns: [
+            {
+              uniqueName: 'Measures',
+            },
+          ],
+          measures: [
+            {
+              uniqueName: 'valorVencimento',
+              aggregation: 'sum',
+              caption: 'Valor',
+              format: 'decimal',
+            },
+            {
+              uniqueName: 'valorPagamento',
+              aggregation: 'sum',
+              caption: 'Valor Pago',
+              format: 'decimal',
+            },
+          ],
+          expands: {
+            expandAll: true,
+          },
+          drills: {
+            drillAll: true,
+          },
+        },
+        formats: [
+          {
+            name: 'numero',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 0,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'decimal',
+            thousandsSeparator: '.',
+            decimalSeparator: ',',
+            decimalPlaces: 2,
+            currencySymbol: '',
+            currencySymbolAlign: 'left',
+            nullValue: '',
+            textAlign: 'right',
+            isPercent: false,
+          },
+          {
+            name: 'texto',
+            textAlign: 'left',
+          },
+        ],
+
+        conditions: [
+          {
+            formula: '#value != 0',
+            measure: 'diferenca',
+            format: {
+              backgroundColor: '#FF0000',
+              color: '#000000',
+              fontFamily: 'Arial',
+              fontSize: '14px',
+            },
+          },
+        ],
+
+        options: {
+          grid: {
+            type: 'flat',
+            title: '',
+            showFilter: false,
+            showHeaders: false,
+            showTotals: true,
+            showGrandTotals: 'on',
+            showHierarchies: true,
+            showHierarchyCaptions: true,
+            showReportFiltersArea: false,
+          },
+          configuratorActive: false,
+          configuratorButton: false,
+          showAggregations: true,
+          showCalculatedValuesButton: true,
+          drillThrough: true,
+          sorting: 'on',
+          datePattern: 'dd/MM/yyyy',
+          dateTimePattern: 'dd/MM/yyyy HH:mm:ss',
+          showDefaultSlice: true,
+          defaultHierarchySortName: 'asc',
+        },
+        localization: 'http://localhost:4200/content/pr.json',
+      },
+    });
+
+    this.pivotDespesas.expandAllData();
+  }
+
   montaRelatorio(tab: string): void {
     this.montaRelatorioControleComanda(tab);
 
@@ -2615,6 +2783,7 @@ export class RelatorioComandaComponent implements OnInit {
 
     if (tab !== '99') {
       this.montaRelatorioConferenciaExtrato(tab);
+      this.montaDespesas(tab);
     }
 
     if (tab === '99') {
@@ -3324,6 +3493,12 @@ export class RelatorioComandaComponent implements OnInit {
         this.onResponseSuccessControleValoresRecebidosResumo(res);
       },
     });
+
+    this.loadFromBackendWithRouteInformationsDespesas().subscribe({
+      next: (res: EntityArrayResponseTypeDespesas) => {
+        this.onResponseSuccessDespesas(res);
+      },
+    });
   }
 
   navigateToWithComponentValues(): void {
@@ -3378,6 +3553,14 @@ export class RelatorioComandaComponent implements OnInit {
       switchMap(() => this.queryBackendTicketMedio(this.predicate, this.ascending)),
     );
   }
+
+  protected loadFromBackendWithRouteInformationsDespesas(): Observable<EntityArrayResponseTypeDespesas> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendDespesas(this.predicate, this.ascending)),
+    );
+  }
+
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
     this.predicate = sort[0];
@@ -3426,6 +3609,13 @@ export class RelatorioComandaComponent implements OnInit {
     this.ControleTicketMedio = this.refineDataTicketMedio(dataFromBody);
 
     this.dataTicketMedio = this.configTicketMedio.concat(this.ControleTicketMedio);
+  }
+
+  protected onResponseSuccessDespesas(response: EntityArrayResponseTypeTicketMedio): void {
+    const dataFromBody = this.fillComponentAttributesDespesasFromResponseBody(response.body);
+    this.Despesas = this.refineDataDespesas(dataFromBody);
+
+    this.dataDespesas = this.configDespesas.concat(this.Despesas);
 
     setTimeout(() => {
       this.montaRelatorio(String(this.dia));
@@ -3449,6 +3639,10 @@ export class RelatorioComandaComponent implements OnInit {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 
+  protected refineDataDespesas(data: IRelatorioDespesa[]): IRelatorioDespesa[] {
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
+  }
+
   protected refineDataControleConferencia(data: IRelatorioConferencia[]): IRelatorioConferencia[] {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
@@ -3466,6 +3660,10 @@ export class RelatorioComandaComponent implements OnInit {
   }
 
   protected fillComponentAttributesControleFromResponseBody(data: IRelatorioValoresRecebidos[] | null): IRelatorioValoresRecebidos[] {
+    return data ?? [];
+  }
+
+  protected fillComponentAttributesDespesasFromResponseBody(data: IRelatorioDespesa[] | null): IRelatorioDespesa[] {
     return data ?? [];
   }
 
@@ -3529,6 +3727,15 @@ export class RelatorioComandaComponent implements OnInit {
     return this.relatorioComandaService
       .queryTicketMedio(this.dataInicio, this.dataFim, queryObject)
       .pipe(tap(() => (this.isLoading = true)));
+  }
+
+  protected queryBackendDespesas(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseTypeDespesas> {
+    this.isLoading = true;
+    const queryObject: any = {
+      sort: this.getSortQueryParam(predicate, ascending),
+    };
+
+    return this.relatorioComandaService.queryDespesas(this.dataInicio, this.dataFim, queryObject).pipe(tap(() => (this.isLoading = true)));
   }
 
   protected queryBackendControleValoresRecebidos(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseTypeControle> {

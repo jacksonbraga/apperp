@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Sistema de Controle de Comandas lucas",
+    "title": "Sistema de Controle de Comandas",
     "subtitle": "",
     "logged": {
       "message": "Você está logado como \"{{username}}\"."

@@ -82,6 +82,8 @@
               class="form-control"
               name="data"
               ngbDatepicker
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               #dataDp="ngbDatepicker"
               formControlName="data"
             />
@@ -97,6 +99,8 @@
               data-cy="dataVencimento"
               type="text"
               class="form-control"
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
               name="dataVencimento"
               ngbDatepicker
               #dataVencimentoDp="ngbDatepicker"
@@ -109,38 +113,73 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.despesa.tipoDespesa" for="field_tipoDespesa">Tipo Despesa</label>
-          <select
-            class="form-control"
-            id="field_tipoDespesa"
-            data-cy="tipoDespesa"
-            name="tipoDespesa"
-            formControlName="tipoDespesa"
-            [compareWith]="compareTipoDespesa"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="tipoDespesaOption" *ngFor="let tipoDespesaOption of tipoDespesasSharedCollection">
-              {{ tipoDespesaOption.descricao }}
-            </option>
-          </select>
+          <label class="form-label" jhiTranslate="appErpApp.despesa.dataPagamento" for="field_dataPagamento">Data Pagamento</label>
+          <div class="input-group">
+            <input
+              id="field_dataPagamento"
+              data-cy="dataPagamento"
+              type="text"
+              class="form-control"
+              [minDate]="{ year: 2024, month: 1, day: 1 }"
+              [maxDate]="{ year: 2024, month: 12, day: 31 }"
+              name="dataPagamento"
+              ngbDatepicker
+              #dataPagamentoDp="ngbDatepicker"
+              formControlName="dataPagamento"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataPagamentoDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
-        </button>
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.despesa.valorPagamento" for="field_valorPagamento">Valor Pagamento</label>
+          <input
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+            formControlName="valorPagamento"
+            type="text"
+            class="form-control"
+            name="valorPagamento"
+            id="field_valorPagamento"
+            data-cy="valorPagamento"
+          />
 
-        <button
-          type="button"
-          id="save-entity"
-          (click)="save(content)"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
-        </button>
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="appErpApp.despesa.tipoDespesa" for="field_tipoDespesa">Tipo Despesa</label>
+            <select
+              class="form-control"
+              id="field_tipoDespesa"
+              data-cy="tipoDespesa"
+              name="tipoDespesa"
+              formControlName="tipoDespesa"
+              [compareWith]="compareTipoDespesa"
+            >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="tipoDespesaOption" *ngFor="let tipoDespesaOption of tipoDespesasSharedCollection">
+                {{ tipoDespesaOption.descricao }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          </button>
+
+          <button
+            type="button"
+            id="save-entity"
+            (click)="save(content)"
+            data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+            <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+          </button>
+        </div>
       </div>
     </form>
   </div>

@@ -94,7 +94,7 @@
           </div>
           <br />
           <div class="row">
-            <div class="col-6" *ngIf="active != 99">
+            <div class="col-12" *ngIf="active != 99">
               <div class="card">
                 <div class="card-header" style="font-size: larger; font-weight: bold">Conferência de Extrato Bancário</div>
                 <div class="card-body">
@@ -105,11 +105,11 @@
           </div>
           <br />
           <div class="row">
-            <div class="col-12" *ngIf="active == 99">
+            <div class="col-12" *ngIf="active != 99">
               <div class="card">
-                <div class="card-header" style="font-size: larger; font-weight: bold">Vendas diárias</div>
+                <div class="card-header" style="font-size: larger; font-weight: bold">Despesas</div>
                 <div class="card-body">
-                  <!-- <div id="wdr-relatorio-comanda-4-{{ i + 1 }}"></div> -->
+                  <div id="wdr-relatorio-comanda-8-{{ i + 1 }}"></div>
                 </div>
               </div>
             </div>

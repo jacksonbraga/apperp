@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
-import { NgbCalendar, NgbDateAdapter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import SharedModule from 'app/shared/shared.module';
 import { SortDirective, SortByDirective } from 'app/shared/sort';
@@ -16,6 +16,12 @@ import { ICaixa } from '../caixa.model';
 import dayjs from 'dayjs/esm';
 import { EntityArrayResponseType, CaixaService } from '../service/caixa.service';
 import { CaixaDeleteDialogComponent } from '../delete/caixa-delete-dialog.component';
+import { LocalStorageService } from 'ngx-localstorage';
+
+interface StoredObject {
+  id: string;
+  valor: string;
+}
 
 @Component({
   standalone: true,
@@ -38,6 +44,7 @@ import { CaixaDeleteDialogComponent } from '../delete/caixa-delete-dialog.compon
 export class CaixaComponent implements OnInit {
   caixas?: ICaixa[];
   isLoading = false;
+  storedObject: StoredObject | undefined | null;
 
   predicate = 'id';
   ascending = true;
@@ -51,21 +58,32 @@ export class CaixaComponent implements OnInit {
 
   constructor(
     protected caixaService: CaixaService,
+    private lss: LocalStorageService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     public router: Router,
     protected modalService: NgbModal,
     private ngbCalendar: NgbCalendar,
     private dateAdapter: NgbDateAdapter<string>,
-  ) {
-    this.formGroup = this.formBuilder.group({
-      dataFiltro: new FormControl(this.dateAdapter.toModel(this.ngbCalendar.getToday())),
-    });
-  }
+  ) {}
 
   trackId = (_index: number, item: ICaixa): number => this.caixaService.getCaixaIdentifier(item);
 
   ngOnInit(): void {
+    let data = this.ngbCalendar.getToday();
+    this.storedObject = this.lss.get<StoredObject>('dataFiltro');
+
+    if (this.storedObject?.valor != null && this.storedObject.valor !== 'Invalid Date') {
+      const ano = this.storedObject.valor.substring(0, 4);
+      const mes = this.storedObject.valor.substring(5, 7);
+      const dia = this.storedObject.valor.substring(8, 10);
+      data = new NgbDate(Number(ano), Number(mes), Number(dia));
+    }
+
+    this.formGroup = this.formBuilder.group({
+      dataFiltro: new FormControl(this.dateAdapter.toModel(data)),
+    });
+
     this.load();
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
@@ -150,6 +168,11 @@ export class CaixaComponent implements OnInit {
     };
     filterOptions?.forEach(filterOption => {
       queryObject[filterOption.name] = filterOption.values;
+    });
+
+    this.lss.set<StoredObject>('dataFiltro', {
+      id: 'dataFiltro',
+      valor: dayjs(this.formGroup.get('dataFiltro')!.value).format('YYYY-MM-DD'),
     });
 
     if (this.formGroup.get('dataFiltro')!.value) {

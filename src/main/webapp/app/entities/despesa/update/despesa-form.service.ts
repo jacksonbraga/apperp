@@ -24,6 +24,10 @@ type DespesaFormGroupContent = {
   totalParcela: FormControl<IDespesa['totalParcela']>;
   valor: FormControl<IDespesa['valor']>;
   data: FormControl<IDespesa['data']>;
+
+  valorPagamento: FormControl<IDespesa['valorPagamento']>;
+  dataPagamento: FormControl<IDespesa['dataPagamento']>;
+
   dataVencimento: FormControl<IDespesa['dataVencimento']>;
   tipoDespesa: FormControl<IDespesa['tipoDespesa']>;
 };
@@ -51,6 +55,10 @@ export class DespesaFormService {
       totalParcela: new FormControl(despesaRawValue.totalParcela),
       valor: new FormControl(despesaRawValue.valor),
       data: new FormControl(despesaRawValue.data),
+
+      valorPagamento: new FormControl(despesaRawValue.valorPagamento),
+      dataPagamento: new FormControl(despesaRawValue.dataPagamento),
+
       dataVencimento: new FormControl(despesaRawValue.dataVencimento),
       tipoDespesa: new FormControl(despesaRawValue.tipoDespesa),
     });

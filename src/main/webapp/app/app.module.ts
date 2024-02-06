@@ -22,10 +22,12 @@ import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CustomDateParserFormatter } from './config/datepicker-formater';
+import { LocalStorageDirective } from 'ngx-localstorage';
 
 @NgModule({
   imports: [
     BrowserModule,
+    LocalStorageDirective,
     NgMultiSelectDropDownModule.forRoot(),
     // jhipster-needle-angular-add-module JHipster will add new module here
     AppRoutingModule,

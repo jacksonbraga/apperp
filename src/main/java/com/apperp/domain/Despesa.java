@@ -45,6 +45,28 @@ public class Despesa implements Serializable {
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
 
+    @Column(name = "data_pagto")
+    private LocalDate dataPagamento;
+
+    @Column(name = "valor_pagto", precision = 21, scale = 2)
+    private BigDecimal valorPagamento;
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public BigDecimal getValorPagamento() {
+        return valorPagamento;
+    }
+
+    public void setValorPagamento(BigDecimal valorPagamento) {
+        this.valorPagamento = valorPagamento;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "grupoDespesa" }, allowSetters = true)
     private TipoDespesa tipoDespesa;

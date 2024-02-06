@@ -9,6 +9,10 @@ export interface IDespesa {
   totalParcela?: number | null;
   valor?: number | null;
   data?: dayjs.Dayjs | null;
+
+  valorPagamento?: number | null;
+  dataPagamento?: dayjs.Dayjs | null;
+
   dataVencimento?: dayjs.Dayjs | null;
   tipoDespesa?: Pick<ITipoDespesa, 'id' | 'descricao'> | null;
 }

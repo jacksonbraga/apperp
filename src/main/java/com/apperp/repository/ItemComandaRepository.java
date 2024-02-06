@@ -10,6 +10,7 @@ import com.apperp.service.dto.IRelatorioControle;
 import com.apperp.service.dto.IRelatorioControle4;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidos;
 import com.apperp.service.dto.IRelatorioControleValoresRecebidosResumo;
+import com.apperp.service.dto.IRelatorioDespesa;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -282,6 +283,21 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
         @Param("dataInicio") String dataInicio,
         @Param("dataFim") String dataFim
     );
+
+    @Query(
+        value = " select gd.descricao as grupo,\r\n" + //
+        "        td.descricao as tipo,\r\n" + //
+        "        d.descricao  as descricao, \r\n" + //
+        "        IFNULL(sum(d.valor_pagto), 0) as valorPagamento,\r\n" + //
+        "        IFNULL(sum(d.valor),0)  as valorVencimento\r\n" + //
+        " from despesa d \r\n" + //
+        "   inner join tipo_despesa td on d.tipo_despesa_id = td.id \r\n" + //
+        "   inner join grupo_despesa gd on td.grupo_despesa_id = gd.id \r\n" + //
+        "where d.data_vencimento  between :dataInicio and :dataFim\r\n" + //
+        "group by gd.descricao, td.descricao, d.descricao",
+        nativeQuery = true
+    )
+    List<IRelatorioDespesa> listaRelatorioDespesas(@Param("dataInicio") String dataInicio, @Param("dataFim") String dataFim);
 
     @Query(
         value = "select\r\n" + //
