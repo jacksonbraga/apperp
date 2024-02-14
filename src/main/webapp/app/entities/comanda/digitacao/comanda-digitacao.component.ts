@@ -369,7 +369,7 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     this.comandas = dataFromBody;
     this.comandas.forEach(item => {
       this.turno = item.controleComanda?.cor?.descricao;
-      this.data = item.data;
+      this.data = item.controleComanda?.data;
     });
     this.listaComandas = this.comandas;
   }
