@@ -766,7 +766,7 @@ export class RelatorioComandaComponent implements OnInit {
     const dateObj = new Date();
     const monthNameLong = dateObj.toLocaleString('pt-BR', { month: 'long' });
 
-    this.selectedAno = [{ id: '2024', descricao: '2024' }];
+    this.selectedAno = [{ id: '2023', descricao: '2023' }];
     this.selectedMes = [{ id: new Date().getMonth().toString() + 1, descricao: monthNameLong }];
     //this.selectedMes = [{ id: 12, descricao: 'dezembro' }];
 
@@ -3392,29 +3392,29 @@ export class RelatorioComandaComponent implements OnInit {
 
     const altura = 30 * (row + 1) + 35 + 'px';
 
-    for (let aba = 1; aba < 31; aba++) {
-      const relatorio = 'wdr-relatorio-comanda-3-' + aba;
-      const elemento = document.getElementById(relatorio);
-      const filhos = elemento?.getElementsByTagName('div');
-      if (filhos) {
-        for (let i = 0; i < filhos.length; i++) {
-          if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
-            filhos[i].style.height = altura;
-          }
-        }
-      }
-    }
+    // for (let aba = 1; aba < 31; aba++) {
+    //   const relatorio = 'wdr-relatorio-comanda-3-' + aba;
+    //   const elemento = document.getElementById(relatorio);
+    //   const filhos = elemento?.getElementsByTagName('div');
+    //   if (filhos) {
+    //     for (let i = 0; i < filhos.length; i++) {
+    //       if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+    //         filhos[i].style.height = altura;
+    //       }
+    //     }
+    //   }
+    // }
 
-    const relatorio = 'wdr-relatorio-comanda-3-' + '99';
-    const elemento = document.getElementById(relatorio);
-    const filhos = elemento?.getElementsByTagName('div');
-    if (filhos) {
-      for (let i = 0; i < filhos.length; i++) {
-        if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
-          filhos[i].style.height = altura;
-        }
-      }
-    }
+    // const relatorio = 'wdr-relatorio-comanda-3-' + '99';
+    // const elemento = document.getElementById(relatorio);
+    // const filhos = elemento?.getElementsByTagName('div');
+    // if (filhos) {
+    //   for (let i = 0; i < filhos.length; i++) {
+    //     if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+    //       filhos[i].style.height = altura;
+    //     }
+    //   }
+    // }
 
     if (data.rowIndex === 1 && data.columnIndex === 0) {
       cell.text = 'TOTAL';
@@ -3442,29 +3442,29 @@ export class RelatorioComandaComponent implements OnInit {
 
     const altura = 30 * (row + 1) + 35 + 'px';
 
-    for (let aba = 1; aba < 31; aba++) {
-      const relatorio = 'wdr-relatorio-comanda-3-' + aba;
-      const elemento = document.getElementById(relatorio);
-      const filhos = elemento?.getElementsByTagName('div');
-      if (filhos) {
-        for (let i = 0; i < filhos.length; i++) {
-          if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
-            filhos[i].style.height = altura;
-          }
-        }
-      }
-    }
+    // for (let aba = 1; aba < 31; aba++) {
+    //   const relatorio = 'wdr-relatorio-comanda-3-' + aba;
+    //   const elemento = document.getElementById(relatorio);
+    //   const filhos = elemento?.getElementsByTagName('div');
+    //   if (filhos) {
+    //     for (let i = 0; i < filhos.length; i++) {
+    //       if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+    //         filhos[i].style.height = altura;
+    //       }
+    //     }
+    //   }
+    // }
 
-    const relatorio = 'wdr-relatorio-comanda-3-' + '99';
-    const elemento = document.getElementById(relatorio);
-    const filhos = elemento?.getElementsByTagName('div');
-    if (filhos) {
-      for (let i = 0; i < filhos.length; i++) {
-        if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
-          filhos[i].style.height = altura;
-        }
-      }
-    }
+    // const relatorio = 'wdr-relatorio-comanda-3-' + '99';
+    // const elemento = document.getElementById(relatorio);
+    // const filhos = elemento?.getElementsByTagName('div');
+    // if (filhos) {
+    //   for (let i = 0; i < filhos.length; i++) {
+    //     if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+    //       filhos[i].style.height = altura;
+    //     }
+    //   }
+    // }
 
     if (data.rowIndex === 1 && data.columnIndex === 0) {
       cell.text = 'TOTAL';
