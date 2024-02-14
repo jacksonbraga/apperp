@@ -2490,7 +2490,7 @@ export class RelatorioComandaComponent implements OnInit {
       toolbar: false,
       width: '100%',
       height: '100%',
-      customizeCell: this.customConferencia,
+      customizeCell: this.customConferencia2,
       report: {
         dataSource: {
           dataSourceType: 'json',
@@ -3376,6 +3376,56 @@ export class RelatorioComandaComponent implements OnInit {
   }
 
   customConferencia(cell: any, data: any): void {
+    let col = 0;
+    let row = 0;
+
+    const id = 'wdr-relatorio-comanda-3';
+
+    if (data.columnIndex > col) {
+      col = data.columnIndex;
+    }
+    if (data.rowIndex > row) {
+      row = data.rowIndex;
+    }
+
+    cell.addClass('fonte-tamanho');
+
+    const altura = 30 * (row + 1) + 35 + 'px';
+
+    for (let aba = 1; aba < 31; aba++) {
+      const relatorio = 'wdr-relatorio-comanda-3-' + aba;
+      const elemento = document.getElementById(relatorio);
+      const filhos = elemento?.getElementsByTagName('div');
+      if (filhos) {
+        for (let i = 0; i < filhos.length; i++) {
+          if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+            filhos[i].style.height = altura;
+          }
+        }
+      }
+    }
+
+    const relatorio = 'wdr-relatorio-comanda-3-' + '99';
+    const elemento = document.getElementById(relatorio);
+    const filhos = elemento?.getElementsByTagName('div');
+    if (filhos) {
+      for (let i = 0; i < filhos.length; i++) {
+        if (filhos[i].id === 'wdr-pivot-view' || filhos[i].id === 'wdr-grid-layout' || filhos[i].id === 'wdr-grid-view') {
+          filhos[i].style.height = altura;
+        }
+      }
+    }
+
+    if (data.rowIndex === 1 && data.columnIndex === 0) {
+      cell.text = 'TOTAL';
+    }
+
+    if (data.rowIndex === 1) {
+      cell.style.background = '#e5e7e9';
+    }
+  }
+
+  customConferencia2(cell: any, data: any): void {
     let col = 0;
     let row = 0;
 
