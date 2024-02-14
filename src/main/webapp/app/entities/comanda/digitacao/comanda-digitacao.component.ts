@@ -283,11 +283,11 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
       },
     });
 
-    /*    this.loadFromBackendWithRouteInformationsControle().subscribe({
+    this.loadFromBackendWithRouteInformationsControle().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccessControle(res);
       },
-    }); */
+    });
   }
 
   onItemSelectComandas(item: any): void {
@@ -348,12 +348,13 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /*  protected loadFromBackendWithRouteInformationsControle(): Observable<EntityArrayResponseType> {
+  protected loadFromBackendWithRouteInformationsControle(): Observable<EntityArrayResponseType> {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
       switchMap(() => this.queryBackendControle(this.page, this.predicate, this.ascending, this.filters.filterOptions)),
     );
-  } */
+  }
+
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const page = params.get(PAGE_HEADER);
     this.page = +(page ?? 1);
@@ -369,7 +370,7 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     this.comandas = dataFromBody;
     this.comandas.forEach(item => {
       this.turno = item.controleComanda?.cor?.descricao;
-      this.data = item.controleComanda?.data;
+      //this.data = item.data;
     });
     this.listaComandas = this.comandas;
   }
@@ -383,10 +384,8 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
       if (item.name === 'controleComandaId.in') {
         item.values.forEach(valor => {
           const controle: IControleComanda = this.listaControles.find(itemx => itemx.id === Number(valor));
-          if (controle) {
-            this.turno = controle.cor?.descricao;
-            this.data = controle.data;
-          }
+          this.turno = controle.cor?.descricao;
+          this.data = controle.data;
         });
       }
     });
@@ -442,7 +441,7 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /*   protected queryBackendControle(
+  protected queryBackendControle(
     page?: number,
     predicate?: string,
     ascending?: boolean,
@@ -461,7 +460,7 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     });
     return this.controleComandaService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
- */
+
   protected handleNavigation(page = this.page, predicate?: string, ascending?: boolean, filterOptions?: IFilterOption[]): void {
     const queryParamsObj: any = {
       page,
