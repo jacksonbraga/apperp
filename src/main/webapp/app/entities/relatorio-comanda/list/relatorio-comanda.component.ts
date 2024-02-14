@@ -766,9 +766,9 @@ export class RelatorioComandaComponent implements OnInit {
     const dateObj = new Date();
     const monthNameLong = dateObj.toLocaleString('pt-BR', { month: 'long' });
 
-    this.selectedAno = [{ id: '2023', descricao: '2023' }];
-    //this.selectedMes = [{id: new Date().getMonth().toString() + 1, descricao: monthNameLong }];
-    this.selectedMes = [{ id: 12, descricao: 'dezembro' }];
+    this.selectedAno = [{ id: '2024', descricao: '2024' }];
+    this.selectedMes = [{ id: new Date().getMonth().toString() + 1, descricao: monthNameLong }];
+    //this.selectedMes = [{ id: 12, descricao: 'dezembro' }];
 
     const mes: { id: string; descricao: string } = this.selectedMes[0];
     const ano: { id: string; descricao: string } = this.selectedAno[0];
