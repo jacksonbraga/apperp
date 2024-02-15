@@ -53,7 +53,7 @@ export class ControleComandaComponent implements OnInit {
 
   // cache: any = new Cache();
 
-  predicate = 'id';
+  predicate = 'cor.descricao';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
 
@@ -151,7 +151,7 @@ export class ControleComandaComponent implements OnInit {
     this.page = +(page ?? 1);
     const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
     this.predicate = sort[0];
-    this.ascending = sort[1] === ASC;
+    this.ascending = true;
 
     this.filters.initializeFromParams(params);
   }
