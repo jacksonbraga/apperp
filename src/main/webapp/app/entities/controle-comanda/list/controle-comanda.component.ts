@@ -160,6 +160,8 @@ export class ControleComandaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.controleComandas = dataFromBody;
+    this.predicate = 'cor.descricao';
+    this.navigateToWithComponentValues();
   }
 
   protected fillComponentAttributesFromResponseBody(data: IControleComanda[] | null): IControleComanda[] {
