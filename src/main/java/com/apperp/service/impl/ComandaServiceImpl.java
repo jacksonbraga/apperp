@@ -13,6 +13,7 @@ import com.apperp.repository.TipoServicoRepository;
 import com.apperp.service.ComandaService;
 import com.apperp.service.dto.ComandaDTO;
 import com.apperp.service.mapper.ComandaMapper;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -116,20 +117,26 @@ public class ComandaServiceImpl implements ComandaService {
         List<ItemComanda> itens = itemComandaRepository.findByComandaId(comanda.getId());
         if (!itens.isEmpty()) {
             for (ItemComanda item : itens) {
-                if (item.getTipoPagamento().getId().equals(1L) && comanda.getCartao() != null) {
-                    item.setValor(comanda.getCartao());
+                if (item.getTipoPagamento().getId().equals(1L)) {
+                    var valor = comanda.getCartao() != null ? comanda.getCartao() : new BigDecimal(0L);
+                    item.setValor(valor);
                     itemComandaRepository.save(item);
                 }
-                if (item.getTipoPagamento().getId().equals(2L) && comanda.getPix() != null) {
-                    item.setValor(comanda.getPix());
+
+                if (item.getTipoPagamento().getId().equals(2L)) {
+                    var valor = comanda.getPix() != null ? comanda.getPix() : new BigDecimal(0L);
+                    item.setValor(valor);
                     itemComandaRepository.save(item);
                 }
-                if (item.getTipoPagamento().getId().equals(3L) && comanda.getDinheiro() != null) {
-                    item.setValor(comanda.getDinheiro());
+
+                if (item.getTipoPagamento().getId().equals(3L)) {
+                    var valor = comanda.getDinheiro() != null ? comanda.getDinheiro() : new BigDecimal(0L);
+                    item.setValor(valor);
                     itemComandaRepository.save(item);
                 }
-                if (item.getTipoPagamento().getId().equals(19L) && comanda.getTransferido() != null) {
-                    item.setValor(comanda.getTransferido());
+                if (item.getTipoPagamento().getId().equals(19L)) {
+                    var valor = comanda.getTransferido() != null ? comanda.getTransferido() : new BigDecimal(0L);
+                    item.setValor(valor);
                     itemComandaRepository.save(item);
                 }
             }
