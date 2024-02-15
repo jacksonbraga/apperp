@@ -69,18 +69,19 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="tipoCaixa.descricao">
-            <div class="d-flex">
-              <span jhiTranslate="appErpApp.caixa.tipoCaixa">Tipo Caixa</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="tipoOrigem.descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.caixa.tipoOrigem">Tipo Origem</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="tipoCaixa.descricao">
+            <div class="d-flex">
+              <span jhiTranslate="appErpApp.caixa.tipoCaixa">Tipo Caixa</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
           <!-- <th scope="col" jhiSortBy="descricao">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.caixa.descricao">Descricao</span>
@@ -99,14 +100,14 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="data">
+          <!-- <th scope="col" jhiSortBy="data">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.caixa.data">Data</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
 
-          <th scope="col" jhiSortBy="data">
+          <!-- <th scope="col" jhiSortBy="data">
             <div class="d-flex">
               <span jhiTranslate="appErpApp.caixa.dataEstimadaExtrato">Data</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -139,7 +140,7 @@
               <span jhiTranslate="appErpApp.caixa.valorTaxa">Valor</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
 
           <th scope="col"></th>
         </tr>
@@ -150,25 +151,26 @@
             <a [routerLink]="['/caixa', caixa.id, 'view']">{{ caixa.id }}</a>
           </td>
           <td>
-            <div *ngIf="caixa.tipoCaixa">
-              <a [routerLink]="['/tipo-caixa', caixa.tipoCaixa.id, 'view']">{{ caixa.tipoCaixa.descricao }}</a>
-            </div>
-          </td>
-          <td>
             <div *ngIf="caixa.tipoOrigem">
               <a [routerLink]="['/tipo-origem', caixa.tipoOrigem.id, 'view']">{{ caixa.tipoOrigem.descricao }}</a>
             </div>
           </td>
+          <td>
+            <div *ngIf="caixa.tipoCaixa">
+              <a [routerLink]="['/tipo-caixa', caixa.tipoCaixa.id, 'view']">{{ caixa.tipoCaixa.descricao }}</a>
+            </div>
+          </td>
+
           <!-- <td>{{ caixa.descricao }}</td> -->
           <!-- <td>{{ caixa.observacao }}</td> -->
           <td>{{ caixa.valor | currency: ' ' }}</td>
-          <td>{{ caixa.data | formatMediumDate }}</td>
+          <!-- <td>{{ caixa.data | formatMediumDate }}</td>
 
           <td>{{ caixa.dataEstimadaExtrato | formatMediumDate }}</td>
           <td>{{ caixa.valorEstimadoExtrato | currency: ' ' }}</td>
           <td>{{ caixa.dataLancadaExtrato | formatMediumDate }}</td>
           <td>{{ caixa.valorLancadoExtrato | currency: ' ' }}</td>
-          <td>{{ caixa.valorTaxa | currency: ' ' }}</td>
+          <td>{{ caixa.valorTaxa | currency: ' ' }}</td> -->
 
           <td class="text-end">
             <div class="btn-group">

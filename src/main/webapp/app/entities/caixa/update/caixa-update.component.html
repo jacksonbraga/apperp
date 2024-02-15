@@ -31,23 +31,6 @@
         </div> -->
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
-          <select
-            class="form-control"
-            id="field_tipoCaixa"
-            data-cy="tipoCaixa"
-            name="tipoCaixa"
-            formControlName="tipoCaixa"
-            [compareWith]="compareTipoCaixa"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="tipoCaixaOption" *ngFor="let tipoCaixaOption of tipoCaixasCollection">
-              {{ tipoCaixaOption.descricao }}
-            </option>
-          </select>
-        </div>
-
-        <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.caixa.tipoOrigem" for="field_tipoOrigem">Tipo Origem</label>
           <select
             class="form-control"
@@ -60,6 +43,23 @@
             <option [ngValue]="null"></option>
             <option [ngValue]="tipoOrigemOption" *ngFor="let tipoOrigemOption of tipoOrigemsCollection">
               {{ tipoOrigemOption.descricao }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="appErpApp.caixa.tipoCaixa" for="field_tipoCaixa">Tipo Caixa</label>
+          <select
+            class="form-control"
+            id="field_tipoCaixa"
+            data-cy="tipoCaixa"
+            name="tipoCaixa"
+            formControlName="tipoCaixa"
+            [compareWith]="compareTipoCaixa"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="tipoCaixaOption" *ngFor="let tipoCaixaOption of tipoCaixasCollection">
+              {{ tipoCaixaOption.descricao }}
             </option>
           </select>
         </div>
@@ -78,7 +78,7 @@
           />
         </div>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="form-label" jhiTranslate="appErpApp.caixa.data" for="field_data">Data</label>
           <div class="input-group">
             <input
@@ -179,7 +179,7 @@
             data-cy="valorTaxa"
             formControlName="valorTaxa"
           />
-        </div>
+        </div>-->
       </div>
 
       <div>

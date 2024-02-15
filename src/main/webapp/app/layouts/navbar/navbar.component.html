@@ -83,19 +83,6 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="/despesa"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.despesa">Despesa</span>
-              </a>
-            </li>
-            <hr />
-            <li>
-              <a
-                class="dropdown-item"
                 routerLink="/caixa"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
@@ -103,6 +90,19 @@
               >
                 <fa-icon icon="dollar" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.caixa">Caixa</span>
+              </a>
+            </li>
+            <hr />
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/despesa"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.despesa">Despesa</span>
               </a>
             </li>
             <hr />
