@@ -430,4 +430,8 @@ public interface ItemComandaRepository extends JpaRepository<ItemComanda, Long>,
     List<ItemComanda> findAllByComandaId(Long id);
 
     List<ItemComanda> findByComandaId(Long id);
+
+    void deleteByComandaControleId(Long id);
+
+    void deleteByComandaControleComandaId(Long id);
 }

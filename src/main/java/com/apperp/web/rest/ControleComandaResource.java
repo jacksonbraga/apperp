@@ -1,8 +1,10 @@
 package com.apperp.web.rest;
 
 import com.apperp.repository.ControleComandaRepository;
+import com.apperp.service.ComandaService;
 import com.apperp.service.ControleComandaQueryService;
 import com.apperp.service.ControleComandaService;
+import com.apperp.service.ItemComandaService;
 import com.apperp.service.criteria.ControleComandaCriteria;
 import com.apperp.service.dto.ControleComandaDTO;
 import com.apperp.service.dto.PreviaFechamentoDTO;
@@ -39,6 +41,10 @@ public class ControleComandaResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final ItemComandaService itemComandaService;
+
+    private final ComandaService comandaService;
+
     private final ControleComandaService controleComandaService;
 
     private final ControleComandaRepository controleComandaRepository;
@@ -46,11 +52,15 @@ public class ControleComandaResource {
     private final ControleComandaQueryService controleComandaQueryService;
 
     public ControleComandaResource(
+        ComandaService comandaService,
+        ItemComandaService itemComandaService,
         ControleComandaService controleComandaService,
         ControleComandaRepository controleComandaRepository,
         ControleComandaQueryService controleComandaQueryService
     ) {
         this.controleComandaService = controleComandaService;
+        this.comandaService = comandaService;
+        this.itemComandaService = itemComandaService;
         this.controleComandaRepository = controleComandaRepository;
         this.controleComandaQueryService = controleComandaQueryService;
     }
@@ -199,6 +209,7 @@ public class ControleComandaResource {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteControleComanda(@PathVariable Long id) {
         log.debug("REST request to delete ControleComanda : {}", id);
+
         controleComandaService.delete(id);
         return ResponseEntity
             .noContent()

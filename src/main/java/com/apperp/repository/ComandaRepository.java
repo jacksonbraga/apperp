@@ -45,4 +45,6 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>, JpaSpec
     List<Comanda> findAllByControleId(Long id);
 
     List<Comanda> findAllByControleComandaId(Long id);
+
+    void deleteByControleComandaId(Long id);
 }

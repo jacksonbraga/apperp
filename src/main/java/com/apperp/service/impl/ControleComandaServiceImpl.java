@@ -92,7 +92,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
         for (Long i = controleComanda.getFaixaInicio(); i <= controleComanda.getFaixaFim(); i++) {
             Comanda comanda = new Comanda();
             comanda.setControleComanda(controleComanda);
-            comanda.setData(LocalDate.now());
+            comanda.setData(controleComanda.getData());
             comanda.setDescricao("Comanda " + i);
             comanda.setNumero(i.intValue());
             comanda.setSituacao(situacao);
@@ -100,7 +100,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
             for (TipoServico tipo : servicos) {
                 ItemComanda item = new ItemComanda();
                 item.setComanda(comanda);
-                item.setData(LocalDate.now());
+                item.setData(controleComanda.getData());
                 item.setTipoServico(tipo);
                 item.setTipo("S");
                 itemComandaRepository.save(item);
@@ -109,7 +109,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
                     ItemComanda item = new ItemComanda();
                     item.setComanda(comanda);
-                    item.setData(LocalDate.now());
+                    item.setData(controleComanda.getData());
                     item.setTipoPagamento(tipo);
                     item.setTipo("P");
                     itemComandaRepository.save(item);
@@ -139,7 +139,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
             if (listaComandas.isEmpty()) {
                 Comanda comanda = new Comanda();
                 comanda.setControleComanda(controleComanda);
-                comanda.setData(LocalDate.now());
+                comanda.setData(controleComanda.getData());
                 comanda.setDescricao("Comanda " + i);
                 comanda.setNumero(i.intValue());
                 comanda.setSituacao(situacao);
@@ -147,7 +147,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 for (TipoServico tipo : servicos) {
                     ItemComanda item = new ItemComanda();
                     item.setComanda(comanda);
-                    item.setData(LocalDate.now());
+                    item.setData(controleComanda.getData());
                     item.setTipoServico(tipo);
                     item.setTipo("S");
                     itemComandaRepository.save(item);
@@ -156,7 +156,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                     if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
                         ItemComanda item = new ItemComanda();
                         item.setComanda(comanda);
-                        item.setData(LocalDate.now());
+                        item.setData(controleComanda.getData());
                         item.setTipoPagamento(tipo);
                         item.setTipo("P");
                         itemComandaRepository.save(item);
@@ -164,7 +164,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                 }
             } else {
                 for (Comanda comanda : listaComandas) {
-                    comanda.setData(LocalDate.now());
+                    comanda.setData(controleComanda.getData());
                     if (comanda.getSituacao() == null) {
                         comanda.setSituacao(situacao);
                     }
@@ -174,13 +174,13 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                         if (itens.isEmpty()) {
                             ItemComanda item = new ItemComanda();
                             item.setComanda(comanda);
-                            item.setData(LocalDate.now());
+                            item.setData(controleComanda.getData());
                             item.setTipoServico(tipo);
                             item.setTipo("S");
                             itemComandaRepository.save(item);
                         } else {
                             for (ItemComanda item : itens) {
-                                item.setData(LocalDate.now());
+                                item.setData(controleComanda.getData());
                                 itemComandaRepository.save(item);
                             }
                         }
@@ -191,7 +191,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                             if (tipo.getDescricao().indexOf("INATIVO") <= -1) {
                                 ItemComanda item = new ItemComanda();
                                 item.setComanda(comanda);
-                                item.setData(LocalDate.now());
+                                item.setData(controleComanda.getData());
                                 item.setTipoPagamento(tipo);
                                 item.setTipo("P");
                                 itemComandaRepository.save(item);
@@ -203,7 +203,7 @@ public class ControleComandaServiceImpl implements ControleComandaService {
                                         itemComandaRepository.deleteById(item.getId());
                                     }
                                 } else {
-                                    item.setData(LocalDate.now());
+                                    item.setData(controleComanda.getData());
                                     itemComandaRepository.save(item);
                                 }
                             }
@@ -250,6 +250,8 @@ public class ControleComandaServiceImpl implements ControleComandaService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete ControleComanda : {}", id);
+        itemComandaRepository.deleteByComandaControleComandaId(id);
+        comandaRepository.deleteByControleComandaId(id);
         controleComandaRepository.deleteById(id);
     }
 
