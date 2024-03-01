@@ -207,4 +207,10 @@ export class CaixaComponent implements OnInit {
       return [predicate + ',' + ascendingQueryParam];
     }
   }
+
+  protected atualizaCaixa(): void {
+    console.log(this.formGroup.get('dataFiltro')!.value);
+    console.log('atualiza caixa');
+    this.caixaService.atualizaCaixa(this.formGroup.get('dataFiltro')!.value);
+  }
 }

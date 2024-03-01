@@ -70,6 +70,19 @@ export class CaixaService {
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
+  atualizaCaixa(data?: any): void {
+    console.log(`${this.resourceUrl}/atualiza-caixa/teste`);
+
+    const lixo = this.http.get<RestCaixa[]>(`${this.resourceUrl}/atualiza-caixa/teste`);
+
+    console.log(`${this.resourceUrl}/atualiza-caixa/teste`);
+
+    // return this.http
+    // .get<RestCaixa[]>(this.resourceUrl + '/atualiza-caixa/teste', { observe: 'response' })
+
+    // .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

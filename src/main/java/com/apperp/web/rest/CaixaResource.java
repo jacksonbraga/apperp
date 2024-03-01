@@ -199,4 +199,12 @@ public class CaixaResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/atualiza-caixa/{data}")
+    public ResponseEntity<Long> atualizaCaixa(@PathVariable(value = "data", required = false) String data) {
+        System.out.println("QWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        log.info("REST request to atualiza-caixa by criteria: {}", data);
+        return ResponseEntity.ok().body(1L);
+        //caixaQueryService.countByCriteria(criteria)
+    }
 }

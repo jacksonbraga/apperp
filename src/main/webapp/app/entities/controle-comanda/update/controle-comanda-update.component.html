@@ -39,44 +39,55 @@
           </select>
         </div>
 
-        <!--         <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.descricao" for="field_descricao">Descricao</label>
-          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
-        </div> -->
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.faixaInicio" for="field_faixaInicio">Faixa Inicio</label>
-          <input
-            type="number"
-            class="form-control"
-            name="faixaInicio"
-            id="field_faixaInicio"
-            data-cy="faixaInicio"
-            formControlName="faixaInicio"
-          />
+        <div class="d-flex justify-content-left">
+          <div class="col-2">
+            <div class="mb-3" style="margin-right: 20px">
+              <label class="form-label" jhiTranslate="appErpApp.controleComanda.faixaInicio" for="field_faixaInicio">Faixa Inicio</label>
+              <input
+                jhiOnlyNumber
+                type="text"
+                class="form-control"
+                name="faixaInicio"
+                id="field_faixaInicio"
+                data-cy="faixaInicio"
+                formControlName="faixaInicio"
+              />
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="mb-3">
+              <label class="form-label" jhiTranslate="appErpApp.controleComanda.faixaFim" for="field_faixaFim">Faixa Fim</label>
+              <input
+                jhiOnlyNumber
+                type="text"
+                class="form-control"
+                name="faixaFim"
+                id="field_faixaFim"
+                data-cy="faixaFim"
+                formControlName="faixaFim"
+              />
+            </div>
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.faixaFim" for="field_faixaFim">Faixa Fim</label>
-          <input type="number" class="form-control" name="faixaFim" id="field_faixaFim" data-cy="faixaFim" formControlName="faixaFim" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="appErpApp.controleComanda.data" for="field_data">Data</label>
-          <div class="input-group">
-            <input
-              id="field_data"
-              data-cy="data"
-              type="text"
-              class="form-control"
-              name="data"
-              ngbDatepicker
-              [minDate]="{ year: 2024, month: 1, day: 1 }"
-              [maxDate]="{ year: 2024, month: 12, day: 31 }"
-              #dataDp="ngbDatepicker"
-              formControlName="data"
-            />
-            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+        <div class="col-2">
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="appErpApp.controleComanda.data" for="field_data">Data</label>
+            <div class="input-group">
+              <input
+                id="field_data"
+                data-cy="data"
+                type="text"
+                class="form-control"
+                name="data"
+                ngbDatepicker
+                [minDate]="{ year: 2024, month: 1, day: 1 }"
+                [maxDate]="{ year: 2024, month: 12, day: 31 }"
+                #dataDp="ngbDatepicker"
+                formControlName="data"
+              />
+              <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </div>
           </div>
         </div>
       </div>

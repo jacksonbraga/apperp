@@ -27,6 +27,7 @@ import { ISituacao } from 'app/entities/situacao/situacao.model';
 import { IRespostaItemComanda } from 'app/entities/situacao/resposta-item-comanda.model';
 import { TabDirective } from 'app/shared/entertab/tab.directive';
 import { NgxCurrencyDirective } from 'ngx-currency';
+import { OnlyNumberDirective } from 'app/shared/onlyNumber.directive';
 
 @Component({
   standalone: true,
@@ -41,6 +42,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
     FormsModule,
     SharedModule,
     NgxCurrencyDirective,
+    OnlyNumberDirective,
     SortDirective,
     NgMultiSelectDropDownModule,
     SortByDirective,
@@ -63,7 +65,7 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
   comandas?: IComanda[];
   isLoading = false;
   visible = false;
-
+  numeroSelecionado: number = 0;
   predicate = 'id';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
@@ -170,10 +172,14 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     this.formGroup.controls['dinheiro'].disable();
     this.formGroup.controls['transferido'].disable();
 
-    const numero = this.formGroup.get('numero')?.value;
+    const numero = Number(this.formGroup.get('numero')?.value);
+    console.log(numero);
+    this.numeroSelecionado = 0;
     if (numero) {
       const encontrou = this.comandas?.filter(comanda => comanda.numero === numero);
       if (encontrou && encontrou.length > 0) {
+        this.numeroSelecionado = numero;
+        console.log(this.numeroSelecionado);
         this.formGroup.controls['cartao'].enable();
         this.formGroup.controls['pix'].enable();
         this.formGroup.controls['dinheiro'].enable();
@@ -202,9 +208,11 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
     this.numeroField.nativeElement.focus();
   }
   atualizaComanda(): void {
-    const numero = this.formGroup.get('numero')?.value;
+    const numero = Number(this.formGroup.get('numero')?.value);
     const encontrou = this.comandas?.filter(comanda => comanda.numero === numero);
+    this.numeroSelecionado = 0;
     if (encontrou) {
+      this.numeroSelecionado = numero;
       const cartao = this.formGroup.get('cartao')?.value;
       const pix = this.formGroup.get('pix')?.value;
       const dinheiro = this.formGroup.get('dinheiro')?.value;
@@ -320,6 +328,14 @@ export class ComandaDigitacaoComponent implements OnInit, AfterViewInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  protected estiloSelecionado(id: number | null | undefined): string {
+    if (id && this.numeroSelecionado === id) {
+      return 'bold';
+    } else {
+      return '';
+    }
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IComanda[]>>): void {

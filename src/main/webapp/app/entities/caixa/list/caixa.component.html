@@ -35,11 +35,13 @@
             <span jhiTranslate="appErpApp.caixa.home.refreshListLabel">Atualizar lista</span>
           </button>
 
+          <!-- [routerLink]="['/caixa/new']" -->
+
           <button
             id="jh-create-entity"
             data-cy="entityCreateButton"
             class="btn btn-primary jh-create-entity create-caixa"
-            [routerLink]="['/caixa/new']"
+            (click)="atualizaCaixa()"
           >
             <fa-icon icon="plus"></fa-icon>
             <span jhiTranslate="appErpApp.caixa.home.createLabel">Criar novo Caixa</span>

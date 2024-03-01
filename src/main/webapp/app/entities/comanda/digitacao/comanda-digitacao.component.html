@@ -57,7 +57,8 @@
               (keydown.enter)="pesquisaComanda($event)"
               formControlName="numero"
               tabIndex="0"
-              type="number"
+              type="text"
+              jhiOnlyNumber
               (focus)="reseta()"
               placeholder="Digite o no. da comanda"
               class="form-control"
@@ -157,9 +158,9 @@
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-              <th scope="col" jhiSortBy="id">
+              <th scope="col" jhiSortBy="numero">
                 <div class="d-flex">
-                  <span jhiTranslate="global.field.id">Código</span>
+                  <span jhiTranslate="global.field.numero">Número</span>
                   <fa-icon class="p-1" icon="sort"></fa-icon>
                 </div>
               </th>
@@ -208,11 +209,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let comanda of comandas; trackBy: trackId" data-cy="entityTable">
-              <td>
+            <tr
+              *ngFor="let comanda of comandas; trackBy: trackId"
+              data-cy="entityTable"
+              [style.font-weight]="estiloSelecionado(comanda.numero)"
+            >
+              <td *ngIf="comanda.id == 0">
                 {{ comanda.id }}
-                <!-- <a [routerLink]="['/comanda', comanda.id, 'view']">{{ comanda.id }}</a> -->
               </td>
+              <td>
+                {{ comanda.numero }}
+              </td>
+
               <td>{{ comanda.descricao }}</td>
               <td>
                 <div *ngIf="comanda.situacao">

@@ -13,12 +13,13 @@ import { IControleComanda } from '../controle-comanda.model';
 import { ControleComandaService } from '../service/controle-comanda.service';
 import { ControleComandaFormService, ControleComandaFormGroup } from './controle-comanda-form.service';
 import dayjs from 'dayjs/esm';
+import { OnlyNumberDirective } from 'app/shared/onlyNumber.directive';
 
 @Component({
   standalone: true,
   selector: 'jhi-controle-comanda-update',
   templateUrl: './controle-comanda-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, OnlyNumberDirective],
 })
 export class ControleComandaUpdateComponent implements OnInit {
   isSaving = false;
